@@ -6,17 +6,21 @@ import java.util.Scanner;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.student.dao.StudentInsertDao;
 import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
+import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
 
 	private Scanner scanner;
 	private StudentInsertDao insertDao;
+	private SuperMarketInsertDao superMarketInsertDao;
 	{
 		scanner = new Scanner(System.in);
 		insertDao = new StudentInsertDao();
+		superMarketInsertDao = new SuperMarketInsertDao();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
 
@@ -28,7 +32,7 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
-	private void process() {
+	private void process() throws Exception {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
@@ -38,10 +42,25 @@ public class JdbcDataDriver {
 			System.out.println("How many records you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,insertDao);
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, insertDao);
 
 			for (int i = 0; i < recordCount; i++) {
 				stdProcessor.process(dataProcessId);
+			}
+
+			break;
+
+		case 4:
+
+			System.out.println("How many records you want to insert ? : ");
+			int recordCount3 = scanner.nextInt();
+
+			SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
+					superMarketInsertDao);
+			int rowcount =1;
+			for (int i = 0; i < recordCount3; i++) {
+				superMarketDataProcessor.process(rowcount);
+				rowcount++;
 			}
 
 			break;
