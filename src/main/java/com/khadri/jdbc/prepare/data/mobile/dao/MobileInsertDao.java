@@ -1,11 +1,11 @@
 package com.khadri.jdbc.prepare.data.mobile.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.khadri.jdbc.data.dao.util.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
 public class MobileInsertDao<mobile> {
@@ -17,8 +17,8 @@ public class MobileInsertDao<mobile> {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/logicdb", "root", "Salman@23");
+			Connection conn = JdbcConnectionUtil.getConnection();
+
 			pstmt = con.prepareStatement("insert into mobile values(?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, mb.getId());
@@ -28,16 +28,11 @@ public class MobileInsertDao<mobile> {
 			pstmt.setString(5, mb.getCamera());
 			pstmt.setInt(6, mb.getBattery());
 			pstmt.setInt(7, mb.getPrice());
-
 			pstmt.executeUpdate();
-
 		} catch (SQLException e) {
 			System.out.println("Exception occours:" + e);
 		} finally {
-
-			// sc.close();
-			// con.close()
-
+			JdbcConnectionUtil.closeResources();
 		}
 	}
 }
