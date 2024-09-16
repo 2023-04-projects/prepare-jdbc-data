@@ -7,13 +7,12 @@ import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
 import com.khadri.jdbc.prepare.data.employee.dao.model.Employee;
 
 public class EmployeeDataProcessor {
-	    private Scanner scanner;
-		private EmployeeInsertDao insertDao1;
-		boolean decision=false;
+	    public Scanner scanner;
+		public EmployeeInsertDao empDao;
 
-		public EmployeeDataProcessor(Scanner scanner,EmployeeInsertDao insertDao1) {
+		public EmployeeDataProcessor(Scanner scanner,EmployeeInsertDao empDao) {
 			this.scanner = scanner;
-			this.insertDao1 = insertDao1;
+			this.empDao = empDao;
 		}
 
 		public void process( int recordNumber) throws Exception{
@@ -30,9 +29,9 @@ public class EmployeeDataProcessor {
 			Double salary = scanner.nextDouble();
 			
 			Employee emp=new Employee(id, name, desigination, salary);
-			EmployeeInsertDao insertDao1= new EmployeeInsertDao();
+			EmployeeInsertDao empDao= new EmployeeInsertDao();
 			
-			insertDao1.insertData(emp);
+			empDao.insertData(emp);
 
 
 

@@ -1,30 +1,41 @@
 package com.khadri.jdbc.prepare.data.employee.dao.model;
 
 public class Employee {
-	private int Id;
-	private String Name;
-	private String Desigination;
-	private double Salary;
+	public int id;
+	public String name;
+	public String desigination;
+	public double salary;
 	public Employee(int id, String name, String desigination, double salary) {
 		super();
-		this.Id = id;
-		this.Name = name;
-		this.Desigination = desigination;
-		this.Salary = salary;
+		this.id = id;
+		this.name = name;
+		this.desigination = desigination;
+		this.salary = salary;
 	}
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public String getDesigination() {
-		return Desigination;
+		return desigination;
 	}
 	public double getSalary() {
-		return Salary;
+		return salary;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setDesigination(String desigination) {
+		this.desigination = desigination;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
 	}
 	
 	
-
 }
