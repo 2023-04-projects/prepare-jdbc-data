@@ -4,14 +4,14 @@ public class Customer {
 	private int id;
 	private String name;
 	private String address;
-	private long phone_num;
+	private long phone_Num;
 
-	public Customer(int id, String name, String address, long phone_num) {
+	public Customer(int id, String name, String address, long phone_Num) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
-		this.phone_num = phone_num;
+		this.phone_Num = phone_Num;
 	}
 
 	public void setId(int id) {
@@ -26,8 +26,8 @@ public class Customer {
 		this.address = address;
 	}
 
-	public void setPhone_num(long phone_num) {
-		this.phone_num = phone_num;
+	public void setPhone_num(long phone_Num) {
+		this.phone_Num = phone_Num;
 	}
 
 	public int getId() {
@@ -42,8 +42,8 @@ public class Customer {
 		return address;
 	}
 
-	public long getPhone_num() {
-		return phone_num;
+	public long getPhone_Num() {
+		return phone_Num;
 	}
 
 }

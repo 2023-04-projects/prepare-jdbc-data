@@ -6,18 +6,15 @@ import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
 import com.khadri.jdbc.prepare.data.customer.dao.model.Customer;
 import com.khadri.jdbc.prepare.data.student.dao.model.Student;
 
-public class CustomerDataProcessor  {
+public class CustomerDataProcessor {
 	private Scanner scanner;
-	private CustomerInsertDao insertDao2;
-	
+	private CustomerInsertDao CustDao;
 
-	public CustomerDataProcessor(Scanner scanner, CustomerInsertDao insertDao2) {
+	public CustomerDataProcessor(Scanner scanner, CustomerInsertDao CustDao) {
 		this.scanner = scanner;
-		this.insertDao2 = insertDao2;
-		
+		this.CustDao = CustDao;
 	}
 
-	
 	public void process(int recordNumber) throws Exception {
 
 		System.out.println("Enter Cust_Id : ");
@@ -26,18 +23,15 @@ public class CustomerDataProcessor  {
 		System.out.println("Enter Customer Name : ");
 		String name = scanner.next();
 
-
 		System.out.println("Enter  Customer Address : ");
 		String address = scanner.next();
-
 
 		System.out.println("Enter Customer Phone_Num : ");
 		Long phone_Num = scanner.nextLong();
 
+		Customer cust = new Customer(id, name, address, phone_Num);
+		CustomerInsertDao CustDao = new CustomerInsertDao();
 
-		Customer cust=new Customer(id, name, address, phone_Num );
-		CustomerInsertDao insertDao2= new CustomerInsertDao();
-		
-		insertDao2.insertData(cust);
+		CustDao.insertData(cust);
 	}
 }
