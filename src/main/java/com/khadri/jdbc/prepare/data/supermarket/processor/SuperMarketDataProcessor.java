@@ -63,7 +63,7 @@ public class SuperMarketDataProcessor {
 			System.out.println("never comes");
 		}
 		System.out.println();
-		System.out.println("<=========== SUPERMARKET " + recordNumber + " DATA WRITING INTO CSV File ENDS <===========");
+		//System.out.println("<=========== SUPERMARKET " + recordNumber + " DATA WRITING INTO CSV File ENDS <===========");
 	}
 
 
