@@ -1,5 +1,6 @@
 package com.khadri.jdbc.prepare.data.student.processor;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.student.dao.StudentInsertDao;
@@ -16,7 +17,7 @@ public class StudentDataProcessor {
 		this.insertDao = insertDao;
 	}
 
-	public void process(int recordNumber) {
+	public void process(int recordNumber) throws ClassNotFoundException, SQLException {
 
 		System.out.println("===========> STUDENT " + recordNumber + " DATA READING STARTS ===========>");
 		System.out.println("Enter Student Id : ");
