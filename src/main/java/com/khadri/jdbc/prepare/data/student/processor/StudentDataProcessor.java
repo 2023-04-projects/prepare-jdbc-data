@@ -11,7 +11,7 @@ public class StudentDataProcessor {
 
 	private StudentInsertDao studentInsertDao;
 
-	public StudentDataProcessor(Scanner scanner, StudentInsertDao insertDao) {
+	public StudentDataProcessor(Scanner scanner, StudentInsertDao studentInsertDao) {
 		this.scanner = scanner;
 		this.studentInsertDao = studentInsertDao;
 	}
