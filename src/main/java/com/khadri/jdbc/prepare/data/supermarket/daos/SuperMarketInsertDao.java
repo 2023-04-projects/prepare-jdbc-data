@@ -1,21 +1,15 @@
 package com.khadri.jdbc.prepare.data.supermarket.daos;
 
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.student.dao.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 
 public class SuperMarketInsertDao {
 
-	public static void insertSuperMarketData(SuperMarket market) throws FileNotFoundException {
+	public static void insertSuperMarketData(SuperMarket market){
 
-		Scanner sc = new Scanner(System.in);
-
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
@@ -32,6 +26,8 @@ public class SuperMarketInsertDao {
 
 		} catch (SQLException e) {
 			System.out.println("Exception Occured : " + e);
+		}finally {
+			JdbcConnectionUtil.closeResources();
 		}
 
 	}
