@@ -3,6 +3,8 @@ package com.khadri.jdbc.prepare.data.driver;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
+import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
@@ -11,6 +13,7 @@ import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
 
 public class JdbcDataDriver {
 
+
 	private Scanner scanner;
 	private StudentInsertDao insertDao;
 	private MobileInsertDao mobileInsertDao;
@@ -18,6 +21,16 @@ public class JdbcDataDriver {
 		scanner = new Scanner(System.in);
 		insertDao = new StudentInsertDao();
 		mobileInsertDao = new MobileInsertDao();
+
+	public Scanner scanner;
+	public StudentInsertDao stdDao;
+	public CustomerInsertDao custDao;
+	{
+		scanner = new Scanner(System.in);
+		stdDao = new StudentInsertDao();
+		custDao = new CustomerInsertDao();
+
+
 	}
 
 	public static void main(String[] args) {
@@ -29,10 +42,24 @@ public class JdbcDataDriver {
 		});
 
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
+<<<<<<< HEAD
 		csvDataDriver.process();
 	}
 
 	private void process() {
+=======
+
+			csvDataDriver.process();
+		}
+	
+
+
+		csvDataDriver.process();
+	}
+
+
+	private void process()  {
+>>>>>>> 931ed00e496dc80e5f3a8c9011ab54a1bd1e06cc
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
@@ -42,13 +69,22 @@ public class JdbcDataDriver {
 			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
+
 			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, insertDao);
 
-			for (int i = 0; i < recordCount; i++) {
-				stdProcessor.process(dataProcessId);
-			}
 
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,stdDao);
+			int count = 1;
+
+			for (int i = 0; i < recordCount; i++) {
+				stdProcessor.process(count);
+				count++;
+			}
 			break;
+		case 3:
+			System.out.println("How many records do you want to insert ? : ");
+			int custCount = scanner.nextInt();
+
 
 		case 6:
 
@@ -62,9 +98,20 @@ public class JdbcDataDriver {
 
 				rowcount++;
 			}
+
+			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner,custDao);
+			int rowCount = 1;
+			for (int i = 0; i < custCount; i++)
+				try {
+					custProcessor.process(rowCount);
+					rowCount++;
+				} catch (Exception e) {
+					System.out.println("Exception occours:" + e);
+				}
+			break;
+
 		default:
 			break;
 		}
-
 	}
 }
