@@ -17,21 +17,21 @@ public class CustomerDataProcessor {
 
 	public void process(int recordNumber) throws Exception {
 
-		System.out.println("Enter Cust_Id : ");
+		System.out.println("Enter Customer id : ");
 		int id = scanner.nextInt();
 
-		System.out.println("Enter Customer Name : ");
+		System.out.println("Enter Customer name : ");
 		String name = scanner.next();
 
-		System.out.println("Enter  Customer Address : ");
+		System.out.println("Enter  Customer address : ");
 		String address = scanner.next();
 
-		System.out.println("Enter Customer Phone_Num : ");
-		Long phone_Num = scanner.nextLong();
+		System.out.println("Enter Customer phoneNum : ");
+		Long phoneNum = scanner.nextLong();
 
-		Customer cust = new Customer(id, name, address, phone_Num);
-		CustomerInsertDao CustDao = new CustomerInsertDao();
+		Customer cust = new Customer(id, name, address, phoneNum);
+		CustomerInsertDao custDao = new CustomerInsertDao();
 
-		CustDao.insertData(cust);
+		custDao.insertData(cust);
 	}
 }

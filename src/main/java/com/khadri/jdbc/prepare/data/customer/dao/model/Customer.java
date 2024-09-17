@@ -26,7 +26,7 @@ public class Customer {
 		this.address = address;
 	}
 
-	public void setPhone_num(long phoneNum) {
+	public void setPhoneNum(long phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 

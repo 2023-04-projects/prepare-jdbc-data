@@ -12,11 +12,11 @@ import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
 public class JdbcDataDriver {
 
 	public Scanner scanner;
-	public StudentInsertDao insertDao;
+	public StudentInsertDao stdDao;
 	public CustomerInsertDao custDao;
 	{
 		scanner = new Scanner(System.in);
-		insertDao = new StudentInsertDao();
+		stdDao = new StudentInsertDao();
 		custDao = new CustomerInsertDao();
 
 	}
@@ -44,19 +44,20 @@ public class JdbcDataDriver {
 			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, insertDao);
-
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,stdDao);
+			int count = 1;
 			for (int i = 0; i < recordCount; i++) {
-				stdProcessor.process(dataProcessId);
+				stdProcessor.process(count);
+				count++;
 			}
 			break;
 		case 3:
 			System.out.println("How many records do you want to insert ? : ");
-			int count = scanner.nextInt();
+			int custCount = scanner.nextInt();
 
-			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
+			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner,custDao);
 			int rowCount = 1;
-			for (int i = 0; i < count; i++)
+			for (int i = 0; i < custCount; i++)
 				try {
 					custProcessor.process(rowCount);
 					rowCount++;
