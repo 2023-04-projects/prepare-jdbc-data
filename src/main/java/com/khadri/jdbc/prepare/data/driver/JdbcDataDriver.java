@@ -12,15 +12,15 @@ import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
 public class JdbcDataDriver {
 
 	public Scanner scanner;
-	public StudentInsertDao insertDao;
+	public StudentInsertDao stdDao;
 	public EmployeeInsertDao empDao;
 	{
 		scanner = new Scanner(System.in);
-		insertDao = new StudentInsertDao();
+		stdDao = new StudentInsertDao();
 		empDao= new EmployeeInsertDao();
 	}
 	
-	public static void main(String[] args)throws Exception {
+	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
 
@@ -38,22 +38,19 @@ public class JdbcDataDriver {
 
 		switch (dataProcessId) {
 		case 1:
-
 			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,insertDao);
-
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,stdDao);
 			for (int i = 0; i < recordCount; i++) {
 				stdProcessor.process(dataProcessId);
 			}
-
 			break;
 		case 2:
 			System.out.println("How many records do you want to insert ? : ");
 			int count=scanner.nextInt();
 			int rCount =1;
-            EmployeeDataProcessor empProcessor= new EmployeeDataProcessor(scanner, empDao);
+            EmployeeDataProcessor empProcessor= new EmployeeDataProcessor(scanner,empDao);
 			for (int i = 0; i < count; i++) {
 				try {
 					empProcessor.process(rCount);
@@ -62,13 +59,10 @@ public class JdbcDataDriver {
 					System.out.println("Exception occured"+e);
 				}
 			}
-			
 			break;
 
 		default:
 			break;
-
 		}
-
 	}
 }

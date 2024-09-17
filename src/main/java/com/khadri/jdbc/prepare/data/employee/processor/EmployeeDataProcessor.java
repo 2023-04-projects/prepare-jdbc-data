@@ -14,7 +14,6 @@ public class EmployeeDataProcessor {
 			this.scanner = scanner;
 			this.empDao = empDao;
 		}
-
 		public void process( int recordNumber) throws Exception{
 			System.out.println("Enter Employee Id : ");
 			int id = scanner.nextInt();
@@ -32,9 +31,5 @@ public class EmployeeDataProcessor {
 			EmployeeInsertDao empDao= new EmployeeInsertDao();
 			
 			empDao.insertData(emp);
-
-
-
 		}
-
 	}
