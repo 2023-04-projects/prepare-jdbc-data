@@ -11,9 +11,6 @@ public class MobileInsertDao {
 
 	public void insertData(Mobile mobile) {
 
-		/*
-		 * Scanner sc = new Scanner(System.in); Connection con = null;
-		 */
 		PreparedStatement pstmt = null;
 
 		try {
