@@ -9,17 +9,15 @@ public class MobileDataProcessor {
 
 	private Scanner sc;
 
-	private MobileInsertDao<Mobile> insertDao6;
+	private MobileInsertDao mobileInsertDao;
 
-	public MobileDataProcessor(Scanner sc, MobileInsertDao<Mobile> insertDao6) {
+	public MobileDataProcessor(Scanner sc, MobileInsertDao mobileInsertDao) {
 		this.sc = sc;
-		this.insertDao6 = insertDao6;
+		this.mobileInsertDao = mobileInsertDao;
 	}
 
-	public void process(int recordNumber) throws Exception {
+	public void process(int recordNumber) {
 
-		// System.out.println("===========> MOBILE " + recordNumber + " DATA READING
-		// STARTS ===========>");
 		System.out.println("Enter MOBILE_ID : ");
 		int id = sc.nextInt();
 
@@ -41,26 +39,11 @@ public class MobileDataProcessor {
 		System.out.println("Enter PRICE : ");
 		int price = sc.nextInt();
 
-		// System.out.println("Processing MOBILE DATA");
-
-		// System.out.println("Processing MOBILE DETAILS");
-
-		// System.out.println("<=========== MOBILE " + recordNumber + " DATA READING
-		// ENDS <===========");
-
-		// System.out.println("===========> MOBILE" + recordNumber + " DATA WRITING
-		// INTO // JDBC File STARTS ===========>"); //
 		System.out.println("Processing File Wrting ");
 
-		// System.out.println(); // System.out.println("<=========== MOBILE " +
-		// recordNumber + " DATA WRITING // INTO JDBC File ENDS <===========");
+		Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
 
-		Mobile mb = new Mobile(id, name, ram, rom, camera, battery, price);
-
-		MobileInsertDao insertDao6 = new MobileInsertDao();
-
-		MobileInsertDao.insertData(mb);
+		mobileInsertDao.insertData(mobile);
 
 	}
-
 }

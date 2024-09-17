@@ -75,7 +75,7 @@ public class StudentDataProcessor {
 		System.out.println("===========> STUDENT " + recordNumber + " DATA WRITING INTO DATA BASE STARTS ===========>");
 		System.out.println("Processing  JDBC database Wrting ");
 
-		Student std = new Student(id, name, subMarks1, subMarks2, subMarks3, totalMarks, avg, grade);
+		Student std = new Student(id,name,subMarks1,subMarks2,subMarks3,totalMarks,avg,grade);
 
 		// call the jdbc logic to insert
 
