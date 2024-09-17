@@ -8,11 +8,11 @@ import com.khadri.jdbc.prepare.data.student.dao.model.Student;
 
 public class CustomerDataProcessor {
 	private Scanner scanner;
-	private CustomerInsertDao CustDao;
+	private CustomerInsertDao custDao;
 
 	public CustomerDataProcessor(Scanner scanner, CustomerInsertDao CustDao) {
 		this.scanner = scanner;
-		this.CustDao = CustDao;
+		this.custDao = custDao;
 	}
 
 	public void process(int recordNumber) throws Exception {

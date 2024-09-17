@@ -18,7 +18,7 @@ public class CustomerInsertDao {
 			pstmt.setInt(1, cust.getId());
 			pstmt.setString(2, cust.getName());
 			pstmt.setString(3, cust.getAddress());
-			pstmt.setLong(4, cust.getPhone_Num());
+			pstmt.setLong(4, cust.getPhoneNum());
 
 			pstmt.executeUpdate();
 

@@ -13,11 +13,11 @@ public class JdbcDataDriver {
 
 	public Scanner scanner;
 	public StudentInsertDao insertDao;
-	public CustomerInsertDao CustDao;
+	public CustomerInsertDao custDao;
 	{
 		scanner = new Scanner(System.in);
 		insertDao = new StudentInsertDao();
-		CustDao = new CustomerInsertDao();
+		custDao = new CustomerInsertDao();
 
 	}
 
@@ -32,10 +32,9 @@ public class JdbcDataDriver {
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
 
 		csvDataDriver.process();
-
 	}
 
-	public void process() {
+	private void process() {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
@@ -52,25 +51,21 @@ public class JdbcDataDriver {
 			}
 			break;
 		case 3:
-			System.out.println("How many records you want to insert ? : ");
-			int Count = scanner.nextInt();
+			System.out.println("How many records do you want to insert ? : ");
+			int count = scanner.nextInt();
 
-			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, CustDao);
-			int rowcount = 1;
-			for (int i = 0; i < Count; i++)
+			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
+			int rowCount = 1;
+			for (int i = 0; i < count; i++)
 				try {
-					custProcessor.process(rowcount);
-					rowcount++;
+					custProcessor.process(rowCount);
+					rowCount++;
 				} catch (Exception e) {
 					System.out.println("Exception occours:" + e);
-
 				}
-
 			break;
-
 		default:
 			break;
 		}
-
 	}
 }
