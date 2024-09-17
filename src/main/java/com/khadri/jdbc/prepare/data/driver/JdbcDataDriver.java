@@ -32,14 +32,14 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
-	public void process() {
+	private void process() {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
 		switch (dataProcessId) {
 		case 1:
 
-			System.out.println("How many records you want to insert ? : ");
+			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
 			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,insertDao);
@@ -50,7 +50,7 @@ public class JdbcDataDriver {
 
 			break;
 		case 2:
-			System.out.println("How many records you want to insert ? : ");
+			System.out.println("How many records do you want to insert ? : ");
 			int count=scanner.nextInt();
 			int rCount =1;
             EmployeeDataProcessor empProcessor= new EmployeeDataProcessor(scanner, empDao);
