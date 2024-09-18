@@ -3,25 +3,36 @@ package com.khadri.jdbc.prepare.data.driver;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
+import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
+import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
+import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
+import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
+import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.student.dao.StudentInsertDao;
 import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
 
 public class JdbcDataDriver {
 
 	private Scanner scanner;
-	private StudentInsertDao insertDao;
-	private MovieInsertDao insertDao5;
+	private StudentInsertDao stdDao;
+	private EmployeeInsertDao empDao;
+	private MobileInsertDao mobileDao;
+	private CustomerInsertDao custDao;
+	private MovieInsertDao movieInsertDao;
 	{
 		scanner = new Scanner(System.in);
-		insertDao = new StudentInsertDao();
-		 insertDao5 = new MovieInsertDao();
+		stdDao = new StudentInsertDao();
+		empDao = new EmployeeInsertDao();
+		mobileDao = new MobileInsertDao();
+		custDao = new CustomerInsertDao();
+		movieInsertDao = new MovieInsertDao();
 	}
-	StudentInsertDao w = new StudentInsertDao();
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
 
@@ -32,35 +43,84 @@ public class JdbcDataDriver {
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
 		csvDataDriver.process();
 	}
-	
-	 
-	
 
-	private void process() throws Exception {
+	private void process() {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
 		switch (dataProcessId) {
 		case 1:
 
-			System.out.println("How many records you want to insert ? : ");
+			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,insertDao);
-
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, stdDao);
+			int count = 1;
 			for (int i = 0; i < recordCount; i++) {
-				stdProcessor.process(dataProcessId);
+				try {
+					stdProcessor.process(count);
+					count++;
+				} catch (Exception e) {
+					System.out.println("Exception occours" + e);
+				}
 			}
+			break;
+		case 2:
+			System.out.println("How many records do you want to insert ? : ");
+			int empCount = scanner.nextInt();
+			int rCount = 1;
+			EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
+			for (int i = 0; i < empCount; i++) {
+				try {
+					empProcessor.process(rCount);
+					rCount++;
+				} catch (Exception e) {
+					System.out.println("Exception occured" + e);
+				}
+			}
+			break;
+		case 3:
+			System.out.println("How many records do you want to insert ? : ");
+			int custCount = scanner.nextInt();
 
+			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
+			int rowCount = 1;
+			for (int i = 0; i < custCount; i++)
+				try {
+					custProcessor.process(rowCount);
+					rowCount++;
+				} catch (Exception e) {
+					System.out.println("Exception occours:" + e);
+				}
 			break;
 		case 5:
 			System.out.println("How Many Records you want to insert ? :");
-			int recordCount1 = scanner.nextInt();
-			MovieDataProcesser mov = new MovieDataProcesser(scanner,insertDao5);
-			for(int i =0;i<recordCount1;i++) {
-				mov.process(dataProcessId);
+			int movieCount = scanner.nextInt();
+			MovieDataProcesser movie = new MovieDataProcesser(scanner, movieInsertDao);
+			int record1 = 1;
+			for (int i = 0; i < movieCount; i++) {
+				try {
+
+					movie.process(dataProcessId);
+					record1++;
+				} catch (Exception e) {
+					System.out.println("Exception occours" + e);
+				}
 			}
-           break;
+			break;
+
+		case 6:
+
+			System.out.println("How many records do you want to insert ? : ");
+			int Count = scanner.nextInt();
+
+			MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
+			int rowcount = 1;
+			for (int i = 0; i < Count; i++) {
+				mobileDataProcessor.process(rowcount);
+
+				rowcount++;
+			}
 		default:
 			break;
 		}

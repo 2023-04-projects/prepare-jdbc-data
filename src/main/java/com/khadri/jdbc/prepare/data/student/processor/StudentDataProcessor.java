@@ -10,11 +10,11 @@ public class StudentDataProcessor {
 
 	private Scanner scanner;
 
-	private StudentInsertDao insertDao;
+	private StudentInsertDao studentInsertDao;
 
-	public StudentDataProcessor(Scanner scanner, StudentInsertDao insertDao) {
+	public StudentDataProcessor(Scanner scanner, StudentInsertDao studentInsertDao) {
 		this.scanner = scanner;
-		this.insertDao = insertDao;
+		this.studentInsertDao = studentInsertDao;
 	}
 
 	public void process(int recordNumber) throws ClassNotFoundException, SQLException {
@@ -77,10 +77,10 @@ public class StudentDataProcessor {
 		System.out.println("Processing  JDBC database Wrting ");
 
 		Student std = new Student(id, name, subMarks1, subMarks2, subMarks3, totalMarks, avg, grade);
-		
+
 		// call the jdbc logic to insert
-		
-		insertDao.insertData(std);
+
+		studentInsertDao.insertData(std);
 
 		try {
 			for (int i = 0; i < 5; i++) {
