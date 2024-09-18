@@ -12,23 +12,28 @@ import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.student.dao.StudentInsertDao;
 import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
+import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
 
+
 	private Scanner scanner;
-	private StudentInsertDao stdDao;
 	private EmployeeInsertDao empDao;
-	private MobileInsertDao mobileDao;
+	private StudentInsertDao stdDao;
 	private CustomerInsertDao custDao;
+	private MobileInsertDao mobileDao;
+	private SuperMarketInsertDao superMarketDao;
 	{
 		scanner = new Scanner(System.in);
 		stdDao = new StudentInsertDao();
 		empDao = new EmployeeInsertDao();
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerInsertDao();
+		superMarketDao = new SuperMarketInsertDao();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
 
@@ -40,7 +45,7 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
-	private void process() {
+	private void process() throws Exception {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
@@ -50,8 +55,9 @@ public class JdbcDataDriver {
 			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, stdDao);
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,stdDao);
 			int count = 1;
+
 			for (int i = 0; i < recordCount; i++) {
 				stdProcessor.process(count);
 				count++;
@@ -74,7 +80,6 @@ public class JdbcDataDriver {
 		case 3:
 			System.out.println("How many records do you want to insert ? : ");
 			int custCount = scanner.nextInt();
-
 			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
 			int rowCount = 1;
 			for (int i = 0; i < custCount; i++)
@@ -83,8 +88,22 @@ public class JdbcDataDriver {
 					rowCount++;
 				} catch (Exception e) {
 					System.out.println("Exception occours:" + e);
-				}
+				} 
+		case 4:
+
+			System.out.println("How many records you want to insert ? : ");
+			int recordCount3 = scanner.nextInt();
+
+			SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
+					superMarketDao);
+			int marketCount =1;
+			for (int i = 0; i < recordCount3; i++) {
+				superMarketDataProcessor.process(marketCount);
+				marketCount++;
+			}
+
 			break;
+
 
 		case 6:
 
