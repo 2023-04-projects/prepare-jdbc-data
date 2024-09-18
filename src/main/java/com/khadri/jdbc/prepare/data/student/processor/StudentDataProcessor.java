@@ -72,9 +72,6 @@ public class StudentDataProcessor {
 		System.out.println("Processing  JDBC database Wrting ");
 
 		Student std = new Student(id, name, subMarks1, subMarks2, subMarks3, totalMarks, avg, grade);
-		
-		// call the jdbc logic to insert
-		
 		studentInsertDao.insertData(std);
 
 		try {
