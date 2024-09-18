@@ -20,15 +20,16 @@ public class JdbcDataDriver {
 	{
 		scanner = new Scanner(System.in);
 		stdDao = new StudentInsertDao();
-		empDao= new EmployeeInsertDao();
+		empDao = new EmployeeInsertDao();
 		custDao = new CustomerInsertDao();
 	}
+
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
 
 		Arrays.stream(DriverTypes.values()).forEach(each -> {
-		System.out.println(each.getId() + " : " + each.getName());
+			System.out.println(each.getId() + " : " + each.getName());
 		});
 
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
@@ -46,7 +47,7 @@ public class JdbcDataDriver {
 			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,stdDao);
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, stdDao);
 			int count = 1;
 			for (int i = 0; i < recordCount; i++) {
 				stdProcessor.process(count);
@@ -55,15 +56,15 @@ public class JdbcDataDriver {
 			break;
 		case 2:
 			System.out.println("How many records do you want to insert ? : ");
-			int empCount=scanner.nextInt();
-			int rCount =1;
-            EmployeeDataProcessor empProcessor= new EmployeeDataProcessor(scanner,empDao);
+			int empCount = scanner.nextInt();
+			int rCount = 1;
+			EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
 			for (int i = 0; i < empCount; i++) {
 				try {
 					empProcessor.process(rCount);
 					rCount++;
 				} catch (Exception e) {
-					System.out.println("Exception occured"+e);
+					System.out.println("Exception occured" + e);
 				}
 			}
 			break;
@@ -71,7 +72,7 @@ public class JdbcDataDriver {
 			System.out.println("How many records do you want to insert ? : ");
 			int custCount = scanner.nextInt();
 
-			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner,custDao);
+			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
 			int rowCount = 1;
 			for (int i = 0; i < custCount; i++)
 				try {
