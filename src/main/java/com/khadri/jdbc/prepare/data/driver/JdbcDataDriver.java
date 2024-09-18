@@ -6,23 +6,26 @@ import java.util.Scanner;
 import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
-import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
-import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
+import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
+import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.student.dao.StudentInsertDao;
 import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
+import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
 
 	private Scanner scanner;
-	private StudentInsertDao stdDao;
 	private EmployeeInsertDao empDao;
-	private MobileInsertDao mobileDao;
+	private StudentInsertDao stdDao;
 	private CustomerInsertDao custDao;
 	private MovieInsertDao movieInsertDao;
+	private MobileInsertDao mobileDao;
+	private SuperMarketInsertDao superMarketDao;
 	{
 		scanner = new Scanner(System.in);
 		stdDao = new StudentInsertDao();
@@ -30,9 +33,10 @@ public class JdbcDataDriver {
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerInsertDao();
 		movieInsertDao = new MovieInsertDao();
+		superMarketDao = new SuperMarketInsertDao();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
 
@@ -44,7 +48,7 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
-	private void process() {
+	private void process() throws Exception {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
 
@@ -56,6 +60,7 @@ public class JdbcDataDriver {
 
 			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, stdDao);
 			int count = 1;
+
 			for (int i = 0; i < recordCount; i++) {
 				try {
 					stdProcessor.process(count);
@@ -82,7 +87,6 @@ public class JdbcDataDriver {
 		case 3:
 			System.out.println("How many records do you want to insert ? : ");
 			int custCount = scanner.nextInt();
-
 			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
 			int rowCount = 1;
 			for (int i = 0; i < custCount; i++)
@@ -92,6 +96,18 @@ public class JdbcDataDriver {
 				} catch (Exception e) {
 					System.out.println("Exception occours:" + e);
 				}
+		case 4:
+
+			System.out.println("How many records you want to insert ? : ");
+			int recordCount3 = scanner.nextInt();
+
+			SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
+			int marketCount = 1;
+			for (int i = 0; i < recordCount3; i++) {
+				superMarketDataProcessor.process(marketCount);
+				marketCount++;
+			}
+
 			break;
 		case 5:
 			System.out.println("How Many Records you want to insert ? :");
