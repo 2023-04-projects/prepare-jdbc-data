@@ -1,4 +1,4 @@
-package com.khadri.jdbc.data.dao.util;
+package com.khadri.jdbc.prepare.connection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ public class JdbcConnectionUtil {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Properties properties = new Properties();
-			properties.load(new FileReader(new File("db.Properties")));
+			properties.load(new FileReader(new File("db.properties")));
 
 			String url = properties.getProperty("url");
 			String user = properties.getProperty("user");
@@ -29,19 +29,19 @@ public class JdbcConnectionUtil {
 			System.out.println("FileNotFoundException " + fnfe);
 
 		} catch (IOException ioe) {
-			System.out.println("IOException" + ioe);
+			System.out.println("IOException " + ioe);
 
 		} catch (SQLException sqle) {
-			System.out.println("SQLException" + sqle);
+			System.out.println("SQLException " + sqle);
 		}
 		return con;
 	}
 
 	public static void closeResources() {
-		try {
-			con.close();
-		} catch (SQLException e) {
-			System.out.println("SQLException" + e);
-		}
+				try {
+					con.close();
+				} catch (SQLException e) {
+					System.out.println("SQLException"+e);
+				}
 	}
 }
