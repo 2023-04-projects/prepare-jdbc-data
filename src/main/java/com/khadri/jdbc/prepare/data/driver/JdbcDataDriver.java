@@ -7,7 +7,6 @@ import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
-import com.khadri.jdbc.prepare.data.employee.dao.EmployeeSelectDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
@@ -76,8 +75,8 @@ public class JdbcDataDriver {
 				System.out.println(employeeCount +"records inserted sucessfully");
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
-				EmployeeSelectDao empSelectDao=new EmployeeSelectDao();
-				empSelectDao.employeeSelectData();
+				EmployeeInsertDao empInsertDao=new EmployeeInsertDao();
+				empInsertDao.employeeSelectData();
 			}
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 
