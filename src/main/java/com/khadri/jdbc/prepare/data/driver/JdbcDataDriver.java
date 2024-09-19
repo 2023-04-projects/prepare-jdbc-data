@@ -10,7 +10,7 @@ import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
-import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
+import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
@@ -21,7 +21,7 @@ public class JdbcDataDriver {
 	private Scanner scanner;
 	private EmployeeInsertDao empDao;
 	private CustomerInsertDao custDao;
-	private MovieInsertDao movieDao;
+	private MovieDao movieDao;
 	private MobileInsertDao mobileDao;
 	private SuperMarketInsertDao superMarketDao;
 
@@ -30,7 +30,7 @@ public class JdbcDataDriver {
 		empDao = new EmployeeInsertDao();
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerInsertDao();
-		movieDao = new MovieInsertDao();
+		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketInsertDao();
 	}
 
@@ -147,7 +147,7 @@ public class JdbcDataDriver {
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				MovieInsertDao movieInsertDao = new MovieInsertDao();
+				MovieDao movieInsertDao = new MovieDao();
 				movieInsertDao.movieSelectData();
 			}
 

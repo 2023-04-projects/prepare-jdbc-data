@@ -3,13 +3,13 @@ package com.khadri.jdbc.prepare.data.movie.processer;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.movie.Movie;
-import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
+import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 
 public class MovieDataProcesser {
 	private Scanner scanner;
-	private MovieInsertDao movieDao;
+	private MovieDao movieDao;
 
-	public MovieDataProcesser(Scanner scanner, MovieInsertDao movieDao) {
+	public MovieDataProcesser(Scanner scanner, MovieDao movieDao) {
 		this.scanner = scanner;
 		this.movieDao = movieDao;
 	}

@@ -9,7 +9,7 @@ import java.sql.Statement;
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.movie.Movie;
 
-public class MovieInsertDao {
+public class MovieDao {
 	PreparedStatement pstmt = null;
 	Statement stmt;
 
@@ -36,7 +36,7 @@ public class MovieInsertDao {
 		try {
 			Connection con = JdbcConnectionUtil.getConnection();
 			stmt = con.createStatement();
-			ResultSet resultSet = stmt.executeQuery("Select * from movie");
+			ResultSet resultSet = stmt.executeQuery("select * from movie");
 			while (resultSet.next()) {
 				System.out
 						.println(resultSet.getInt(1) + " - " + resultSet.getString(2) + " - " + resultSet.getDouble(3));
