@@ -16,6 +16,8 @@ public class EmployeeDataProcessor {
 	}
 
 	public void process(int recordNumber) {
+		try {
+		System.out.println(recordNumber +"record reading starts ");
 		System.out.println("Enter Employee Id : ");
 		int id = scanner.nextInt();
 
@@ -29,7 +31,10 @@ public class EmployeeDataProcessor {
 		Double salary = scanner.nextDouble();
 
 		Employee emp = new Employee(id, name, desigination, salary);
-
-		empDao.insertData(emp);
+		
+	  empDao.insertData(emp);
+		}catch(Exception e) {
+			System.out.println(" EmployeeDataProcessor Exception occurs"+e);
+		}
 	}
 }

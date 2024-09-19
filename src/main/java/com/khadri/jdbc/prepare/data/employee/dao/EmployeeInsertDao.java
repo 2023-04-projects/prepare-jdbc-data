@@ -10,11 +10,12 @@ import com.khadri.jdbc.prepare.data.employee.dao.model.Employee;
 public class EmployeeInsertDao {
 	public  void insertData(Employee emp)  {
 		PreparedStatement pstmt=null;
+		System.out.println("EmployeeInsertDao : employeeInsertData(-) starts");
 
 		try {   
 			Connection con = JdbcConnectionUtil.getConnection();
 			pstmt = con.prepareStatement("insert into Employee values(?,?,?,?)");
-
+			
 			pstmt.setInt(1, emp.getId());
 			pstmt.setString(2, emp.getName());
 			pstmt.setString(3, emp.getDesigination());
@@ -25,6 +26,8 @@ public class EmployeeInsertDao {
 			System.out.println("SQLException occours:"+ e);
 		}
 		finally {
-			   JdbcConnectionUtil.closeResources();  }
+			   JdbcConnectionUtil.closeResources(); 
+				System.out.println("EmployeeInsertDao : employeeInsertData(-) ends");
+		}
 	}
 }

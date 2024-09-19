@@ -7,6 +7,7 @@ import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
+import com.khadri.jdbc.prepare.data.employee.dao.EmployeeSelectDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
@@ -52,18 +53,36 @@ public class JdbcDataDriver {
 
 		switch (dataProcessId) {
 
-		case 2:
-			System.out.println("How many records do you want to insert ? : ");
-			int empCount = scanner.nextInt();
+		case 1:
+			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
 
-			int empRowCount = 1;
-			EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
-			for (int i = 0; i < empCount; i++) {
-				empProcessor.process(empRowCount);
-				empRowCount++;
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
+			System.out.println("Please choose the operation type: ");
+			int operationTypeEmployee = scanner.nextInt();
+
+			if (operationTypeEmployee == 1) {
+
+				System.out.println("How Many Records do you want to insert ? :");
+				int employeeCount = scanner.nextInt();
+
+				EmployeeDataProcessor emp = new EmployeeDataProcessor(scanner, empDao);
+				int empCount = 1;
+				for (int i = 0; i < employeeCount; i++) {
+					emp.process(empCount);
+					empCount++;
+				}
+				System.out.println(employeeCount +"records inserted sucessfully");
+			} else if (operationTypeEmployee == 2) {
+				System.out.println("fetching employee records from the database");
+				EmployeeSelectDao empSelectDao=new EmployeeSelectDao();
+				empSelectDao.employeeSelectData();
 			}
+			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
+
 			break;
-		case 3:
+		case 2:
 			System.out.println("How many records do you want to insert ? : ");
 			int custCount = scanner.nextInt();
 
@@ -73,7 +92,7 @@ public class JdbcDataDriver {
 				custProcessor.process(custRowCount);
 				custRowCount++;
 			}
-		case 4:
+		case 3:
 
 			System.out.println("How many records you want to insert ? : ");
 			int recordCount3 = scanner.nextInt();
@@ -86,7 +105,7 @@ public class JdbcDataDriver {
 			}
 
 			break;
-		case 5:
+		case 4:
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor Starts ######");
 
@@ -116,7 +135,7 @@ public class JdbcDataDriver {
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
 			break;
 
-		case 6:
+		case 5:
 
 			System.out.println("How many records do you want to insert ? : ");
 			int Count = scanner.nextInt();
