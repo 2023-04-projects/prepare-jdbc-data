@@ -3,20 +3,20 @@ package com.khadri.jdbc.prepare.data.supermarket.processor;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
-import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketDao;
 
 public class SuperMarketDataProcessor {
 
 	private Scanner scanner;
-	private SuperMarketInsertDao superDao;
+	private SuperMarketDao superDao;
 
-	public SuperMarketDataProcessor(Scanner scanner, SuperMarketInsertDao superDao) {
+	public SuperMarketDataProcessor(Scanner scanner, SuperMarketDao superDao) {
 		super();
 		this.scanner = scanner;
 		this.superDao = superDao;
 	}
 
-	public void process(int recordNumber)  {
+	public void process(int recordNumber) {
 
 		System.out.println("Please Enter PROD_NAME : ");
 		String prodName = scanner.next();
