@@ -3,21 +3,20 @@ package com.khadri.jdbc.prepare.data.employee.processor;
 
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
+import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.dao.model.Employee;
 
 public class EmployeeDataProcessor {
 	public Scanner scanner;
-	public EmployeeInsertDao empDao;
+	public EmployeeDao empDao;
 
-	public EmployeeDataProcessor(Scanner scanner, EmployeeInsertDao empDao) {
+	public EmployeeDataProcessor(Scanner scanner, EmployeeDao empDao) {
 		this.scanner = scanner;
 		this.empDao = empDao;
 	}
 
 	public void process(int recordNumber) {
 		try {
-
 			System.out.println(recordNumber + "Record Reading starts");
 
 			System.out.println("Enter Employee Id : ");

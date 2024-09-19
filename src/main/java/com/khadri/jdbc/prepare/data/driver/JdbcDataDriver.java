@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
-import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
+import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
@@ -19,7 +19,7 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 public class JdbcDataDriver {
 
 	private Scanner scanner;
-	private EmployeeInsertDao empDao;
+	private EmployeeDao empDao;
 	private CustomerInsertDao custDao;
 	private MovieDao movieDao;
 	private MobileInsertDao mobileDao;
@@ -27,7 +27,7 @@ public class JdbcDataDriver {
 
 	{
 		scanner = new Scanner(System.in);
-		empDao = new EmployeeInsertDao();
+		empDao = new EmployeeDao();
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerInsertDao();
 		movieDao = new MovieDao();
@@ -37,11 +37,10 @@ public class JdbcDataDriver {
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
-
+		
 		Arrays.stream(DriverTypes.values()).forEach(each -> {
 			System.out.println(each.getId() + " : " + each.getName());
 		});
-
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
 		csvDataDriver.process();
 	}
@@ -53,27 +52,31 @@ public class JdbcDataDriver {
 		switch (dataProcessId) {
 
 		case 1:
-			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
+			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
-			System.out.println("Please choose the Operation type :");
+			System.out.println("Please choose the operation type: ");
 			int operationTypeEmployee = scanner.nextInt();
+
 			if (operationTypeEmployee == 1) {
 
-				System.out.println("How many records do you want to insert ? : ");
-				int empCount = scanner.nextInt();
+				System.out.println("How Many Records do you want to insert ? :");
+				int employeeCount = scanner.nextInt();
 
-				int empRowCount = 1;
-				EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
-				for (int i = 0; i < empCount; i++) {
-					empProcessor.process(empRowCount);
-					empRowCount++;
+				EmployeeDataProcessor emp = new EmployeeDataProcessor(scanner, empDao);
+				int empCount = 1;
+				for (int i = 0; i < employeeCount; i++) {
+					emp.process(empCount);
+					empCount++;
 				}
+				System.out.println(employeeCount +"records inserted sucessfully");
 			} else if (operationTypeEmployee == 2) {
-
+				System.out.println("fetching employee records from the database");
+				empDao.employeeSelectData();
 			}
-			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor ends #####");
+			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
+
 			break;
 		case 2:
 			System.out.println("##### " + DriverTypes.CUSTOMER.getName().toUpperCase() + "Processor Starts #####");
@@ -211,3 +214,5 @@ public class JdbcDataDriver {
 
 	}
 }
+	
+
