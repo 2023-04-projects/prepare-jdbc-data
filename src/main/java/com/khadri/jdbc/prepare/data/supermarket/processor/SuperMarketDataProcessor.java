@@ -8,15 +8,15 @@ import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
 public class SuperMarketDataProcessor {
 
 	private Scanner scanner;
-	private SuperMarketInsertDao superMarketInsertDao;
+	private SuperMarketInsertDao superDao;
 
-	public SuperMarketDataProcessor(Scanner scanner, SuperMarketInsertDao superMarketInsertDao) {
+	public SuperMarketDataProcessor(Scanner scanner, SuperMarketInsertDao superDao) {
 		super();
 		this.scanner = scanner;
-		this.superMarketInsertDao = superMarketInsertDao;
+		this.superDao = superDao;
 	}
 
-	public void process(int recordNumber) throws Exception {
+	public void process(int recordNumber)  {
 
 		System.out.println("Please Enter PROD_NAME : ");
 		String prodName = scanner.next();
@@ -45,7 +45,7 @@ public class SuperMarketDataProcessor {
 
 		SuperMarket market = new SuperMarket(prodName, prodId, prodPrice, prodQty, totalAmt);
 
-		superMarketInsertDao.insertSuperMarketData(market);
+		superDao.insertSuperMarketData(market);
 
 		try {
 			for (int i = 0; i < 5; i++) {

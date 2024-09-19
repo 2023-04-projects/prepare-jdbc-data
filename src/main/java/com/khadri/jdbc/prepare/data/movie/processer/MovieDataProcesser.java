@@ -7,16 +7,17 @@ import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
 
 public class MovieDataProcesser {
 	private Scanner scanner;
-	private MovieInsertDao movieInsertDao5;
+	private MovieInsertDao movieDao;
 
-	public MovieDataProcesser(Scanner scanner, MovieInsertDao movieInsertDao5) {
+	public MovieDataProcesser(Scanner scanner, MovieInsertDao movieDao) {
 		this.scanner = scanner;
-		this.movieInsertDao5 = movieInsertDao5;
+		this.movieDao = movieDao;
 	}
 
-	public void process(int recordNumbr) {
+	public void process(int recordNumber) {
 		try {
-
+			System.out.println(recordNumber + " Record Reading starts");
+			
 			System.out.println("Enter Movie_Id : ");
 			int id = scanner.nextInt();
 
@@ -25,14 +26,14 @@ public class MovieDataProcesser {
 
 			System.out.println("Enter Movie Budeget : ");
 			double movieBu = scanner.nextDouble();
-
+			
+			System.out.println(recordNumber + " Record Reading ends ");
+			
 			Movie movie = new Movie(id, name, movieBu);
+			movieDao.movieInsertData(movie);
 
-			MovieInsertDao movieIinsertDao = new MovieInsertDao();
-
-			movieIinsertDao.movieInsertData(movie);
 		} catch (Exception e) {
-			System.out.println("Exception occours" + e);
+			System.out.println("MovieDataProcesser Exception occours" + e);
 
 		}
 	}

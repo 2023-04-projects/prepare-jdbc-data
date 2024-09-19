@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 
 public class SuperMarketInsertDao {
 
-	public static void insertSuperMarketData(SuperMarket market){
+	public void insertSuperMarketData(SuperMarket market) {
 
 		PreparedStatement pstmt = null;
 		try {
@@ -26,7 +27,7 @@ public class SuperMarketInsertDao {
 
 		} catch (SQLException e) {
 			System.out.println("Exception Occured : " + e);
-		}finally {
+		} finally {
 			JdbcConnectionUtil.closeResources();
 		}
 
