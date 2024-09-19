@@ -118,16 +118,30 @@ public class JdbcDataDriver {
 
 		case 6:
 
-			System.out.println("How many records do you want to insert ? : ");
-			int Count = scanner.nextInt();
+			System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
+			   Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+			    System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			   });
 
-			MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-			int rowcount = 1;
-			for (int i = 0; i < Count; i++) {
-				mobileDataProcessor.process(rowcount);
-				rowcount++;
-			}
-		default:
+			   System.out.println("Please choose the operation type: ");
+			   int operationTypeMobile = scanner.nextInt();
+
+			   if (operationTypeMobile == 1) {
+
+			    System.out.println("How many records do you want to insert ? : ");
+			    int Count = scanner.nextInt();
+
+			    MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
+			    int rowcount = 1;
+			    for (int i = 0; i < Count; i++) {
+			     mobileDataProcessor.process(rowcount);
+			     rowcount++;
+			    }
+			   } else if (operationTypeMobile == 2) {
+				   System.out.println("fetching mobile records from database!!!!");
+				   mobileDao.mobileSelectData();
+			   }
+		
 			break;
 		}
 
