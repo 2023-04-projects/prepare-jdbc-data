@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
-import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
+import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
@@ -19,7 +19,7 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 public class JdbcDataDriver {
 
 	private Scanner scanner;
-	private EmployeeInsertDao empDao;
+	private EmployeeDao empDao;
 	private CustomerInsertDao custDao;
 	private MovieInsertDao movieDao;
 	private MobileInsertDao mobileDao;
@@ -27,7 +27,7 @@ public class JdbcDataDriver {
 
 	{
 		scanner = new Scanner(System.in);
-		empDao = new EmployeeInsertDao();
+		empDao = new EmployeeDao();
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerInsertDao();
 		movieDao = new MovieInsertDao();
@@ -75,8 +75,7 @@ public class JdbcDataDriver {
 				System.out.println(employeeCount +"records inserted sucessfully");
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
-				EmployeeInsertDao empInsertDao=new EmployeeInsertDao();
-				empInsertDao.employeeSelectData();
+				empDao.employeeSelectData();
 			}
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 

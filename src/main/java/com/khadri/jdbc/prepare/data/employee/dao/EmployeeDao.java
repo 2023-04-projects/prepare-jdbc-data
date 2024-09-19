@@ -9,11 +9,11 @@ import java.sql.Statement;
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.employee.dao.model.Employee;
 
-public class EmployeeInsertDao {
+public class EmployeeDao {
 	PreparedStatement pstmt=null;
 	Statement stmt;
 	public  void insertData(Employee emp)  {
-		System.out.println("EmployeeInsertDao : employeeInsertData(-) starts");
+		System.out.println("EmployeeDao : employeeData(-) starts");
 		try {   
 			Connection con = JdbcConnectionUtil.getConnection();
 			pstmt = con.prepareStatement("insert into Employee values(?,?,?,?)");
@@ -28,7 +28,7 @@ public class EmployeeInsertDao {
 		}
 		finally {
 			   JdbcConnectionUtil.closeResources(); 
-				System.out.println("EmployeeInsertDao : employeeInsertData(-) ends");
+				System.out.println("EmployeeDao : employeeData(-) ends");
 		}
 	}
      public void employeeSelectData() {
@@ -40,7 +40,7 @@ public class EmployeeInsertDao {
     			 System.out.println(resultSet.getInt(1) + "-" + resultSet.getString(2) + "-" + resultSet.getString(3) + "-"+resultSet.getDouble(4));
     		 }
     	 }catch(SQLException sqle){
-    		 System.out.println(" EmployeeSelectDao SQLException occurs");
+    		 System.out.println(" EmployeeDao SQLException occurs");
     	 }finally {
     		 JdbcConnectionUtil.closeResources();
     	 }
