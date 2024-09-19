@@ -12,6 +12,7 @@ import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 public class MobileInsertDao {
 
 	public void insertData(Mobile mobile) {
+		System.out.println(" MobileInsertDao : mobileInsertData(-) starts");
 
 		PreparedStatement pstmt;
 		Statement stmt;
@@ -36,6 +37,7 @@ public class MobileInsertDao {
 			System.out.println("MobileInsertDao Exception occours:" + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
+
 			System.out.println("MobileInsertDao : MobileInsertDao(-) ends");
 
 		}
@@ -54,6 +56,9 @@ public class MobileInsertDao {
 
 		} catch (SQLException e) {
 			System.out.println(" Exception occours:" + e);
+
+			System.out.println(" MobileInsertDao :  mobileInsertData(-) ends");
+
 
 		}
 
