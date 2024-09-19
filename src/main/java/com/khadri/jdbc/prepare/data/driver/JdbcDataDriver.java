@@ -10,6 +10,8 @@ import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
+import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
+import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.student.dao.StudentInsertDao;
 import com.khadri.jdbc.prepare.data.student.processor.StudentDataProcessor;
 import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
@@ -17,11 +19,11 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 
-
 	private Scanner scanner;
 	private EmployeeInsertDao empDao;
 	private StudentInsertDao stdDao;
 	private CustomerInsertDao custDao;
+	private MovieInsertDao movieInsertDao;
 	private MobileInsertDao mobileDao;
 	private SuperMarketInsertDao superMarketDao;
 	{
@@ -30,6 +32,7 @@ public class JdbcDataDriver {
 		empDao = new EmployeeInsertDao();
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerInsertDao();
+		movieInsertDao = new MovieInsertDao();
 		superMarketDao = new SuperMarketInsertDao();
 	}
 
@@ -55,12 +58,16 @@ public class JdbcDataDriver {
 			System.out.println("How many records do you want to insert ? : ");
 			int recordCount = scanner.nextInt();
 
-			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner,stdDao);
+			StudentDataProcessor stdProcessor = new StudentDataProcessor(scanner, stdDao);
 			int count = 1;
 
 			for (int i = 0; i < recordCount; i++) {
-				stdProcessor.process(count);
-				count++;
+				try {
+					stdProcessor.process(count);
+					count++;
+				} catch (Exception e) {
+					System.out.println("Exception occours" + e);
+				}
 			}
 			break;
 		case 2:
@@ -88,22 +95,35 @@ public class JdbcDataDriver {
 					rowCount++;
 				} catch (Exception e) {
 					System.out.println("Exception occours:" + e);
-				} 
+				}
 		case 4:
 
 			System.out.println("How many records you want to insert ? : ");
 			int recordCount3 = scanner.nextInt();
 
-			SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
-					superMarketDao);
-			int marketCount =1;
+			SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
+			int marketCount = 1;
 			for (int i = 0; i < recordCount3; i++) {
 				superMarketDataProcessor.process(marketCount);
 				marketCount++;
 			}
 
 			break;
+		case 5:
+			System.out.println("How Many Records you want to insert ? :");
+			int movieCount = scanner.nextInt();
+			MovieDataProcesser movie = new MovieDataProcesser(scanner, movieInsertDao);
+			int record1 = 1;
+			for (int i = 0; i < movieCount; i++) {
+				try {
 
+					movie.process(dataProcessId);
+					record1++;
+				} catch (Exception e) {
+					System.out.println("Exception occours" + e);
+				}
+			}
+			break;
 
 		case 6:
 
