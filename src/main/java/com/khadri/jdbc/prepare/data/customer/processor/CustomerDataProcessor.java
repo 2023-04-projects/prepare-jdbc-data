@@ -33,7 +33,7 @@ public class CustomerDataProcessor {
 			Customer cust = new Customer(id, name, address, phoneNum);
 
 			custDao.insertData(cust);
-		} catch (Exception e) {
+		} catch (Exception e) {		
 			System.out.println("CustomerDataProcesser Exception occours" + e);
 
 		}

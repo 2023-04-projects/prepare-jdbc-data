@@ -14,6 +14,10 @@ public class CustomerDao {
 	Statement stmt;
 	public void insertData(Customer cust) {
 
+
+		System.out.println("CustomerInsertDao : customerInsertData(-) Starts");
+		PreparedStatement pstmt = null;
+
 		System.out.println("CustomerDao : customerData(-) starts");
 		try {
 			Connection con = JdbcConnectionUtil.getConnection();
@@ -50,6 +54,8 @@ public class CustomerDao {
 
 		} finally {
 			JdbcConnectionUtil.closeResources();
+			System.out.println("CustomerInsertDao : customerInsertData(-) ends");
+
 		}
 	}
 

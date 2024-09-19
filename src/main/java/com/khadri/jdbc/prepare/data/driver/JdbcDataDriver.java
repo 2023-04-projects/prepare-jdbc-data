@@ -10,10 +10,10 @@ import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
-import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
+import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
-import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
@@ -21,7 +21,7 @@ public class JdbcDataDriver {
 	private Scanner scanner;
 	private EmployeeInsertDao empDao;
 	private CustomerDao custDao;
-	private MovieInsertDao movieDao;
+	private MovieDao movieDao;
 	private MobileInsertDao mobileDao;
 	private SuperMarketInsertDao superMarketDao;
 
@@ -30,7 +30,7 @@ public class JdbcDataDriver {
 		empDao = new EmployeeInsertDao();
 		mobileDao = new MobileInsertDao();
 		custDao = new CustomerDao();
-		movieDao = new MovieInsertDao();
+		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketInsertDao();
 	}
 
@@ -46,6 +46,7 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
+
 	private void process() {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
@@ -53,57 +54,82 @@ public class JdbcDataDriver {
 		switch (dataProcessId) {
 
 		case 1:
-			System.out.println("How many records do you want to insert ? : ");
-			int empCount = scanner.nextInt();
 
-			int empRowCount = 1;
-			EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
-			for (int i = 0; i < empCount; i++) {
-				empProcessor.process(empRowCount);
-				empRowCount++;
-			}
-			break;
-		case 2:
-			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor Starts ######");
+			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
 
-			
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
-			System.out.println("Please choose the operation type: ");
-			int operationTypeCustomer = scanner.nextInt();
+			System.out.println("Please choose the Operation type :");
+			int operationTypeEmployee = scanner.nextInt();
+			if (operationTypeEmployee == 1) {
 
+				System.out.println("How many records do you want to insert ? : ");
+				int empCount = scanner.nextInt();
+
+				int empRowCount = 1;
+				EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
+				for (int i = 0; i < empCount; i++) {
+					empProcessor.process(empRowCount);
+					empRowCount++;
+				}
+			} else if (operationTypeEmployee == 2) {
+
+			}
+			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor ends #####");
+			break;
+			
+		case 2:
+			System.out.println("##### " + DriverTypes.CUSTOMER.getName().toUpperCase() + "Processor Starts #####");
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
+			System.out.println("Please choose the Operation type :");
+			int operationTypeCustomer = scanner.nextInt();
 			if (operationTypeCustomer == 1) {
 
-				System.out.println("How Many Records do you want to insert ? :");
-				int customerCount = scanner.nextInt();
+				System.out.println("How many records do you want to insert ? : ");
+				int custCount = scanner.nextInt();
 
-			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
-			int custRowCount = 1;
-			for (int i = 0; i < customerCount; i++) {
-				custProcessor.process(custRowCount);
-				custRowCount++;
-			}
-			System.out.println(customerCount + " records inserted successfully.");
+				CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
+				int custRowCount = 1;
+				for (int i = 0; i < custCount; i++) {
+					custProcessor.process(custRowCount);
+					custRowCount++;
+				}
 			} else if (operationTypeCustomer == 2) {
-			  System.out.println("fetching customer records from the database...");
-			  
-			  custDao.customerSelectData();
-			}
+				System.out.println("fetching customer records from the database...");
+				  custDao.customerSelectData();
+				}
 
-			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
+				System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
+	
+		
 		case 3:
+			System.out.println("#### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor Starts #####");
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
+			System.out.println("Please choose the Operation type: ");
+			int operationTypeSuperMarket = scanner.nextInt();
+			if (operationTypeSuperMarket == 1) {
 
-			System.out.println("How many records you want to insert ? : ");
-			int recordCount3 = scanner.nextInt();
+				System.out.println("How many records do you want to insert ? : ");
+				int recordCount3 = scanner.nextInt();
 
-			SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
-			int marketCount = 1;
-			for (int i = 0; i < recordCount3; i++) {
-				superMarketDataProcessor.process(marketCount);
-				marketCount++;
+				SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
+						superMarketDao);
+				int marketCount = 1;
+				for (int i = 0; i < recordCount3; i++) {
+					superMarketDataProcessor.process(marketCount);
+					marketCount++;
+				}
+			} else if (operationTypeSuperMarket == 2) {
+
 			}
+			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + "processor ends #######");
+
 			break;
 		case 4:
 
@@ -118,7 +144,7 @@ public class JdbcDataDriver {
 
 			if (operationType == 1) {
 
-				System.out.println("How Many Records you want to insert ? :");
+				System.out.println("How Many Records do you want to insert ? :");
 				int movieCount = scanner.nextInt();
 
 				MovieDataProcesser movie = new MovieDataProcesser(scanner, movieDao);
@@ -129,7 +155,9 @@ public class JdbcDataDriver {
 				}
 
 			} else if (operationType == 2) {
-
+				System.out.println("freching movie databace records");
+				MovieDao movieInsertDao = new MovieDao();
+				movieInsertDao.movieSelectData();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
@@ -137,18 +165,33 @@ public class JdbcDataDriver {
 
 		case 5:
 
-			System.out.println("How many records do you want to insert ? : ");
-			int Count = scanner.nextInt();
+			System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
 
-			MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-			int rowcount = 1;
-			for (int i = 0; i < Count; i++) {
-				mobileDataProcessor.process(rowcount);
-				rowcount++;
+
+			System.out.println("Please choose the operation type: ");
+			int operationTypeMobile = scanner.nextInt();
+
+			if (operationTypeMobile == 1) {
+
+				System.out.println("How many records do you want to insert ? : ");
+				int Count = scanner.nextInt();
+
+				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
+				int rowcount = 1;
+				for (int i = 0; i < Count; i++) {
+					mobileDataProcessor.process(rowcount);
+					rowcount++;
+				}
+			} else if (operationTypeMobile == 2) {
+
 			}
+			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 		default:
 			break;
+		
 		}
-
 	}
 }
