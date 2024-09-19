@@ -20,10 +20,11 @@ public class JdbcDataDriver {
 
 	private Scanner scanner;
 
-	private EmployeeDao empDao;
-	private CustomerInsertDao custDao;
 
-	private EmployeeInsertDao empDao;
+	private EmployeeDao empDao;
+
+	private EmployeeDao empDao;
+
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
@@ -42,7 +43,7 @@ public class JdbcDataDriver {
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
-
+		
 		Arrays.stream(DriverTypes.values()).forEach(each -> {
 			System.out.println(each.getId() + " : " + each.getName());
 		});
@@ -58,6 +59,7 @@ public class JdbcDataDriver {
 		switch (dataProcessId) {
 
 		case 1:
+
 
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
 
@@ -82,7 +84,11 @@ public class JdbcDataDriver {
 					emp.process(empCount);
 					empCount++;
 				}
+
 				System.out.println(employeeCount + "records inserted sucessfully");
+
+				System.out.println(employeeCount +"records inserted sucessfully");
+
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
@@ -232,3 +238,5 @@ public class JdbcDataDriver {
 		}
 	}
 }
+	
+
