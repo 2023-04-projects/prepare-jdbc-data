@@ -3,7 +3,7 @@ package com.khadri.jdbc.prepare.data.driver;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
+import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
@@ -20,7 +20,7 @@ public class JdbcDataDriver {
 
 	private Scanner scanner;
 	private EmployeeInsertDao empDao;
-	private CustomerInsertDao custDao;
+	private CustomerDao custDao;
 	private MovieInsertDao movieDao;
 	private MobileInsertDao mobileDao;
 	private SuperMarketInsertDao superMarketDao;
@@ -29,7 +29,7 @@ public class JdbcDataDriver {
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeInsertDao();
 		mobileDao = new MobileInsertDao();
-		custDao = new CustomerInsertDao();
+		custDao = new CustomerDao();
 		movieDao = new MovieInsertDao();
 		superMarketDao = new SuperMarketInsertDao();
 	}
@@ -87,8 +87,8 @@ public class JdbcDataDriver {
 			System.out.println(customerCount + " records inserted successfully.");
 			} else if (operationTypeCustomer == 2) {
 			  System.out.println("fetching customer records from the database...");
-			  CustomerInsertDao custInsertDao = new CustomerInsertDao();
-			  custInsertDao.customerSelectData();
+			  
+			  custDao.customerSelectData();
 			}
 
 			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");

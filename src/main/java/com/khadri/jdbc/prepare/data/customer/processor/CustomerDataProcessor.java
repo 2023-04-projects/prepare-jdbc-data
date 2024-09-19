@@ -2,14 +2,14 @@ package com.khadri.jdbc.prepare.data.customer.processor;
 
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
+import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
 import com.khadri.jdbc.prepare.data.customer.dao.model.Customer;
 
 public class CustomerDataProcessor {
 	private Scanner scanner;
-	private CustomerInsertDao custDao;
+	private CustomerDao custDao;
 
-	public CustomerDataProcessor(Scanner scanner, CustomerInsertDao custDao) {
+	public CustomerDataProcessor(Scanner scanner, CustomerDao custDao) {
 		this.scanner = scanner;
 		this.custDao = custDao;
 	}

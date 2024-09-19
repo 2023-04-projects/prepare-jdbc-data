@@ -9,12 +9,12 @@ import java.sql.Statement;
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.customer.dao.model.Customer;
 
-public class CustomerInsertDao {
+public class CustomerDao {
 	PreparedStatement pstmt = null;
 	Statement stmt;
 	public void insertData(Customer cust) {
 
-		System.out.println("CustomerInsertDao : customerInsertData(-) starts");
+		System.out.println("CustomerDao : customerData(-) starts");
 		try {
 			Connection con = JdbcConnectionUtil.getConnection();
 
@@ -46,7 +46,7 @@ public class CustomerInsertDao {
 						+ " - " + resultSet.getLong(4));
 			}
 		} catch (SQLException sqle) {
-			System.out.println(" customerSelectDao SQLException occours" + sqle);
+			System.out.println(" customerSelectData SQLException occours" + sqle);
 
 		} finally {
 			JdbcConnectionUtil.closeResources();
