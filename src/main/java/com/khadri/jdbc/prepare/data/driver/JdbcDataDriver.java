@@ -3,7 +3,7 @@ package com.khadri.jdbc.prepare.data.driver;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
+import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
@@ -20,7 +20,7 @@ public class JdbcDataDriver {
 
 	private Scanner scanner;
 	private EmployeeInsertDao empDao;
-	private CustomerInsertDao custDao;
+	private CustomerDao custDao;
 	private MovieDao movieDao;
 	private MobileInsertDao mobileDao;
 	private SuperMarketInsertDao superMarketDao;
@@ -29,7 +29,7 @@ public class JdbcDataDriver {
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeInsertDao();
 		mobileDao = new MobileInsertDao();
-		custDao = new CustomerInsertDao();
+		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketInsertDao();
 	}
@@ -46,6 +46,7 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
+
 	private void process() {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
@@ -53,7 +54,9 @@ public class JdbcDataDriver {
 		switch (dataProcessId) {
 
 		case 1:
+
 			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
+
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
@@ -75,6 +78,7 @@ public class JdbcDataDriver {
 			}
 			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor ends #####");
 			break;
+			
 		case 2:
 			System.out.println("##### " + DriverTypes.CUSTOMER.getName().toUpperCase() + "Processor Starts #####");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -94,9 +98,14 @@ public class JdbcDataDriver {
 					custRowCount++;
 				}
 			} else if (operationTypeCustomer == 2) {
+				System.out.println("fetching customer records from the database...");
+				  custDao.customerSelectData();
+				}
 
-			}
-			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Prosseor ends ######");
+				System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
+			break;
+	
+		
 		case 3:
 			System.out.println("#### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor Starts #####");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -155,10 +164,12 @@ public class JdbcDataDriver {
 			break;
 
 		case 5:
+
 			System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
+
 
 			System.out.println("Please choose the operation type: ");
 			int operationTypeMobile = scanner.nextInt();
@@ -180,7 +191,7 @@ public class JdbcDataDriver {
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 		default:
 			break;
+		
 		}
-
 	}
 }
