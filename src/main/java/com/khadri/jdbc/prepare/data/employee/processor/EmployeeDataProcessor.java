@@ -16,20 +16,27 @@ public class EmployeeDataProcessor {
 	}
 
 	public void process(int recordNumber) {
-		System.out.println("Enter Employee Id : ");
-		int id = scanner.nextInt();
+		try {
 
-		System.out.println("Enter Employee Name : ");
-		String name = scanner.next();
+			System.out.println(recordNumber + "Record Reading starts");
 
-		System.out.println("Enter Employee Desigination : ");
-		String desigination = scanner.next();
+			System.out.println("Enter Employee Id : ");
+			int id = scanner.nextInt();
 
-		System.out.println("Enter Employee Salary :");
-		Double salary = scanner.nextDouble();
+			System.out.println("Enter Employee Name : ");
+			String name = scanner.next();
 
-		Employee emp = new Employee(id, name, desigination, salary);
+			System.out.println("Enter Employee Desigination : ");
+			String desigination = scanner.next();
 
-		empDao.insertData(emp);
+			System.out.println("Enter Employee Salary :");
+			Double salary = scanner.nextDouble();
+
+			Employee emp = new Employee(id, name, desigination, salary);
+
+			empDao.insertData(emp);
+		} catch (Exception e) {
+			System.out.println("EmployeeDataProssor Exception Occour" + e);
+		}
 	}
 }

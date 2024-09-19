@@ -1,4 +1,4 @@
-package com.khadri.jdbc.prepare.data.supermarket.daos;
+package com.khadri.jdbc.prepare.data.supermarket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,7 @@ import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 public class SuperMarketInsertDao {
 
 	public void insertSuperMarketData(SuperMarket market) {
+		System.out.println("SuperMarketInsertDao : superMarketInsertData(-) Starts");
 
 		PreparedStatement pstmt = null;
 		try {
@@ -29,6 +30,8 @@ public class SuperMarketInsertDao {
 			System.out.println("Exception Occured : " + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
+			System.out.println("SuperMarketInsertDao : superMarketInsertData(-) ends");
+
 		}
 
 	}
