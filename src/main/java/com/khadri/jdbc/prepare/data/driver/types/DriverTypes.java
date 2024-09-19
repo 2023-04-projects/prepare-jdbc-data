@@ -1,8 +1,8 @@
 package com.khadri.jdbc.prepare.data.driver.types;
 
 public enum DriverTypes {
-	STUDENT(1, "student"), EMPLOYEE(2, "employee"), CUSTOMER(3, "customer"), SUPER_MARKET(4, "supermarket"),
-	MOVIE(5, "movie"), MOBILE(6, "mobile");
+	 EMPLOYEE(1, "employee"), CUSTOMER(2, "customer"), SUPER_MARKET(3, "supermarket"),
+	MOVIE(4, "movie"), MOBILE(5, "mobile");
 
 	private Integer id;
 	private String name;

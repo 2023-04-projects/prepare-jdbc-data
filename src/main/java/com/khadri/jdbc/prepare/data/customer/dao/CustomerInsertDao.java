@@ -9,8 +9,10 @@ import com.khadri.jdbc.prepare.data.customer.dao.model.Customer;
 
 public class CustomerInsertDao {
 	public void insertData(Customer cust) {
+
 		PreparedStatement pstmt = null;
 
+		System.out.println("CustomerInsertDao : customerInsertData(-) starts");
 		try {
 			Connection con = JdbcConnectionUtil.getConnection();
 
@@ -22,11 +24,12 @@ public class CustomerInsertDao {
 			pstmt.setLong(4, cust.getPhoneNum());
 
 			pstmt.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			System.out.println("SQLException occours:" + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
+			System.out.println("CustomerInsertDao : customerInsertData(-) ends");
 		}
 	}
 }
