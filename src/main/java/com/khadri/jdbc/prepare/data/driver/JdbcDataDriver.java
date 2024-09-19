@@ -147,8 +147,7 @@ public class JdbcDataDriver {
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				MovieDao movieInsertDao = new MovieDao();
-				movieInsertDao.movieSelectData();
+				movieDao.movieSelectData();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
