@@ -9,11 +9,11 @@ public class MobileDataProcessor {
 
 	private Scanner sc;
 
-	private MobileInsertDao mobileInsertDao;
+	private MobileInsertDao mobileDao;
 
-	public MobileDataProcessor(Scanner sc, MobileInsertDao mobileInsertDao) {
+	public MobileDataProcessor(Scanner sc, MobileInsertDao mobileDao) {
 		this.sc = sc;
-		this.mobileInsertDao = mobileInsertDao;
+		this.mobileDao = mobileDao;
 	}
 
 	public void process(int recordNumber) {
@@ -43,7 +43,7 @@ public class MobileDataProcessor {
 
 		Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
 
-		mobileInsertDao.insertData(mobile);
+		mobileDao.insertData(mobile);
 
 	}
 }

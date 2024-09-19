@@ -1,30 +1,32 @@
 package com.khadri.jdbc.prepare.data.movie.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.movie.Movie;
 
 public class MovieInsertDao {
-	public static void movieInsertData(Movie mo) throws Exception {
-		PreparedStatement pstmt = null;
+	public void movieInsertData(Movie movie) throws Exception {
+		System.out.println("MovieInsertDao : movieInsertData(-) starts");
 
+		PreparedStatement pstmt = null;
 		try {
 			Connection con = JdbcConnectionUtil.getConnection();
 			pstmt = con.prepareStatement("insert into movie values(?,?,?)");
 
-			pstmt.setInt(1, mo.getMovieId());
-			pstmt.setString(2, mo.getMovieName());
-			pstmt.setDouble(3, mo.getMovieBudeget());
+			pstmt.setInt(1, movie.getMovieId());
+			pstmt.setString(2, movie.getMovieName());
+			pstmt.setDouble(3, movie.getMovieBudeget());
 
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("Exception occours:" + e);
+			System.out.println("MovieInsertDao Exception occours:" + e);
+		} finally {
+			JdbcConnectionUtil.closeResources();
+			System.out.println("MovieInsertDao : movieInsertData(-) ends");
 		}
 	}
 }

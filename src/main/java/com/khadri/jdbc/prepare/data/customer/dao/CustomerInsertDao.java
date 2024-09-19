@@ -3,11 +3,12 @@ package com.khadri.jdbc.prepare.data.customer.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import com.khadri.jdbc.data.dao.util.JdbcConnectionUtil;
+
+import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.customer.dao.model.Customer;
 
 public class CustomerInsertDao {
-	public static void insertData(Customer cust) {
+	public void insertData(Customer cust) {
 		PreparedStatement pstmt = null;
 
 		try {

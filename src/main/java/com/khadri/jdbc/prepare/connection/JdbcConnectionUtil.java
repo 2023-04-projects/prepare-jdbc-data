@@ -18,9 +18,9 @@ public class JdbcConnectionUtil {
 			Properties properties = new Properties();
 			properties.load(new FileReader(new File("db.properties")));
 
-			String url = properties.getProperty("url");
-			String user = properties.getProperty("user");
-			String password = properties.getProperty("password");
+			String url = properties.getProperty("URL");
+			String user = properties.getProperty("USER");
+			String password = properties.getProperty("PASSWORD");
 
 			con = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException cnfe) {
@@ -38,10 +38,10 @@ public class JdbcConnectionUtil {
 	}
 
 	public static void closeResources() {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					System.out.println("SQLException"+e);
-				}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQLException" + e);
+		}
 	}
 }
