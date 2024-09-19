@@ -17,33 +17,39 @@ public class MobileDataProcessor {
 	}
 
 	public void process(int recordNumber) {
+		try {
 
-		System.out.println("Enter MOBILE_ID : ");
-		int id = sc.nextInt();
+			System.out.println(recordNumber + "Record Reading starts");
 
-		System.out.println("Enter MOBILE_NAME : ");
-		String name = sc.next();
+			System.out.println("Enter MOBILE_ID : ");
+			int id = sc.nextInt();
 
-		System.out.println("Enter RAM : ");
-		int ram = sc.nextInt();
+			System.out.println("Enter MOBILE_NAME : ");
+			String name = sc.next();
 
-		System.out.println("Enter ROM : ");
-		int rom = sc.nextInt();
+			System.out.println("Enter RAM : ");
+			int ram = sc.nextInt();
 
-		System.out.println("Enter CAMERA : ");
-		String camera = sc.next();
+			System.out.println("Enter ROM : ");
+			int rom = sc.nextInt();
 
-		System.out.println("Enter BATTERY_CAPACITY : ");
-		int battery = sc.nextInt();
+			System.out.println("Enter CAMERA : ");
+			String camera = sc.next();
 
-		System.out.println("Enter PRICE : ");
-		int price = sc.nextInt();
+			System.out.println("Enter BATTERY_CAPACITY : ");
+			int battery = sc.nextInt();
 
-		System.out.println("Processing File Wrting ");
+			System.out.println("Enter PRICE : ");
+			int price = sc.nextInt();
 
-		Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
+			System.out.println("Processing File Wrting ");
 
-		mobileDao.insertData(mobile);
+			Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
 
+			mobileDao.insertData(mobile);
+
+		} catch (Exception e) {
+			System.out.println("MobileDataProssor Exception occours" + e);
+		}
 	}
 }

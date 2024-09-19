@@ -17,7 +17,7 @@ public class MovieDataProcesser {
 	public void process(int recordNumber) {
 		try {
 			System.out.println(recordNumber + " Record Reading starts");
-			
+
 			System.out.println("Enter Movie_Id : ");
 			int id = scanner.nextInt();
 
@@ -25,11 +25,11 @@ public class MovieDataProcesser {
 			String name = scanner.next();
 
 			System.out.println("Enter Movie Budeget : ");
-			double movieBu = scanner.nextDouble();
-			
+			double movieBudget = scanner.nextDouble();
+
 			System.out.println(recordNumber + " Record Reading ends ");
-			
-			Movie movie = new Movie(id, name, movieBu);
+
+			Movie movie = new Movie(id, name, movieBudget);
 			movieDao.movieInsertData(movie);
 
 		} catch (Exception e) {
