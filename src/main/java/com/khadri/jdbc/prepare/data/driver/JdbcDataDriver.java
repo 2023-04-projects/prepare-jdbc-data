@@ -20,13 +20,24 @@ public class JdbcDataDriver {
 
 	private Scanner scanner;
 
+<<<<<<< HEAD
 	private EmployeeDao empDao;
+=======
+
+	private EmployeeDao empDao;
+
+	
+>>>>>>> 47f3ba7ba388d801f72749cbfe55ba7ae229c965
 
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
+<<<<<<< HEAD
 	private SuperMarketInsertDao superMarketDao;
+=======
+	private SuperMarketDao superMarketDao;
+>>>>>>> 47f3ba7ba388d801f72749cbfe55ba7ae229c965
 
 	{
 		scanner = new Scanner(System.in);
@@ -34,7 +45,7 @@ public class JdbcDataDriver {
 		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
-		superMarketDao = new SuperMarketInsertDao();
+		superMarketDao = new SuperMarketDao();
 	}
 
 	public static void main(String[] args) {
@@ -78,7 +89,11 @@ public class JdbcDataDriver {
 					empCount++;
 				}
 
+
 				System.out.println(employeeCount + "records inserted sucessfully");
+
+				System.out.println(employeeCount + "records inserted sucessfully");
+
 
 				System.out.println(employeeCount + "records inserted sucessfully");
 
@@ -166,8 +181,7 @@ public class JdbcDataDriver {
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				MovieDao movieInsertDao = new MovieDao();
-				movieInsertDao.movieSelectData();
+				movieDao.movieSelectData();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
