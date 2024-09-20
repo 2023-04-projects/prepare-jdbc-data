@@ -37,14 +37,13 @@ public class JdbcDataDriver {
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
-		
+
 		Arrays.stream(DriverTypes.values()).forEach(each -> {
 			System.out.println(each.getId() + " : " + each.getName());
 		});
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
 		csvDataDriver.process();
 	}
-
 
 	private void process() {
 		System.out.println("Please choose the data processor : ");
@@ -72,7 +71,7 @@ public class JdbcDataDriver {
 					emp.process(empCount);
 					empCount++;
 				}
-				System.out.println(employeeCount +"records inserted sucessfully");
+				System.out.println(employeeCount + "records inserted sucessfully");
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
@@ -80,7 +79,7 @@ public class JdbcDataDriver {
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 
 			break;
-			
+
 		case 2:
 			System.out.println("##### " + DriverTypes.CUSTOMER.getName().toUpperCase() + "Processor Starts #####");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -101,13 +100,12 @@ public class JdbcDataDriver {
 				}
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
-				  custDao.customerSelectData();
-				}
+				custDao.customerSelectData();
+			}
 
-				System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
+			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
-	
-		
+
 		case 3:
 			System.out.println("#### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor Starts #####");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -158,8 +156,7 @@ public class JdbcDataDriver {
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				MovieDao movieInsertDao = new MovieDao();
-				movieInsertDao.movieSelectData();
+				movieDao.movieSelectData();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
@@ -171,7 +168,6 @@ public class JdbcDataDriver {
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
-
 
 			System.out.println("Please choose the operation type: ");
 			int operationTypeMobile = scanner.nextInt();
@@ -193,9 +189,7 @@ public class JdbcDataDriver {
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 		default:
 			break;
-		
+
 		}
 	}
 }
-	
-
