@@ -8,7 +8,7 @@ import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
-import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
+import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
@@ -16,7 +16,7 @@ import com.khadri.jdbc.prepare.data.operation.OperationTypes;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
-public class JdbcDataDriver {
+public class JdbcDataDriver<mobileDao> {
 
 	private Scanner scanner;
 
@@ -25,13 +25,13 @@ public class JdbcDataDriver {
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
-	private MobileInsertDao mobileDao;
+	private MobileDao mobileDao;
 	private SuperMarketInsertDao superMarketDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
-		mobileDao = new MobileInsertDao();
+		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketInsertDao();
@@ -202,7 +202,7 @@ public class JdbcDataDriver {
 					}
 				} else if (operationTypeMobile == 2) {
 					System.out.println("fetching mobile records from database!!!!");
-					mobileDao.mobileSelectData();
+					mobileDao.SelectData();
 				}
 
 				System.out.println("How many records do you want to insert ? : ");

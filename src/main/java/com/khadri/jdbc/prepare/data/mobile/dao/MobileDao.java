@@ -9,10 +9,10 @@ import java.sql.Statement;
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
-public class MobileInsertDao {
+public class MobileDao {
 
 	public void insertData(Mobile mobile) {
-		System.out.println(" MobileInsertDao : mobileInsertData(-) starts");
+		System.out.println(" MobileDao : mobileData(-) starts");
 
 		PreparedStatement pstmt;
 		Statement stmt;
@@ -34,16 +34,16 @@ public class MobileInsertDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("MobileInsertDao Exception occours:" + e);
+			System.out.println("MobileDao Exception occours:" + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
 
-			System.out.println("MobileInsertDao : MobileInsertDao(-) ends");
+			System.out.println("MobileDao : MobileDao(-) ends");
 
 		}
 	}
 
-	public void mobileSelectData() {
+	public void SelectData() {
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
 			Statement stmt = conn.createStatement();
@@ -57,8 +57,7 @@ public class MobileInsertDao {
 		} catch (SQLException e) {
 			System.out.println(" Exception occours:" + e);
 
-			System.out.println(" MobileInsertDao :  mobileInsertData(-) ends");
-
+			System.out.println(" MobileDao :  mobileData(-) ends");
 
 		}
 
