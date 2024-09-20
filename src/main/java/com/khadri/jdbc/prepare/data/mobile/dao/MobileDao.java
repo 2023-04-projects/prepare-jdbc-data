@@ -19,7 +19,7 @@ public class MobileDao {
 
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
-			System.out.println("MobileInsertDao : MobileInsertDao(-) starts");
+			System.out.println("MobileDao : MobileDao(-) starts");
 
 			pstmt = conn.prepareStatement("insert into mobile values(?,?,?,?,?,?,?)");
 

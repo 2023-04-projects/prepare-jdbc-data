@@ -16,7 +16,7 @@ import com.khadri.jdbc.prepare.data.operation.OperationTypes;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
-public class JdbcDataDriver<mobileDao> {
+public class JdbcDataDriver {
 
 	private Scanner scanner;
 
@@ -77,7 +77,11 @@ public class JdbcDataDriver<mobileDao> {
 					emp.process(empCount);
 					empCount++;
 				}
+
 				System.out.println(employeeCount + "records inserted sucessfully");
+
+				System.out.println(employeeCount + "records inserted sucessfully");
+
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
