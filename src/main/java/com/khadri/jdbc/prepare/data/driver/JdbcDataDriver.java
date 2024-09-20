@@ -13,31 +13,19 @@ import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
-import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
 
 	private Scanner scanner;
 
-<<<<<<< HEAD
-	private EmployeeDao empDao;
-=======
-
-	private EmployeeDao empDao;
-
-	
->>>>>>> 47f3ba7ba388d801f72749cbfe55ba7ae229c965
+	private EmployeeDao empDao;;
 
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
-<<<<<<< HEAD
-	private SuperMarketInsertDao superMarketDao;
-=======
 	private SuperMarketDao superMarketDao;
->>>>>>> 47f3ba7ba388d801f72749cbfe55ba7ae229c965
 
 	{
 		scanner = new Scanner(System.in);
@@ -89,11 +77,9 @@ public class JdbcDataDriver {
 					empCount++;
 				}
 
-
 				System.out.println(employeeCount + "records inserted sucessfully");
 
 				System.out.println(employeeCount + "records inserted sucessfully");
-
 
 				System.out.println(employeeCount + "records inserted sucessfully");
 
