@@ -13,10 +13,13 @@ import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
+<<<<<<< HEAD
+=======
+import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
+>>>>>>> 95e5f7613a4727b2d7487aab91d02ce5fb21c839
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
-
 	private Scanner scanner;
 
 	private EmployeeDao empDao;;
@@ -24,16 +27,27 @@ public class JdbcDataDriver {
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
+<<<<<<< HEAD
 	private MobileDao mobileDao;
+=======
+	private MobileInsertDao mobileDao;
+>>>>>>> 95e5f7613a4727b2d7487aab91d02ce5fb21c839
 	private SuperMarketDao superMarketDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
+<<<<<<< HEAD
 		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketDao();
+=======
+		mobileDao = new MobileInsertDao();
+		superMarketDao = new SuperMarketDao();
+		custDao = new CustomerDao();
+		movieDao = new MovieDao();
+>>>>>>> 95e5f7613a4727b2d7487aab91d02ce5fb21c839
 	}
 
 	public static void main(String[] args) {
@@ -137,11 +151,13 @@ public class JdbcDataDriver {
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
+					System.out.println("fetching supermarket database records");
+					superMarketDao.selectSuperMarketData();
+				}
 
-			}
-			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + "processor ends #######");
+				System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
+				break;
 
-			break;
 		case 4:
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor Starts ######");
