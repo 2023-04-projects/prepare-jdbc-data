@@ -13,25 +13,24 @@ import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
-import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
-
 	private Scanner scanner;
 	private EmployeeDao empDao;
 	private CustomerDao custDao;
 	private MovieDao movieDao;
 	private MobileInsertDao mobileDao;
-	private SuperMarketInsertDao superMarketDao;
+	private SuperMarketDao superMarketDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileInsertDao();
+		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
-		superMarketDao = new SuperMarketInsertDao();
 	}
 
 	public static void main(String[] args) {
@@ -126,11 +125,13 @@ public class JdbcDataDriver {
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
+					System.out.println("fetching supermarket database records");
+					superMarketDao.selectSuperMarketData();
+				}
 
-			}
-			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + "processor ends #######");
+				System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
+				break;
 
-			break;
 		case 4:
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor Starts ######");

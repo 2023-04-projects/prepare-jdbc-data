@@ -2,21 +2,21 @@ package com.khadri.jdbc.prepare.data.supermarket.processor;
 
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketInsertDao;
+import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
-
 public class SuperMarketDataProcessor {
 
 	private Scanner scanner;
-	private SuperMarketInsertDao superDao;
+	private SuperMarketDao superDao;
 
-	public SuperMarketDataProcessor(Scanner scanner, SuperMarketInsertDao superDao) {
+	public SuperMarketDataProcessor(Scanner scanner, SuperMarketDao superDao) {
 		super();
 		this.scanner = scanner;
 		this.superDao = superDao;
 	}
 
 	public void process(int recordNumber) {
+
 		try {
 
 			System.out.println(recordNumber + "Record Reading starts");
