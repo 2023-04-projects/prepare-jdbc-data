@@ -21,9 +21,7 @@ public class JdbcDataDriver {
 	private Scanner scanner;
 
 	private EmployeeDao empDao;
-	private CustomerInsertDao custDao;
 
-	private EmployeeInsertDao empDao;
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
@@ -50,7 +48,6 @@ public class JdbcDataDriver {
 		csvDataDriver.process();
 	}
 
-
 	private void process() {
 		System.out.println("Please choose the data processor : ");
 		int dataProcessId = scanner.nextInt();
@@ -61,9 +58,7 @@ public class JdbcDataDriver {
 
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
 
-
 			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
-
 
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
@@ -90,7 +85,7 @@ public class JdbcDataDriver {
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 
 			break;
-			
+
 		case 2:
 			System.out.println("##### " + DriverTypes.CUSTOMER.getName().toUpperCase() + "Processor Starts #####");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -111,13 +106,12 @@ public class JdbcDataDriver {
 				}
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
-				  custDao.customerSelectData();
-				}
+				custDao.customerSelectData();
+			}
 
-				System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
+			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
-	
-		
+
 		case 3:
 			System.out.println("#### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor Starts #####");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -182,7 +176,6 @@ public class JdbcDataDriver {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
 
-
 			System.out.println("Please choose the operation type: ");
 			int operationTypeMobile = scanner.nextInt();
 
@@ -228,7 +221,7 @@ public class JdbcDataDriver {
 		default:
 
 			break;
-		
+
 		}
 	}
 }
