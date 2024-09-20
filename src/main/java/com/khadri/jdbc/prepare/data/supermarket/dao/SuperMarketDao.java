@@ -1,4 +1,4 @@
-package com.khadri.jdbc.prepare.data.supermarket.daos;
+package com.khadri.jdbc.prepare.data.supermarket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,12 +11,15 @@ import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 
 public class SuperMarketDao {
 
+	Connection conn = JdbcConnectionUtil.getConnection();
+	PreparedStatement pstmt;
+	Statement stmt;
+
 	public void insertSuperMarketData(SuperMarket market) {
 
-		PreparedStatement pstmt;
-		Statement createStatement;
+		System.out.println("SuperMarketDao : superMarketInsertData(-) Starts");
+
 		try {
-			Connection conn = JdbcConnectionUtil.getConnection();
 
 			pstmt = conn.prepareStatement("INSERT INTO supermarket VALUES(?, ?, ?, ?, ?)");
 
@@ -32,16 +35,18 @@ public class SuperMarketDao {
 			System.out.println("Exception Occured : " + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
+			System.out.println("SuperMarketDao : superMarketInsertData(-) ends");
+
 		}
 
 	}
 
 	public void selectSuperMarketData() {
+		System.out.println("SuperMarketDao : selectSuperMarketData(-) Starts");
 		try {
 
-			Connection conn = JdbcConnectionUtil.getConnection();
-			Statement createstament = conn.createStatement();
-			ResultSet resultSet = createstament.executeQuery("select * from supermarket");
+			stmt = conn.createStatement();
+			ResultSet resultSet = stmt.executeQuery("SELECT * FROM supermarket");
 
 			while (resultSet.next()) {
 
@@ -54,6 +59,7 @@ public class SuperMarketDao {
 			e.printStackTrace();
 		} finally {
 			JdbcConnectionUtil.closeResources();
+			System.out.println("SuperMarketDao : selectSuperMarketData(-) ends");
 		}
 
 	}

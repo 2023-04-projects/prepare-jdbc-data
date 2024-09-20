@@ -3,34 +3,34 @@ package com.khadri.jdbc.prepare.data.driver;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.customer.dao.CustomerInsertDao;
+import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
-import com.khadri.jdbc.prepare.data.employee.dao.EmployeeInsertDao;
+import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
-import com.khadri.jdbc.prepare.data.movie.dao.MovieInsertDao;
+import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
-import com.khadri.jdbc.prepare.data.supermarket.daos.SuperMarketDao;
+import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
+import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
-
 	private Scanner scanner;
-	private EmployeeInsertDao empDao;
-	private CustomerInsertDao custDao;
-	private MovieInsertDao movieDao;
+	private EmployeeDao empDao;
+	private CustomerDao custDao;
+	private MovieDao movieDao;
 	private MobileInsertDao mobileDao;
 	private SuperMarketDao superMarketDao;
 
 	{
 		scanner = new Scanner(System.in);
-		empDao = new EmployeeInsertDao();
+		empDao = new EmployeeDao();
 		mobileDao = new MobileInsertDao();
-		custDao = new CustomerInsertDao();
-		movieDao = new MovieInsertDao();
 		superMarketDao = new SuperMarketDao();
+		custDao = new CustomerDao();
+		movieDao = new MovieDao();
 	}
 
 	public static void main(String[] args) {
@@ -40,7 +40,6 @@ public class JdbcDataDriver {
 		Arrays.stream(DriverTypes.values()).forEach(each -> {
 			System.out.println(each.getId() + " : " + each.getName());
 		});
-
 		JdbcDataDriver csvDataDriver = new JdbcDataDriver();
 		csvDataDriver.process();
 	}
@@ -51,60 +50,89 @@ public class JdbcDataDriver {
 
 		switch (dataProcessId) {
 
-		case 2:
-			System.out.println("How many records do you want to insert ? : ");
-			int empCount = scanner.nextInt();
+		case 1:
+			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
 
-			int empRowCount = 1;
-			EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
-			for (int i = 0; i < empCount; i++) {
-				empProcessor.process(empRowCount);
-				empRowCount++;
-			}
-			break;
-		case 3:
-			System.out.println("How many records do you want to insert ? : ");
-			int custCount = scanner.nextInt();
-
-			CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
-			int custRowCount = 1;
-			for (int i = 0; i < custCount; i++) {
-				custProcessor.process(custRowCount);
-				custRowCount++;
-			}
-		case 4:
-
-			System.out
-					.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor Starts ######");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
-
 			System.out.println("Please choose the operation type: ");
-			int superMarketOperationType = scanner.nextInt();
+			int operationTypeEmployee = scanner.nextInt();
 
-			if (superMarketOperationType == 1) {
+			if (operationTypeEmployee == 1) {
 
-				System.out.println("How Many Records Do You Want To Insert ? :");
-				int superMarketCount = scanner.nextInt();
+				System.out.println("How Many Records do you want to insert ? :");
+				int employeeCount = scanner.nextInt();
 
-				MovieDataProcesser movie = new MovieDataProcesser(scanner, movieDao);
-				int recordCount = 1;
-				for (int i = 0; i < superMarketCount; i++) {
-					movie.process(recordCount);
-					recordCount++;
+				EmployeeDataProcessor emp = new EmployeeDataProcessor(scanner, empDao);
+				int empCount = 1;
+				for (int i = 0; i < employeeCount; i++) {
+					emp.process(empCount);
+					empCount++;
 				}
-
-			} else if (superMarketOperationType == 2) {
-
-				System.out.println("Fetching SuperMarket DataBase records");
-				superMarketDao.selectSuperMarketData();
+				System.out.println(employeeCount + "records inserted sucessfully");
+			} else if (operationTypeEmployee == 2) {
+				System.out.println("fetching employee records from the database");
+				empDao.employeeSelectData();
 			}
+			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 
-			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
 			break;
 
-		case 5:
+		case 2:
+			System.out.println("##### " + DriverTypes.CUSTOMER.getName().toUpperCase() + "Processor Starts #####");
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
+			System.out.println("Please choose the Operation type :");
+			int operationTypeCustomer = scanner.nextInt();
+			if (operationTypeCustomer == 1) {
+
+				System.out.println("How many records do you want to insert ? : ");
+				int custCount = scanner.nextInt();
+
+				CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
+				int custRowCount = 1;
+				for (int i = 0; i < custCount; i++) {
+					custProcessor.process(custRowCount);
+					custRowCount++;
+				}
+			} else if (operationTypeCustomer == 2) {
+				System.out.println("fetching customer records from the database...");
+				custDao.customerSelectData();
+			}
+
+			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
+			break;
+
+		case 3:
+			System.out.println("#### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor Starts #####");
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
+			System.out.println("Please choose the Operation type: ");
+			int operationTypeSuperMarket = scanner.nextInt();
+			if (operationTypeSuperMarket == 1) {
+
+				System.out.println("How many records do you want to insert ? : ");
+				int recordCount3 = scanner.nextInt();
+
+				SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
+						superMarketDao);
+				int marketCount = 1;
+				for (int i = 0; i < recordCount3; i++) {
+					superMarketDataProcessor.process(marketCount);
+					marketCount++;
+				}
+			} else if (operationTypeSuperMarket == 2) {
+					System.out.println("fetching supermarket database records");
+					superMarketDao.selectSuperMarketData();
+				}
+
+				System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
+				break;
+
+		case 4:
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor Starts ######");
 
@@ -117,7 +145,7 @@ public class JdbcDataDriver {
 
 			if (operationType == 1) {
 
-				System.out.println("How Many Records you want to insert ? :");
+				System.out.println("How Many Records do you want to insert ? :");
 				int movieCount = scanner.nextInt();
 
 				MovieDataProcesser movie = new MovieDataProcesser(scanner, movieDao);
@@ -128,26 +156,41 @@ public class JdbcDataDriver {
 				}
 
 			} else if (operationType == 2) {
-
+				System.out.println("freching movie databace records");
+				movieDao.movieSelectData();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
 			break;
 
-		case 6:
+		case 5:
 
-			System.out.println("How many records do you want to insert ? : ");
-			int Count = scanner.nextInt();
+			System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
+			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+			});
 
-			MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-			int rowcount = 1;
-			for (int i = 0; i < Count; i++) {
-				mobileDataProcessor.process(rowcount);
-				rowcount++;
+			System.out.println("Please choose the operation type: ");
+			int operationTypeMobile = scanner.nextInt();
+
+			if (operationTypeMobile == 1) {
+
+				System.out.println("How many records do you want to insert ? : ");
+				int Count = scanner.nextInt();
+
+				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
+				int rowcount = 1;
+				for (int i = 0; i < Count; i++) {
+					mobileDataProcessor.process(rowcount);
+					rowcount++;
+				}
+			} else if (operationTypeMobile == 2) {
+
 			}
+			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 		default:
 			break;
-		}
 
+		}
 	}
 }
