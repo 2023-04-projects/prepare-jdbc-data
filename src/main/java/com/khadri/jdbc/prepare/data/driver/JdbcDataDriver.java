@@ -18,14 +18,12 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-
 	private EmployeeDao empDao;;
-
 	private CustomerDao custDao;
-
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
+	private CustomerDataProcessor custProcessor;
 
 	{
 		scanner = new Scanner(System.in);
@@ -37,6 +35,7 @@ public class JdbcDataDriver {
 		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
+		 custProcessor = new CustomerDataProcessor(scanner, custDao);
 	}
 
 	public static void main(String[] args) {
@@ -60,8 +59,6 @@ public class JdbcDataDriver {
 
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
 
-			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
-
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
@@ -79,13 +76,6 @@ public class JdbcDataDriver {
 					emp.process(empCount);
 					empCount++;
 				}
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
@@ -106,17 +96,23 @@ public class JdbcDataDriver {
 				System.out.println("How many records do you want to insert ? : ");
 				int custCount = scanner.nextInt();
 
-				CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
 				int custRowCount = 1;
 				for (int i = 0; i < custCount; i++) {
-					custProcessor.process(custRowCount);
+					custProcessor.insertProcess(custRowCount);
 					custRowCount++;
 				}
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
-				custDao.customerSelectData();
+				custDao.selectCustomerData();
+			}else if (operationTypeCustomer == 3) {  
+			    System.out.println("Updating customer records...");
+			   custProcessor.updateProcess();
+			} else if (operationTypeCustomer == 4) {  
+			    System.out.println("Deleting customer records...");
+			    custProcessor.deleteProcess();
+			} else {
+			    System.out.println("Invalid operation type selected.");
 			}
-
 			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
 
@@ -189,17 +185,7 @@ public class JdbcDataDriver {
 			int operationTypeMobile = scanner.nextInt();
 
 			if (operationTypeMobile == 1) {
-
-				System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
-				Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
-					System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
-				});
-
-				System.out.println("Please choose the operation type: ");
-				int operationTypeMobiles = scanner.nextInt();
-
-				if (operationTypeMobile == 1) {
-
+				
 					System.out.println("How many records do you want to insert ? : ");
 					int Count = scanner.nextInt();
 
@@ -213,20 +199,8 @@ public class JdbcDataDriver {
 					System.out.println("fetching mobile records from database!!!!");
 					mobileDao.SelectData();
 				}
-
-				System.out.println("How many records do you want to insert ? : ");
-				int Count = scanner.nextInt();
-
-				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-				int rowcount = 1;
-				for (int i = 0; i < Count; i++) {
-					mobileDataProcessor.process(rowcount);
-					rowcount++;
-				}
-			} else if (operationTypeMobile == 2) {
-
-			}
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
+			break;
 		default:
 
 			break;
