@@ -2,16 +2,16 @@ package com.khadri.jdbc.prepare.data.mobile.processor;
 
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
+import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
 public class MobileDataProcessor {
 
 	private Scanner sc;
 
-	private MobileInsertDao mobileDao;
+	private MobileDao mobileDao;
 
-	public MobileDataProcessor(Scanner sc, MobileInsertDao mobileDao) {
+	public MobileDataProcessor(Scanner sc, MobileDao mobileDao) {
 		this.sc = sc;
 		this.mobileDao = mobileDao;
 	}

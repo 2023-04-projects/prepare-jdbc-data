@@ -8,7 +8,7 @@ import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
-import com.khadri.jdbc.prepare.data.mobile.dao.MobileInsertDao;
+import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
@@ -18,16 +18,22 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-	private EmployeeDao empDao;
+
+	private EmployeeDao empDao;;
+
 	private CustomerDao custDao;
+
 	private MovieDao movieDao;
-	private MobileInsertDao mobileDao;
+	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
-		mobileDao = new MobileInsertDao();
+		mobileDao = new MobileDao();
+		custDao = new CustomerDao();
+		movieDao = new MovieDao();
+		superMarketDao = new SuperMarketDao();
 		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
@@ -51,6 +57,9 @@ public class JdbcDataDriver {
 		switch (dataProcessId) {
 
 		case 1:
+
+			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
+
 			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
 
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -70,7 +79,13 @@ public class JdbcDataDriver {
 					emp.process(empCount);
 					empCount++;
 				}
+
 				System.out.println(employeeCount + "records inserted sucessfully");
+
+				System.out.println(employeeCount + "records inserted sucessfully");
+
+				System.out.println(employeeCount + "records inserted sucessfully");
+
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
@@ -125,12 +140,12 @@ public class JdbcDataDriver {
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
-					System.out.println("fetching supermarket database records");
-					superMarketDao.selectSuperMarketData();
-				}
+				System.out.println("fetching supermarket database records");
+				superMarketDao.selectSuperMarketData();
+			}
 
-				System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
-				break;
+			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
+			break;
 
 		case 4:
 
@@ -175,6 +190,30 @@ public class JdbcDataDriver {
 
 			if (operationTypeMobile == 1) {
 
+				System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
+				Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
+					System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
+				});
+
+				System.out.println("Please choose the operation type: ");
+				int operationTypeMobiles = scanner.nextInt();
+
+				if (operationTypeMobile == 1) {
+
+					System.out.println("How many records do you want to insert ? : ");
+					int Count = scanner.nextInt();
+
+					MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
+					int rowcount = 1;
+					for (int i = 0; i < Count; i++) {
+						mobileDataProcessor.process(rowcount);
+						rowcount++;
+					}
+				} else if (operationTypeMobile == 2) {
+					System.out.println("fetching mobile records from database!!!!");
+					mobileDao.SelectData();
+				}
+
 				System.out.println("How many records do you want to insert ? : ");
 				int Count = scanner.nextInt();
 
@@ -189,6 +228,7 @@ public class JdbcDataDriver {
 			}
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 		default:
+
 			break;
 
 		}
