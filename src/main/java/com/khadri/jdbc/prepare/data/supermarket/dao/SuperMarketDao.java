@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
@@ -14,10 +15,11 @@ public class SuperMarketDao {
 	Connection conn = JdbcConnectionUtil.getConnection();
 	PreparedStatement pstmt;
 	Statement stmt;
+	Scanner scanner;
 
 	public void insertSuperMarketData(SuperMarket market) {
 
-		System.out.println("SuperMarketDao : superMarketInsertData(-) Starts");
+		System.out.println("SuperMarketDao : insertSuperMarketData(-) Starts");
 
 		try {
 
@@ -32,10 +34,10 @@ public class SuperMarketDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("Exception Occured : " + e);
+			System.out.println("InsertSuperMarket SQLException Occured : " + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
-			System.out.println("SuperMarketDao : superMarketInsertData(-) ends");
+			System.out.println("SuperMarketDao : insertSuperMarketData(-) ends");
 
 		}
 
@@ -56,7 +58,7 @@ public class SuperMarketDao {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("SelectSuperMarket SQLException Occured : " + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("SuperMarketDao : selectSuperMarketData(-) ends");
@@ -64,4 +66,48 @@ public class SuperMarketDao {
 
 	}
 
+	public boolean updateSuperMarketData(SuperMarket market) {
+
+		System.out.println("SuperMarketDao : updateSuperMarketData(-) Starts");
+
+		try {
+			pstmt = conn.prepareStatement(
+					"UPDATE supermarket SET PROD_NAME = ?, PROD_PRICE = ?, PROD_QTY = ? WHERE PROD_ID = ?");
+
+			pstmt.setString(1, market.getProdName());
+			pstmt.setDouble(2, market.getProdPrice());
+			pstmt.setInt(3, market.getProdQty());
+			pstmt.setDouble(4, market.getTotalAmt());
+			pstmt.setInt(5, market.getProdId());
+
+			int updateRecord = pstmt.executeUpdate();
+			System.out.println(updateRecord + "Update SuperMarket Record ..!");
+
+		} catch (SQLException e) {
+			System.out.println("UpdateSuperMarket SQLException Occured : " + e);
+		} finally {
+			JdbcConnectionUtil.closeResources();
+			System.out.println("SuperMarketDao : updateSuperMarketData(-) ends");
+		}
+		return true;
+	}
+
+	public boolean deleteSuperMarketData(int prodId) {
+		System.out.println("SuperMarketDao : deletedSuperMarketData(-) Starts");
+		try {
+
+			pstmt.executeUpdate("DELETE FROM supermarket WHERE PROD_ID = ?");
+			pstmt.setInt(1, prodId);
+
+			int deleteRecord = pstmt.executeUpdate();
+			System.out.println(deleteRecord + "Delete SuperMarkrt Record..!");
+		} catch (SQLException e) {
+			System.out.println("DeleteSuperMarket SQLException Occured : " + e);
+		} finally {
+			JdbcConnectionUtil.closeResources();
+			System.out.println("SuperMarketDao : deleteSuperMarketData(-) ends");
+		}
+		return true;
+
+	}
 }

@@ -20,12 +20,11 @@ public class JdbcDataDriver {
 	private Scanner scanner;
 
 	private EmployeeDao empDao;;
-
 	private CustomerDao custDao;
-
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
+	private SuperMarketDataProcessor superMarketDataProcessor;
 
 	{
 		scanner = new Scanner(System.in);
@@ -37,6 +36,7 @@ public class JdbcDataDriver {
 		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
+		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
 	}
 
 	public static void main(String[] args) {
@@ -58,8 +58,6 @@ public class JdbcDataDriver {
 
 		case 1:
 
-			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
-
 			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
 
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
@@ -79,12 +77,6 @@ public class JdbcDataDriver {
 					emp.process(empCount);
 					empCount++;
 				}
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
 
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
@@ -127,21 +119,31 @@ public class JdbcDataDriver {
 			});
 			System.out.println("Please choose the Operation type: ");
 			int operationTypeSuperMarket = scanner.nextInt();
+			
 			if (operationTypeSuperMarket == 1) {
 
 				System.out.println("How many records do you want to insert ? : ");
 				int recordCount3 = scanner.nextInt();
 
-				SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
-						superMarketDao);
 				int marketCount = 1;
 				for (int i = 0; i < recordCount3; i++) {
-					superMarketDataProcessor.process(marketCount);
+					superMarketDataProcessor.insertProcess(marketCount);
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
-				System.out.println("fetching supermarket database records");
+				System.out.println("Fetching SuperMarket Database Records ..! ");
 				superMarketDao.selectSuperMarketData();
+
+			} else if (operationTypeSuperMarket == 3) {
+				System.out.println("Updated SuperMarket Records Successfully ..!");
+				superMarketDataProcessor.updateProcess();
+				
+			}else if (operationTypeSuperMarket == 4) {
+				System.out.println("Deleted SuperMarket Records Successfully ..!");
+				superMarketDataProcessor.updateProcess();
+				
+			}else {
+				System.out.println("Invalid Operation ..!");
 			}
 
 			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
