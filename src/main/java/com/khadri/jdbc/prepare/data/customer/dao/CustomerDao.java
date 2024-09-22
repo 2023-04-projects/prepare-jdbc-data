@@ -12,15 +12,13 @@ import com.khadri.jdbc.prepare.data.customer.dao.model.Customer;
 public class CustomerDao {
 	PreparedStatement pstmt = null;
 	Statement stmt;
-	public void insertData(Customer cust) {
-
-
-		System.out.println("CustomerInsertDao : customerInsertData(-) Starts");
-		PreparedStatement pstmt = null;
+	  Connection con;
+	  
+	public void insertCustomerData(Customer cust) {
 
 		System.out.println("CustomerDao : customerData(-) starts");
 		try {
-			Connection con = JdbcConnectionUtil.getConnection();
+		con = JdbcConnectionUtil.getConnection();
 
 			pstmt = con.prepareStatement("insert into customer values(?,?,?,?)");
 
@@ -36,10 +34,10 @@ public class CustomerDao {
 		} 
 	}
 	
-	public void customerSelectData() {
+	public void selectCustomerData() {
 
 		try {
-			Connection con = JdbcConnectionUtil.getConnection();
+			 con = JdbcConnectionUtil.getConnection();
 			stmt = con.createStatement();
 
 			ResultSet resultSet = stmt.executeQuery("Select * from customer");
@@ -50,7 +48,7 @@ public class CustomerDao {
 						+ " - " + resultSet.getLong(4));
 			}
 		} catch (SQLException sqle) {
-			System.out.println(" customerSelectData SQLException occours" + sqle);
+			System.out.println(" selectCustomerData SQLException occours" + sqle);
 
 		} finally {
 			JdbcConnectionUtil.closeResources();
@@ -59,4 +57,49 @@ public class CustomerDao {
 		}
 	}
 
+	public boolean updateCustomerData(Customer cust) {
+	    System.out.println("CustomerDao : updateCustomerData(-) starts");
+
+	    try {
+	      con = JdbcConnectionUtil.getConnection();
+
+	        pstmt = con.prepareStatement("UPDATE customer SET name = ?, address = ?, phoneNum = ? WHERE id = ?");
+	        
+	        pstmt.setString(1, cust.getName());
+	        pstmt.setString(2, cust.getAddress());
+	        pstmt.setLong(3, cust.getPhoneNum());
+	        pstmt.setInt(4, cust.getId());
+
+	        int rowsAffected = pstmt.executeUpdate();
+	        System.out.println("Rows affected: " + rowsAffected);
+
+	    } catch (SQLException e) {
+	        System.out.println("SQLException occurs in updateCustomerData: " + e);
+	    } finally {
+	        JdbcConnectionUtil.closeResources();
+	        System.out.println("CustomerDao : updateCustomerData(-) ends");
+	    }
+		return true;
+	}
+	
+	public boolean deleteCustomerData(int customerId) {
+	    System.out.println("CustomerDao : deleteCustomerData(-) starts");
+
+	    try {
+	        con = JdbcConnectionUtil.getConnection();
+
+	        pstmt = con.prepareStatement("DELETE FROM customer WHERE id = ?");
+	        pstmt.setInt(1, customerId);
+
+	        int rowsAffected = pstmt.executeUpdate();
+	        System.out.println("Rows affected: " + rowsAffected);
+
+	    } catch (SQLException e) {
+	        System.out.println("SQLException occurs in deleteCustomerData: " + e);
+	    } finally {
+	        JdbcConnectionUtil.closeResources();
+	        System.out.println("CustomerDao : deleteCustomerData(-) ends");
+	    }
+		return true;
+	}
 }

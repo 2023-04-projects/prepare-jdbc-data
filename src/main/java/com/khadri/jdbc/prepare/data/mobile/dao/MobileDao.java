@@ -43,7 +43,11 @@ public class MobileDao {
 		}
 	}
 
+<<<<<<< HEAD
 	public void selectMobileData() {
+=======
+	public void SelectData() {
+>>>>>>> origin/KHADRI-21092024-PM
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
 			Statement stmt = conn.createStatement();
@@ -57,11 +61,16 @@ public class MobileDao {
 		} catch (SQLException e) {
 			System.out.println(" Exception occours:" + e);
 
+<<<<<<< HEAD
 			System.out.println(" MobileDao : mobileData(-) ends");
+=======
+			System.out.println(" MobileDao :  mobileData(-) ends");
+>>>>>>> origin/KHADRI-21092024-PM
 
 		}
 
 	}
+<<<<<<< HEAD
 
 	public boolean MobileupdatetData(Mobile mobile) {
 		System.out.println("Updating Mobile Record...!!!!");
@@ -116,4 +125,6 @@ public class MobileDao {
 		return true;
 	}
 
+=======
+>>>>>>> origin/KHADRI-21092024-PM
 }
