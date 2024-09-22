@@ -26,17 +26,16 @@ public class JdbcDataDriver {
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
+	private MobileDataProcessor mobileDataProcessor;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
-		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketDao();
-		superMarketDao = new SuperMarketDao();
-		custDao = new CustomerDao();
 		movieDao = new MovieDao();
+		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 	}
 
 	public static void main(String[] args) {
@@ -81,11 +80,6 @@ public class JdbcDataDriver {
 				}
 
 				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
@@ -188,7 +182,6 @@ public class JdbcDataDriver {
 			System.out.println("Please choose the operation type: ");
 			int operationTypeMobile = scanner.nextInt();
 
-			
 			if (operationTypeMobile == 1) {
 
 				System.out.println("How many records do you want to insert ? : ");
@@ -197,20 +190,25 @@ public class JdbcDataDriver {
 				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 				int rowcount = 1;
 				for (int i = 0; i < Count; i++) {
-					mobileDataProcessor.process(rowcount);
+					mobileDataProcessor.selectProcess(rowcount);
+					mobileDataProcessor.updateProcess();
 					rowcount++;
 				}
 			} else if (operationTypeMobile == 2) {
 				System.out.println("fetching mobile records from database!!!!");
-				mobileDao.SelectData();
+				mobileDao.selectMobileData();
+			} else if (operationTypeMobile == 3) {
+				System.out.println("updating mobile records into database!!!!");
+				mobileDataProcessor.updateProcess();
+			} else if (operationTypeMobile == 4) {
+				System.out.println("deleting mobile records in database!!!!");
+				mobileDataProcessor.deleteProcess();
+
+			} else {
+				System.out.println("invalid operation type selected!!!");
 			}
 
-			System.out.println("How many records do you want to insert ? : ");
-			int Count = scanner.nextInt();
-
-			
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
-		default:
 
 			break;
 
