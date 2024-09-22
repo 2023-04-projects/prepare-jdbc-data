@@ -18,14 +18,12 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-
 	private EmployeeDao empDao;;
-
 	private CustomerDao custDao;
-
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
+	private EmployeeDataProcessor empProcessor;
 
 	{
 		scanner = new Scanner(System.in);
@@ -34,9 +32,7 @@ public class JdbcDataDriver {
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketDao();
-		superMarketDao = new SuperMarketDao();
-		custDao = new CustomerDao();
-		movieDao = new MovieDao();
+		empProcessor = new EmployeeDataProcessor(scanner, empDao);
 	}
 
 	public static void main(String[] args) {
@@ -60,8 +56,6 @@ public class JdbcDataDriver {
 
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
 
-			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
-
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
 			});
@@ -73,22 +67,26 @@ public class JdbcDataDriver {
 				System.out.println("How Many Records do you want to insert ? :");
 				int employeeCount = scanner.nextInt();
 
-				EmployeeDataProcessor emp = new EmployeeDataProcessor(scanner, empDao);
+				EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
 				int empCount = 1;
 				for (int i = 0; i < employeeCount; i++) {
-					emp.process(empCount);
+					empProcessor.insertProcess(empCount);
 					empCount++;
 				}
 
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
-				System.out.println(employeeCount + "records inserted sucessfully");
-
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
-				empDao.employeeSelectData();
+				empDao.selectEmployeeData();
+				
+			} else if (operationTypeEmployee == 3) {  
+			    System.out.println("Updating employee records...");
+			    empProcessor.updateProcess();
+
+			}else if (operationTypeEmployee == 4) { 
+			    System.out.println("Deleting employee records...");
+			    empProcessor.deleteProcess();
+			} else {
+			    System.out.println("Invalid operation type selected.");
 			}
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 
@@ -179,7 +177,6 @@ public class JdbcDataDriver {
 			break;
 
 		case 5:
-
 			System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
@@ -189,44 +186,20 @@ public class JdbcDataDriver {
 			int operationTypeMobile = scanner.nextInt();
 
 			if (operationTypeMobile == 1) {
-
-				System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");
-				Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
-					System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
-				});
-
-				System.out.println("Please choose the operation type: ");
-				int operationTypeMobiles = scanner.nextInt();
-
-				if (operationTypeMobile == 1) {
-
-					System.out.println("How many records do you want to insert ? : ");
-					int Count = scanner.nextInt();
-
-					MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-					int rowcount = 1;
-					for (int i = 0; i < Count; i++) {
-						mobileDataProcessor.process(rowcount);
-						rowcount++;
-					}
-				} else if (operationTypeMobile == 2) {
-					System.out.println("fetching mobile records from database!!!!");
-					mobileDao.SelectData();
-				}
-
-				System.out.println("How many records do you want to insert ? : ");
+				System.out.println("How Many Records do you want to insert ? :");
 				int Count = scanner.nextInt();
-
 				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 				int rowcount = 1;
 				for (int i = 0; i < Count; i++) {
 					mobileDataProcessor.process(rowcount);
 					rowcount++;
 				}
-			} else if (operationTypeMobile == 2) {
-
-			}
-			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
+				} else if (operationTypeMobile == 2) {
+					System.out.println("fetching mobile records from database!!!!");
+					mobileDao.SelectData();
+				}
+				System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + " Processor ends ######");
+			
 		default:
 
 			break;
