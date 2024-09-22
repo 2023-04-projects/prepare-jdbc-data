@@ -18,43 +18,29 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-<<<<<<< HEAD
 
 	private EmployeeDao empDao;;
-
-=======
-	private EmployeeDao empDao;;
->>>>>>> origin/KHADRI-21092024-PM
 	private CustomerDao custDao;
 
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
-<<<<<<< HEAD
-	private MobileDataProcessor mobileDataProcessor;
-=======
+	private MobileDataProcessor mobileProcessor;
 	private CustomerDataProcessor custProcessor;
->>>>>>> origin/KHADRI-21092024-PM
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
-<<<<<<< HEAD
-=======
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketDao();
 		superMarketDao = new SuperMarketDao();
->>>>>>> origin/KHADRI-21092024-PM
 		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
-<<<<<<< HEAD
-		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-=======
-		 custProcessor = new CustomerDataProcessor(scanner, custDao);
->>>>>>> origin/KHADRI-21092024-PM
+		mobileProcessor = new MobileDataProcessor(scanner, mobileDao);
+		custProcessor = new CustomerDataProcessor(scanner, custDao);
 	}
 
 	public static void main(String[] args) {
@@ -77,11 +63,6 @@ public class JdbcDataDriver {
 		case 1:
 
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor Starts ######");
-<<<<<<< HEAD
-
-			System.out.println("##### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + "Processor Starts #####");
-=======
->>>>>>> origin/KHADRI-21092024-PM
 
 			Arrays.stream(OperationTypes.values()).forEach(eachOperation -> {
 				System.out.println(eachOperation.getOperationType() + " : " + eachOperation.getOperationName());
@@ -100,11 +81,8 @@ public class JdbcDataDriver {
 					emp.process(empCount);
 					empCount++;
 				}
-<<<<<<< HEAD
 
 				System.out.println(employeeCount + "records inserted sucessfully");
-=======
->>>>>>> origin/KHADRI-21092024-PM
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				empDao.employeeSelectData();
@@ -133,14 +111,14 @@ public class JdbcDataDriver {
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
 				custDao.selectCustomerData();
-			}else if (operationTypeCustomer == 3) {  
-			    System.out.println("Updating customer records...");
-			   custProcessor.updateProcess();
-			} else if (operationTypeCustomer == 4) {  
-			    System.out.println("Deleting customer records...");
-			    custProcessor.deleteProcess();
+			} else if (operationTypeCustomer == 3) {
+				System.out.println("Updating customer records...");
+				custProcessor.updateProcess();
+			} else if (operationTypeCustomer == 4) {
+				System.out.println("Deleting customer records...");
+				custProcessor.deleteProcess();
 			} else {
-			    System.out.println("Invalid operation type selected.");
+				System.out.println("Invalid operation type selected.");
 			}
 			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
@@ -214,11 +192,7 @@ public class JdbcDataDriver {
 			int operationTypeMobile = scanner.nextInt();
 
 			if (operationTypeMobile == 1) {
-				
-					System.out.println("How many records do you want to insert ? : ");
-					int Count = scanner.nextInt();
 
-<<<<<<< HEAD
 				System.out.println("How many records do you want to insert ? : ");
 				int Count = scanner.nextInt();
 
@@ -234,31 +208,14 @@ public class JdbcDataDriver {
 				mobileDao.selectMobileData();
 			} else if (operationTypeMobile == 3) {
 				System.out.println("updating mobile records into database!!!!");
-				mobileDataProcessor.updateProcess();
+				mobileProcessor.updateProcess();
 			} else if (operationTypeMobile == 4) {
 				System.out.println("deleting mobile records in database!!!!");
-				mobileDataProcessor.deleteProcess();
+				mobileProcessor.deleteProcess();
 
 			} else {
 				System.out.println("invalid operation type selected!!!");
 			}
-
-			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
-=======
-					MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-					int rowcount = 1;
-					for (int i = 0; i < Count; i++) {
-						mobileDataProcessor.process(rowcount);
-						rowcount++;
-					}
-				} else if (operationTypeMobile == 2) {
-					System.out.println("fetching mobile records from database!!!!");
-					mobileDao.SelectData();
-				}
-			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
-			break;
-		default:
->>>>>>> origin/KHADRI-21092024-PM
 
 			break;
 
