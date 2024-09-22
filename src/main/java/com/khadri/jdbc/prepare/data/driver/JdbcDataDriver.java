@@ -10,6 +10,7 @@ import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
+import com.khadri.jdbc.prepare.data.movie.Movie;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
@@ -26,6 +27,7 @@ public class JdbcDataDriver {
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
+	private MovieDataProcesser movieDataProcesser;
 
 	{
 		scanner = new Scanner(System.in);
@@ -37,6 +39,7 @@ public class JdbcDataDriver {
 		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
+		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
 	}
 
 	public static void main(String[] args) {
@@ -163,16 +166,23 @@ public class JdbcDataDriver {
 				System.out.println("How Many Records do you want to insert ? :");
 				int movieCount = scanner.nextInt();
 
-				MovieDataProcesser movie = new MovieDataProcesser(scanner, movieDao);
+				MovieDataProcesser movieProcess = new MovieDataProcesser(scanner, movieDao);
 				int recordCount = 1;
 				for (int i = 0; i < movieCount; i++) {
-					movie.process(recordCount);
+					movieProcess.process(recordCount);
+					movieProcess.updateProcess();
 					recordCount++;
 				}
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
 				movieDao.movieSelectData();
+			} else if (operationType == 3) {
+				System.out.println("updating movie databace records");
+				movieDataProcesser.updateProcess();
+			} else if (operationType == 4) {
+				System.out.println("Delete movie data records");
+				movieDataProcesser.deleteProcess();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");

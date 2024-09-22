@@ -37,4 +37,49 @@ public class MovieDataProcesser {
 
 		}
 	}
+
+	public void updateProcess() {
+		try {
+			System.out.println(" Record Reading starts");
+
+			System.out.println("Enter Movie_Id to updated : ");
+			int id = scanner.nextInt();
+
+			System.out.println("Enter new Movie Name : ");
+			String name = scanner.next();
+
+			System.out.println("Enter  new Movie Budeget : ");
+			double movieBudget = scanner.nextDouble();
+
+			System.out.println(" Record Reading ends ");
+
+			Movie movie = new Movie(id, name, movieBudget);
+			boolean movieUpdateData = movieDao.movieUpdateData(movie);
+			if (movieUpdateData) {
+				System.out.println("movie deta update succesfully");
+			} else {
+				System.out.println("movie update failed");
+			}
+		} catch (Exception e) {
+			System.out.println("MovieUpdateDataProcesser Exception occours" + e);
+
+		}
+	}
+
+	public void deleteProcess() {
+		try {
+			System.out.println("Enter Movie id to delete: ");
+			int id = scanner.nextInt();
+
+			boolean isDeleted = movieDao.deleteMovieData(id);
+
+			if (isDeleted) {
+				System.out.println("Movie deleted successfully.");
+			} else {
+				System.out.println("movie delete failed.");
+			}
+		} catch (Exception e) {
+			System.out.println("DeleteMovie Exception occurs: " + e);
+		}
+	}
 }
