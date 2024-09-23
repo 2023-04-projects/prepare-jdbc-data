@@ -2,7 +2,7 @@ package com.khadri.jdbc.prepare.data.operation;
 
 public enum OperationTypes {
 
-	INSERT(1, "INSERT"), SELECT(2, "SELECT"), UPDATE(3, "update"), DELEDTE(4, "delete");
+	INSERT(1, "INSERT"), SELECT(2, "SELECT"), UPDATE(3, "UPDATE"), DELEDTE(4, "DELETE");
 
 	private Integer operationType;
 	private String operationName;

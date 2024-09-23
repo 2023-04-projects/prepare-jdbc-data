@@ -19,7 +19,7 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 public class JdbcDataDriver {
 	private Scanner scanner;
 
-	private EmployeeDao empDao;;
+	private EmployeeDao empDao;
 	private CustomerDao custDao;
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
@@ -30,10 +30,6 @@ public class JdbcDataDriver {
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
-		movieDao = new MovieDao();
-		superMarketDao = new SuperMarketDao();
-		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
@@ -127,20 +123,20 @@ public class JdbcDataDriver {
 
 				int marketCount = 1;
 				for (int i = 0; i < recordCount3; i++) {
-					superMarketDataProcessor.insertProcess(marketCount);
+					superMarketDataProcessor.insertSuperMarketProcess(marketCount);
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
 				System.out.println("Fetching SuperMarket Database Records ..! ");
-				superMarketDao.selectSuperMarketData();
+				superMarketDataProcessor.selectSuperMarketProcess(operationTypeSuperMarket);
 
 			} else if (operationTypeSuperMarket == 3) {
-				System.out.println("Updated SuperMarket Records Successfully ..!");
-				superMarketDataProcessor.updateProcess();
+				System.out.println("Update SuperMarket Record  ..!");
+				superMarketDataProcessor.updateSuperMarketProcess();
 				
 			}else if (operationTypeSuperMarket == 4) {
-				System.out.println("Deleted SuperMarket Records Successfully ..!");
-				superMarketDataProcessor.updateProcess();
+				System.out.println("Delete SuperMarket Record Into DataBase ..!");
+				superMarketDataProcessor.deleteSuperMarketProcess();
 				
 			}else {
 				System.out.println("Invalid Operation ..!");
@@ -179,7 +175,7 @@ public class JdbcDataDriver {
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
 			break;
-
+			
 		case 5:
 
 			System.out.println("##### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor Starts  ######");

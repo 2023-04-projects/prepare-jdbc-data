@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 
+
 public class SuperMarketDataProcessor {
 
 	private Scanner scanner;
@@ -15,9 +16,10 @@ public class SuperMarketDataProcessor {
 		super();
 		this.scanner = scanner;
 		this.superDao = superDao;
+		this.superDao = new SuperMarketDao();
 	}
 
-	public void insertProcess(int recordNumber) {
+	public void insertSuperMarketProcess(int recordNumber) {
 
 		try {
 
@@ -66,39 +68,22 @@ public class SuperMarketDataProcessor {
 		System.out.println();
 	}
 
-	public void selectProcess(int recordNumber) {
+	public void selectSuperMarketProcess(int recordNumber) {
 
 		try {
 
 			System.out.println(recordNumber + "Record Reading starts");
 
-			System.out.println("Please Enter PROD_NAME : ");
-			String prodName = scanner.next();
-
-			System.out.println("Please Enter PROD_ID ");
-			int prodId = scanner.nextInt();
-
-			System.out.println("Please Enter PROD_PRICE ");
-			double prodPrice = scanner.nextDouble();
-
-			System.out.println("Please Enter PROD_QTY ");
-			int prodQty = scanner.nextInt();
-
-			System.out.println("Processing Product Total Amount");
-
-			double totalAmt = prodPrice * prodQty;
-			System.out.println("TOTAL_AMT : " + totalAmt);
-
-			superMarket = new SuperMarket(prodName, prodId, prodPrice, prodQty, totalAmt);
-
 			superDao.selectSuperMarketData();
+
+			System.out.println(recordNumber + "Record Reading end");
 
 		} catch (Exception e) {
 			System.out.println("SelectInsertSuperMarketDataProcessor Exception Occour" + e);
 		}
 	}
 
-	public void updateProcess() {
+	public void updateSuperMarketProcess() {
 
 		try {
 			System.out.println("Enter SuperMarket Update PROD_ID : ");
@@ -130,7 +115,7 @@ public class SuperMarketDataProcessor {
 
 	}
 
-	public void deleteProcess() {
+	public void deleteSuperMarketProcess() {
 
 		try {
 			System.out.println("Enter superMarket PROD_ID: ");
@@ -141,7 +126,7 @@ public class SuperMarketDataProcessor {
 			if (isDeleteSuperMarket) {
 				System.out.println("SuperMarket Deleted Record Successfully..! ");
 			} else {
-				System.out.println("SuperMarket Updated Record Failed..!");
+				System.out.println("SuperMarket Deleted Record Failed..!");
 			}
 		} catch (Exception e) {
 			System.out.println("DeleteSuperMarketProcessor Exception occurs: " + e);
