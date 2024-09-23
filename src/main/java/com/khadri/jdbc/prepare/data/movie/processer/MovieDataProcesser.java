@@ -11,10 +11,11 @@ public class MovieDataProcesser {
 
 	public MovieDataProcesser(Scanner scanner, MovieDao movieDao) {
 		this.scanner = scanner;
-		this.movieDao = movieDao;
+		this.movieDao = new MovieDao();
+
 	}
 
-	public void process(int recordNumber) {
+	public void insertProcess(int recordNumber) {
 		try {
 			System.out.println(recordNumber + " Record Reading starts");
 
@@ -35,6 +36,16 @@ public class MovieDataProcesser {
 		} catch (Exception e) {
 			System.out.println("MovieDataProcesser Exception occours" + e);
 
+		}
+	}
+
+	public void selectProcess(int recordNumber) {
+		try {
+			System.out.println(recordNumber + " Record Reading starts");
+			movieDao.movieSelectData();
+			System.out.println(recordNumber + " Record Reading ends ");
+		} catch (Exception e) {
+			System.out.println("MovieDataProcesser Exception occours" + e);
 		}
 	}
 
@@ -62,7 +73,6 @@ public class MovieDataProcesser {
 			}
 		} catch (Exception e) {
 			System.out.println("MovieUpdateDataProcesser Exception occours" + e);
-
 		}
 	}
 

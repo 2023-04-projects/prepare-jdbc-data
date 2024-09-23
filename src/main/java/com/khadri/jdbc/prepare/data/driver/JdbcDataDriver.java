@@ -10,7 +10,6 @@ import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
-import com.khadri.jdbc.prepare.data.movie.Movie;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
@@ -19,26 +18,21 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-
 	private EmployeeDao empDao;;
-
 	private CustomerDao custDao;
-
-	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
 	private MovieDataProcesser movieDataProcesser;
+	private MovieDao movieDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
-		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketDao();
 		superMarketDao = new SuperMarketDao();
 		custDao = new CustomerDao();
-		movieDao = new MovieDao();
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
 	}
 
@@ -162,21 +156,17 @@ public class JdbcDataDriver {
 			int operationType = scanner.nextInt();
 
 			if (operationType == 1) {
-
 				System.out.println("How Many Records do you want to insert ? :");
 				int movieCount = scanner.nextInt();
-
-				MovieDataProcesser movieProcess = new MovieDataProcesser(scanner, movieDao);
 				int recordCount = 1;
 				for (int i = 0; i < movieCount; i++) {
-					movieProcess.process(recordCount);
-					movieProcess.updateProcess();
+					movieDataProcesser.insertProcess(recordCount);
 					recordCount++;
 				}
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				movieDao.movieSelectData();
+				movieDataProcesser.selectProcess(operationType);
 			} else if (operationType == 3) {
 				System.out.println("updating movie databace records");
 				movieDataProcesser.updateProcess();
