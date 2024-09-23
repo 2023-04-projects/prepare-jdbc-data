@@ -40,6 +40,15 @@ public class EmployeeDataProcessor {
 		}
 
 	}
+	public void selectProcess(int recordNumber) {
+		try {
+			System.out.println(recordNumber + " Record Reading starts");
+			empDao.selectEmployeeData();
+			System.out.println(recordNumber + " Record Reading ends ");
+		} catch (Exception e) {
+			System.out.println("EmployeeDataProcesser Exception occours" + e);
+		}
+	}
 
 	
 	public void updateProcess() {

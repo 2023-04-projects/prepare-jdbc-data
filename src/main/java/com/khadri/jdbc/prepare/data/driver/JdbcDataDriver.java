@@ -18,21 +18,24 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-	private EmployeeDao empDao;;
+	private EmployeeDao empDao;
 	private CustomerDao custDao;
-	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
-	private EmployeeDataProcessor empProcessor;
+	private MovieDataProcesser movieDataProcesser;
+	private MovieDao movieDao;
+	private EmployeeDataProcessor employeeDataProcessor;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
-		movieDao = new MovieDao();
 		superMarketDao = new SuperMarketDao();
-		empProcessor = new EmployeeDataProcessor(scanner, empDao);
+		custDao = new CustomerDao();
+		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
+		 employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+
 	}
 
 	public static void main(String[] args) {
@@ -63,28 +66,26 @@ public class JdbcDataDriver {
 			int operationTypeEmployee = scanner.nextInt();
 
 			if (operationTypeEmployee == 1) {
-
 				System.out.println("How Many Records do you want to insert ? :");
 				int employeeCount = scanner.nextInt();
 
-				EmployeeDataProcessor empProcessor = new EmployeeDataProcessor(scanner, empDao);
 				int empCount = 1;
 				for (int i = 0; i < employeeCount; i++) {
-					empProcessor.insertProcess(empCount);
+					employeeDataProcessor.insertProcess(empCount);
 					empCount++;
 				}
 
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
-				empDao.selectEmployeeData();
+				employeeDataProcessor.selectProcess(operationTypeEmployee);
 				
 			} else if (operationTypeEmployee == 3) {  
 			    System.out.println("Updating employee records...");
-			    empProcessor.updateProcess();
+			    employeeDataProcessor.updateProcess();
 
 			}else if (operationTypeEmployee == 4) { 
 			    System.out.println("Deleting employee records...");
-			    empProcessor.deleteProcess();
+			    employeeDataProcessor.deleteProcess();
 			} else {
 			    System.out.println("Invalid operation type selected.");
 			}
@@ -157,20 +158,23 @@ public class JdbcDataDriver {
 			int operationType = scanner.nextInt();
 
 			if (operationType == 1) {
-
 				System.out.println("How Many Records do you want to insert ? :");
 				int movieCount = scanner.nextInt();
-
-				MovieDataProcesser movie = new MovieDataProcesser(scanner, movieDao);
 				int recordCount = 1;
 				for (int i = 0; i < movieCount; i++) {
-					movie.process(recordCount);
+					movieDataProcesser.insertProcess(recordCount);
 					recordCount++;
 				}
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				movieDao.movieSelectData();
+				movieDataProcesser.selectProcess(operationType);
+			} else if (operationType == 3) {
+				System.out.println("updating movie databace records");
+				movieDataProcesser.updateProcess();
+			} else if (operationType == 4) {
+				System.out.println("Delete movie data records");
+				movieDataProcesser.deleteProcess();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
