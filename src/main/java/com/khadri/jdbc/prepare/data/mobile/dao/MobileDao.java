@@ -11,15 +11,15 @@ import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
 public class MobileDao {
 
-	public void insertData(Mobile mobile) {
-		System.out.println(" MobileDao : mobileData(-) starts");
+	PreparedStatement pstmt;
+	Statement stmt;
 
-		PreparedStatement pstmt;
-		Statement stmt;
+	public void mobileInsertData(Mobile mobile) {
+
+		System.out.println(" mobileInsertData : mobileInsertData(-) starts");
 
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
-			System.out.println("MobileDao : MobileDao(-) starts");
 
 			pstmt = conn.prepareStatement("insert into mobile values(?,?,?,?,?,?,?)");
 
@@ -31,19 +31,18 @@ public class MobileDao {
 			pstmt.setInt(6, mobile.getBattery());
 			pstmt.setInt(7, mobile.getPrice());
 
-			pstmt.executeUpdate();
-
 		} catch (SQLException e) {
-			System.out.println("MobileDao Exception occours:" + e);
+			System.out.println("mobileInsertData Exception occours:" + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
 
-			System.out.println("MobileDao : MobileDao(-) ends");
+			System.out.println("mobileInsertData : mobileInsertData(-) ends");
 
 		}
+
 	}
 
-	public void selectMobileData() {
+	public void mobileSelectData() {
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
 			Statement stmt = conn.createStatement();
@@ -55,7 +54,7 @@ public class MobileDao {
 			}
 
 		} catch (SQLException e) {
-			System.out.println(" Exception occours:" + e);
+			System.out.println("MobileSelectDao SQLException occours:" + e);
 
 			System.out.println(" MobileDao : mobileData(-) ends");
 
@@ -84,11 +83,11 @@ public class MobileDao {
 			int rowsAffected = pstmt.executeUpdate();
 			System.out.println("Update mobile record successfully" + rowsAffected);
 		} catch (SQLException e) {
-			System.out.println("(SQL Exception Occurs:" + e);
+			System.out.println("MobileupdatetData SQLException Occurs:" + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
 
-			System.out.println("MobileDao : updateMobileDao(-) ends");
+			System.out.println("MobileDao : MobileupdatetData(-) ends");
 		}
 		return true;
 	}

@@ -16,7 +16,8 @@ public class MobileDataProcessor {
 		this.mobileDao = mobileDao;
 	}
 
-	public void selectProcess(int recordNumber) {
+	public void insertProcess(int recordNumber) {
+
 		try {
 
 			System.out.println(recordNumber + "Record Reading starts");
@@ -46,9 +47,19 @@ public class MobileDataProcessor {
 
 			Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
 
-			mobileDao.selectMobileData();
+			mobileDao.mobileInsertData(mobile);
 		} catch (Exception e) {
 			System.out.println("MobileDataProssor Exception occours" + e);
+		}
+	}
+
+	public void selectProcess(int recordNumber) {
+		try {
+			System.out.println(recordNumber + " Record Reading starts");
+			mobileDao.mobileSelectData();
+			System.out.println(recordNumber + " Record Reading ends ");
+		} catch (Exception e) {
+			System.out.println("MovieDataProcesser Exception occours" + e);
 		}
 	}
 
@@ -82,7 +93,7 @@ public class MobileDataProcessor {
 
 			Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
 
-			boolean MobileupdatetData = mobileDao.MobileupdatetData(mobile);
+			boolean mobileupdatetData = mobileDao.MobileupdatetData(mobile);
 		} catch (Exception e) {
 			System.out.println("MobileDataProssor Exception occours" + e);
 		}
@@ -105,4 +116,5 @@ public class MobileDataProcessor {
 			System.out.println("Mobile Deleting Exception occours" + e);
 		}
 	}
+
 }

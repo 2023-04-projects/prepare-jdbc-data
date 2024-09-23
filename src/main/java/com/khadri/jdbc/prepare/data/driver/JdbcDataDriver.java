@@ -25,7 +25,7 @@ public class JdbcDataDriver {
 	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
-	private MobileDataProcessor mobileProcessor;
+	private MobileDataProcessor mobileDataProcessor;
 	private CustomerDataProcessor custProcessor;
 
 	{
@@ -33,13 +33,9 @@ public class JdbcDataDriver {
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
 		custDao = new CustomerDao();
-		movieDao = new MovieDao();
-		superMarketDao = new SuperMarketDao();
-		superMarketDao = new SuperMarketDao();
-		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
-		mobileProcessor = new MobileDataProcessor(scanner, mobileDao);
+		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 		custProcessor = new CustomerDataProcessor(scanner, custDao);
 	}
 
@@ -199,19 +195,18 @@ public class JdbcDataDriver {
 				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 				int rowcount = 1;
 				for (int i = 0; i < Count; i++) {
-					mobileDataProcessor.selectProcess(rowcount);
-					mobileDataProcessor.updateProcess();
+					mobileDataProcessor.insertProcess(rowcount);
 					rowcount++;
 				}
 			} else if (operationTypeMobile == 2) {
 				System.out.println("fetching mobile records from database!!!!");
-				mobileDao.selectMobileData();
+				mobileDataProcessor.selectProcess(operationTypeMobile);
 			} else if (operationTypeMobile == 3) {
 				System.out.println("updating mobile records into database!!!!");
-				mobileProcessor.updateProcess();
+				mobileDataProcessor.updateProcess();
 			} else if (operationTypeMobile == 4) {
 				System.out.println("deleting mobile records in database!!!!");
-				mobileProcessor.deleteProcess();
+				mobileDataProcessor.deleteProcess();
 
 			} else {
 				System.out.println("invalid operation type selected!!!");
