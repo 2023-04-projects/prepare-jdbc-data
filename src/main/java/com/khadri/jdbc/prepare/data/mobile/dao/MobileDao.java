@@ -31,8 +31,11 @@ public class MobileDao {
 			pstmt.setInt(6, mobile.getBattery());
 			pstmt.setInt(7, mobile.getPrice());
 
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			System.out.println("mobileInsertData Exception occours:" + e);
+
 		} finally {
 			JdbcConnectionUtil.closeResources();
 
@@ -70,7 +73,7 @@ public class MobileDao {
 			System.out.println("MobileDao : updateMobileDao(-) starts");
 
 			PreparedStatement pstmt = conn.prepareStatement(
-					"UPDATE mobile SET name = ?, ram = ?, rom = ?,camera = ?,battery = ?,price = ? WHERE id = ?");
+					"UPDATE mobile SET MOBILE_NAME = ?, RAM = ?, ROM = ?,CAMERA = ?,BATTERY_CAPACITY = ?,PRICE = ? WHERE MOBILE_ID = ?");
 
 			pstmt.setString(1, mobile.getName());
 			pstmt.setInt(2, mobile.getRam());
@@ -92,15 +95,15 @@ public class MobileDao {
 		return true;
 	}
 
-	public boolean MobileDeleteData(int id) {
+	public boolean MobileDeleteData(int MOBILE_ID) {
 		System.out.println("deleting Mobile Record...!!!!");
 
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
 			System.out.println("MobileDao : deleteMobileData(-) starts");
 
-			PreparedStatement pstmt = conn.prepareStatement("Delete from mobile where id = ?");
-			pstmt.setInt(1, id);
+			PreparedStatement pstmt = conn.prepareStatement("Delete from mobile where MOBILE_ID = ?");
+			pstmt.setInt(1, MOBILE_ID);
 
 			int rowsAffected = pstmt.executeUpdate();
 			System.out.println("delete mobile record successfully" + rowsAffected);
