@@ -23,21 +23,28 @@ public class JdbcDataDriver {
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
 
+<<<<<<< HEAD
 	private MobileDataProcessor mobileDataProcessor;
 	private CustomerDataProcessor custProcessor;
 	private MovieDataProcesser movieDataProcesser;
+=======
+	private CustomerDataProcessor custProcessor;
+>>>>>>> 77c2587766a14e5471235c605f9e727ec7693575
 	private MovieDao movieDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
 		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 		custProcessor = new CustomerDataProcessor(scanner, custDao);
+<<<<<<< HEAD
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
+=======
+		custDao = new CustomerDao();
+>>>>>>> 77c2587766a14e5471235c605f9e727ec7693575
 	}
 
 	public static void main(String[] args) {

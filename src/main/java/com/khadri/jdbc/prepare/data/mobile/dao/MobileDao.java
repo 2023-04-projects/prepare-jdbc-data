@@ -11,7 +11,7 @@ import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
 public class MobileDao {
 
-	PreparedStatement pstmt;
+	PreparedStatement pstmt = null;
 	Statement stmt;
 
 	public void mobileInsertData(Mobile mobile) {
@@ -72,13 +72,13 @@ public class MobileDao {
 			PreparedStatement pstmt = conn.prepareStatement(
 					"UPDATE mobile SET name = ?, ram = ?, rom = ?,camera = ?,battery = ?,price = ? WHERE id = ?");
 
-			pstmt.setInt(1, mobile.getId());
-			pstmt.setString(2, mobile.getName());
-			pstmt.setInt(3, mobile.getRam());
-			pstmt.setInt(4, mobile.getRom());
-			pstmt.setString(5, mobile.getCamera());
-			pstmt.setInt(6, mobile.getBattery());
-			pstmt.setInt(7, mobile.getPrice());
+			pstmt.setString(1, mobile.getName());
+			pstmt.setInt(2, mobile.getRam());
+			pstmt.setInt(3, mobile.getRom());
+			pstmt.setString(4, mobile.getCamera());
+			pstmt.setInt(5, mobile.getBattery());
+			pstmt.setInt(6, mobile.getPrice());
+			pstmt.setInt(7, mobile.getId());
 
 			int rowsAffected = pstmt.executeUpdate();
 			System.out.println("Update mobile record successfully" + rowsAffected);
