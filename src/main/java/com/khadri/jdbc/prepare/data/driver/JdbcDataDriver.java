@@ -18,25 +18,23 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
-
 	private EmployeeDao empDao;;
 	private CustomerDao custDao;
-
-	private MovieDao movieDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
-	private MobileDataProcessor mobileDataProcessor;
+
 	private CustomerDataProcessor custProcessor;
+	private MovieDao movieDao;
 
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
 		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
 		custProcessor = new CustomerDataProcessor(scanner, custDao);
+		custDao = new CustomerDao();
 	}
 
 	public static void main(String[] args) {
@@ -158,20 +156,23 @@ public class JdbcDataDriver {
 			int operationType = scanner.nextInt();
 
 			if (operationType == 1) {
-
 				System.out.println("How Many Records do you want to insert ? :");
 				int movieCount = scanner.nextInt();
-
-				MovieDataProcesser movie = new MovieDataProcesser(scanner, movieDao);
 				int recordCount = 1;
 				for (int i = 0; i < movieCount; i++) {
-					movie.process(recordCount);
+					movieDataProcesser.insertProcess(recordCount);
 					recordCount++;
 				}
 
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				movieDao.movieSelectData();
+				movieDataProcesser.selectProcess(operationType);
+			} else if (operationType == 3) {
+				System.out.println("updating movie databace records");
+				movieDataProcesser.updateProcess();
+			} else if (operationType == 4) {
+				System.out.println("Delete movie data records");
+				movieDataProcesser.deleteProcess();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
