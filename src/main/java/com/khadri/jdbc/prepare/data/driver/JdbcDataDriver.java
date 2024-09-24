@@ -178,7 +178,6 @@ public class JdbcDataDriver {
 					movieDataProcesser.insertProcess(recordCount);
 					recordCount++;
 				}
-
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
 				movieDataProcesser.selectProcess(operationType);
