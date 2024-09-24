@@ -1,6 +1,5 @@
 package com.khadri.jdbc.prepare.data.mobile.processor;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
