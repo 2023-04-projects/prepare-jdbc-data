@@ -27,18 +27,16 @@ public class JdbcDataDriver {
 	private MovieDataProcesser movieDataProcesser;
 	private MovieDao movieDao;
 	private EmployeeDataProcessor employeeDataProcessor;
-
+    
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
-		 custDataProcessor = new CustomerDataProcessor(scanner, custDao);
-
+		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		 employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
 
 
 	}
