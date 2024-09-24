@@ -42,11 +42,52 @@ public class MovieDao {
 						.println(resultSet.getInt(1) + " - " + resultSet.getString(2) + " - " + resultSet.getDouble(3));
 			}
 		} catch (SQLException sqle) {
-			System.out.println(" customerSelectDao SQLException occours" + sqle);
+			System.out.println(" MovieSelectDao SQLException occours" + sqle);
+
+		}
+	}
+
+	public boolean movieUpdateData(Movie movie) {
+		try {
+			Connection connection = JdbcConnectionUtil.getConnection();
+			pstmt = connection.prepareStatement("UPDATE movie SET  MovieName =?, MovieBudeget = ? WHERE  MovieId = ? ");
+
+			pstmt.setString(1, movie.getMovieName());
+			pstmt.setDouble(2, movie.getMovieBudeget());
+			pstmt.setInt(3, movie.getMovieId());
+
+			int executeUpdate = pstmt.executeUpdate();
+			System.out.println("UPDATED ROWS IN TABLE" + executeUpdate);
+
+		} catch (SQLException e) {
+			System.out.println("MovieUpdateData SQLException Occours" + e);
 
 		} finally {
 			JdbcConnectionUtil.closeResources();
-			System.out.println("MovieInsertDao : movieInsertData(-) ends");
+			System.out.println("MovieUpdataDao : movieUpdateData(-) ends");
 		}
+		return true;
+
+	}
+
+	public boolean deleteMovieData(int movieId) {
+		System.out.println("CustomerDao : deleteMovieData(-) starts");
+
+		try {
+			Connection con = JdbcConnectionUtil.getConnection();
+
+			pstmt = con.prepareStatement("DELETE FROM movie WHERE MovieId = ?");
+			pstmt.setInt(1, movieId);
+
+			int rowsAffected = pstmt.executeUpdate();
+			System.out.println("Rows affected: " + rowsAffected);
+
+		} catch (SQLException e) {
+			System.out.println("SQLException occurs in deleteMoviesData: " + e);
+		} finally {
+			JdbcConnectionUtil.closeResources();
+			System.out.println("movieDao : deleteMovieData(-) ends");
+		}
+		return true;
 	}
 }

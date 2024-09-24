@@ -41,26 +41,12 @@ public class CustomerDataProcessor {
 	public void selectProcess(int recordNumber) {
 		try {
 			System.out.println(recordNumber + " Record Reading starts");
-
-			System.out.println("Enter Customer id : ");
-			int id = scanner.nextInt();
-
-			System.out.println("Enter Customer name : ");
-			String name = scanner.next();
-
-			System.out.println("Enter  Customer address : ");
-			String address = scanner.next();
-
-			System.out.println("Enter Customer phoneNum : ");
-			Long phoneNum = scanner.nextLong();
-
-			Customer cust = new Customer(id, name, address, phoneNum);
-
 			custDao.selectCustomerData();
+			System.out.println(recordNumber + " Record Reading ends ");
 		} catch (Exception e) {
 			System.out.println("CustomerDataProcesser Exception occours" + e);
-
 		}
+	
 	}
 
 	public void updateProcess() {
