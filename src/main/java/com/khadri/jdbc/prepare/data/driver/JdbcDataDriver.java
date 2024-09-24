@@ -28,7 +28,6 @@ public class JdbcDataDriver {
 	private MovieDao movieDao;
 	private EmployeeDataProcessor employeeDataProcessor;
 	private SuperMarketDataProcessor superMarketDataProcessor;
-
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
@@ -36,6 +35,12 @@ public class JdbcDataDriver {
 		custDao = new CustomerDao();
 		movieDao = new MovieDao();
 		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
+		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
+		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
+		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+
+		superMarketDao = new SuperMarketDao();
+		movieDao = new MovieDao();
 		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
 		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
@@ -124,6 +129,15 @@ public class JdbcDataDriver {
 				custDataProcessor.deleteProcess();
 			} else {
 				System.out.println("Invalid operation type selected.");
+				 custDataProcessor.selectProcess(operationTypeCustomer);
+			}else if (operationTypeCustomer == 3) {  
+			    System.out.println("Updating customer records...");
+			   custDataProcessor.updateProcess();
+			} else if (operationTypeCustomer == 4) {  
+			    System.out.println("Deleting customer records...");
+			    custDataProcessor.deleteProcess();
+			} else {
+			    System.out.println("Invalid operation type selected.");
 			}
 			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
@@ -208,7 +222,6 @@ public class JdbcDataDriver {
 			int operationTypeMobile = scanner.nextInt();
 
 			if (operationTypeMobile == 1) {
-
 				System.out.println("How Many Records do you want to insert ? :");
 				int Count = scanner.nextInt();
 				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
@@ -217,18 +230,14 @@ public class JdbcDataDriver {
 					mobileDataProcessor.process(rowcount);
 					rowcount++;
 				}
-			} else if (operationTypeMobile == 2) {
-				System.out.println("fetching mobile records from database!!!!");
-				mobileDao.SelectData();
-			}
 
+				} else if (operationTypeMobile == 2) {
+					System.out.println("fetching mobile records from database!!!!");
+					mobileDao.SelectData();
+				}
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 			break;
-
-		default:
-
-			break;
-
+				
 		}
 	}
 }
