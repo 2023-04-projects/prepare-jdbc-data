@@ -18,6 +18,8 @@ import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcess
 
 public class JdbcDataDriver {
 	private Scanner scanner;
+
+	private CustomerDataProcessor custDataProcessor;
 	private EmployeeDao empDao;
 	private CustomerDao custDao;
 	private MobileDao mobileDao;
@@ -25,16 +27,17 @@ public class JdbcDataDriver {
 	private MovieDataProcesser movieDataProcesser;
 	private MovieDao movieDao;
 	private EmployeeDataProcessor employeeDataProcessor;
-
+    
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
-		custDao = new CustomerDao();
+		movieDao = new MovieDao();
+		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		 employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+
 
 	}
 
@@ -105,17 +108,23 @@ public class JdbcDataDriver {
 				System.out.println("How many records do you want to insert ? : ");
 				int custCount = scanner.nextInt();
 
-				CustomerDataProcessor custProcessor = new CustomerDataProcessor(scanner, custDao);
 				int custRowCount = 1;
 				for (int i = 0; i < custCount; i++) {
-					custProcessor.process(custRowCount);
+					custDataProcessor.insertProcess(custRowCount);
 					custRowCount++;
 				}
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
-				custDao.customerSelectData();
+				 custDataProcessor.selectProcess(operationTypeCustomer);
+			}else if (operationTypeCustomer == 3) {  
+			    System.out.println("Updating customer records...");
+			   custDataProcessor.updateProcess();
+			} else if (operationTypeCustomer == 4) {  
+			    System.out.println("Deleting customer records...");
+			    custDataProcessor.deleteProcess();
+			} else {
+			    System.out.println("Invalid operation type selected.");
 			}
-
 			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
 
@@ -165,7 +174,6 @@ public class JdbcDataDriver {
 					movieDataProcesser.insertProcess(recordCount);
 					recordCount++;
 				}
-
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
 				movieDataProcesser.selectProcess(operationType);
@@ -190,6 +198,8 @@ public class JdbcDataDriver {
 			int operationTypeMobile = scanner.nextInt();
 
 			if (operationTypeMobile == 1) {
+				
+					
 				System.out.println("How Many Records do you want to insert ? :");
 				int Count = scanner.nextInt();
 				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
@@ -202,8 +212,10 @@ public class JdbcDataDriver {
 					System.out.println("fetching mobile records from database!!!!");
 					mobileDao.SelectData();
 				}
-				System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + " Processor ends ######");
-			
+
+			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
+			break;
+				
 		default:
 
 			break;
