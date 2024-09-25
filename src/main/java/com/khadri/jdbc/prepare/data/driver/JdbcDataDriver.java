@@ -12,6 +12,7 @@ import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
+import com.khadri.jdbc.prepare.data.operation.OperationTypes;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
@@ -24,27 +25,25 @@ public class JdbcDataDriver {
 	private SuperMarketDao superMarketDao;
 	private MovieDao movieDao;
 
-	private CustomerDataProcessor custDataProcessor;
 	private MobileDataProcessor mobileDataProcessor;
+	private CustomerDataProcessor custDataProcessor;
 	private MovieDataProcesser movieDataProcesser;
 	private EmployeeDataProcessor employeeDataProcessor;
 	private SuperMarketDataProcessor superMarketDataProcessor;
 	{
-		scanner = new Scanner(System.in);
-		empDao = new EmployeeDao();
-		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
-		superMarketDao = new SuperMarketDao();
-		movieDao = new MovieDao();
+	scanner=new Scanner(System.in);
+	empDao=new EmployeeDao();
+	mobileDao=new MobileDao();
+	custDao=new CustomerDao();
+	superMarketDao=new SuperMarketDao();
+	movieDao=new MovieDao();
 
-		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
-		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
-		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
-
+	mobileDataProcessor=new MobileDataProcessor(scanner,mobileDao);
+	superMarketDataProcessor=new SuperMarketDataProcessor(scanner,superMarketDao);
+	custDataProcessor=new CustomerDataProcessor(scanner,custDao);
+	movieDataProcesser=new MovieDataProcesser(scanner,movieDao);
+	employeeDataProcessor=new EmployeeDataProcessor(scanner,empDao);
 	}
-
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
@@ -115,7 +114,7 @@ public class JdbcDataDriver {
 
 				int custRowCount = 1;
 				for (int i = 0; i < custCount; i++) {
-					custProcessor.insertProcess(custRowCount);
+					custDataProcessor.insertProcess(custRowCount);
 					custDataProcessor.insertProcess(custRowCount);
 					custRowCount++;
 				}
@@ -124,10 +123,10 @@ public class JdbcDataDriver {
 				custDao.selectCustomerData();
 			} else if (operationTypeCustomer == 3) {
 				System.out.println("Updating customer records...");
-				custProcessor.updateProcess();
+				custDataProcessor.updateProcess();
 			} else if (operationTypeCustomer == 4) {
 				System.out.println("Deleting customer records...");
-				custProcessor.deleteProcess();
+				custDataProcessor.deleteProcess();
 				custDataProcessor.selectProcess(operationTypeCustomer);
 			} else if (operationTypeCustomer == 3) {
 				System.out.println("Updating customer records...");
@@ -247,4 +246,6 @@ public class JdbcDataDriver {
 	
 			break;
 		}
-	}
+	
+  }
+}
