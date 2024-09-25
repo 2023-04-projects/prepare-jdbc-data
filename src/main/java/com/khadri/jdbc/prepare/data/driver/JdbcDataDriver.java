@@ -27,18 +27,23 @@ public class JdbcDataDriver {
 	private MovieDataProcesser movieDataProcesser;
 	private MovieDao movieDao;
 	private EmployeeDataProcessor employeeDataProcessor;
-    
+	private SuperMarketDataProcessor superMarketDataProcessor;
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
 		mobileDao = new MobileDao();
+		custDao = new CustomerDao();
+		movieDao = new MovieDao();
+		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
+		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
+		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
+		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
 		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
 		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
-
-
 	}
 
 	public static void main(String[] args) {
@@ -81,16 +86,16 @@ public class JdbcDataDriver {
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
 				employeeDataProcessor.selectProcess(operationTypeEmployee);
-				
-			} else if (operationTypeEmployee == 3) {  
-			    System.out.println("Updating employee records...");
-			    employeeDataProcessor.updateProcess();
 
-			}else if (operationTypeEmployee == 4) { 
-			    System.out.println("Deleting employee records...");
-			    employeeDataProcessor.deleteProcess();
+			} else if (operationTypeEmployee == 3) {
+				System.out.println("Updating employee records...");
+				employeeDataProcessor.updateProcess();
+
+			} else if (operationTypeEmployee == 4) {
+				System.out.println("Deleting employee records...");
+				employeeDataProcessor.deleteProcess();
 			} else {
-			    System.out.println("Invalid operation type selected.");
+				System.out.println("Invalid operation type selected.");
 			}
 			System.out.println("###### " + DriverTypes.EMPLOYEE.getName().toUpperCase() + " Processor ends ######");
 
@@ -115,6 +120,15 @@ public class JdbcDataDriver {
 				}
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
+				custDataProcessor.selectProcess(operationTypeCustomer);
+			} else if (operationTypeCustomer == 3) {
+				System.out.println("Updating customer records...");
+				custDataProcessor.updateProcess();
+			} else if (operationTypeCustomer == 4) {
+				System.out.println("Deleting customer records...");
+				custDataProcessor.deleteProcess();
+			} else {
+				System.out.println("Invalid operation type selected.");
 				 custDataProcessor.selectProcess(operationTypeCustomer);
 			}else if (operationTypeCustomer == 3) {  
 			    System.out.println("Updating customer records...");
@@ -135,21 +149,31 @@ public class JdbcDataDriver {
 			});
 			System.out.println("Please choose the Operation type: ");
 			int operationTypeSuperMarket = scanner.nextInt();
+
 			if (operationTypeSuperMarket == 1) {
 
 				System.out.println("How many records do you want to insert ? : ");
 				int recordCount3 = scanner.nextInt();
 
-				SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
-						superMarketDao);
 				int marketCount = 1;
 				for (int i = 0; i < recordCount3; i++) {
-					superMarketDataProcessor.process(marketCount);
+					superMarketDataProcessor.insertSuperMarketProcess(marketCount);
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
-				System.out.println("fetching supermarket database records");
-				superMarketDao.selectSuperMarketData();
+				System.out.println("Fetching SuperMarket Database Records ..! ");
+				superMarketDataProcessor.selectSuperMarketProcess(operationTypeSuperMarket);
+
+			} else if (operationTypeSuperMarket == 3) {
+				System.out.println("Update SuperMarket Record  ..!");
+				superMarketDataProcessor.updateSuperMarketProcess();
+
+			} else if (operationTypeSuperMarket == 4) {
+				System.out.println("Delete SuperMarket Record Into DataBase ..!");
+				superMarketDataProcessor.deleteSuperMarketProcess();
+
+			} else {
+				System.out.println("Invalid Operation ..!");
 			}
 
 			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
@@ -198,8 +222,6 @@ public class JdbcDataDriver {
 			int operationTypeMobile = scanner.nextInt();
 
 			if (operationTypeMobile == 1) {
-				
-					
 				System.out.println("How Many Records do you want to insert ? :");
 				int Count = scanner.nextInt();
 				MobileDataProcessor mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
@@ -208,18 +230,14 @@ public class JdbcDataDriver {
 					mobileDataProcessor.process(rowcount);
 					rowcount++;
 				}
+
 				} else if (operationTypeMobile == 2) {
 					System.out.println("fetching mobile records from database!!!!");
 					mobileDao.SelectData();
 				}
-
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 			break;
 				
-		default:
-
-			break;
-
 		}
 	}
 }
