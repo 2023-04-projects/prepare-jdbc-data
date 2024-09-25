@@ -61,6 +61,7 @@ public class CustomerDataProcessor {
 			System.out.println("CustomerDataProcesser Exception occours" + e);
 
 		}
+
 	}
 
 	public void updateProcess() {

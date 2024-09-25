@@ -12,12 +12,12 @@ import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 public class SuperMarketDao {
 
 	Connection conn = JdbcConnectionUtil.getConnection();
-	PreparedStatement pstmt;
+	PreparedStatement pstmt ;
 	Statement stmt;
-
+	
 	public void insertSuperMarketData(SuperMarket market) {
 
-		System.out.println("SuperMarketDao : superMarketInsertData(-) Starts");
+		System.out.println("SuperMarketDao : insertSuperMarketData(-) Starts");
 
 		try {
 
@@ -32,13 +32,9 @@ public class SuperMarketDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("Exception Occured : " + e);
-		} finally {
-			JdbcConnectionUtil.closeResources();
-			System.out.println("SuperMarketDao : superMarketInsertData(-) ends");
-
+			System.out.println("InsertSuperMarket SQLException Occured : " + e);
 		}
-
+		System.out.println("SuperMarketDao : insertSuperMarketData(-) ends");
 	}
 
 	public void selectSuperMarketData() {
@@ -56,12 +52,53 @@ public class SuperMarketDao {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("SelectSuperMarket SQLException Occured : " + e);
+		}
+			System.out.println("SuperMarketDao : selectSuperMarketData(-) ends");
+	}
+
+	public boolean updateSuperMarketData(SuperMarket market) {
+
+		System.out.println("SuperMarketDao : updateSuperMarketData(-) Starts");
+
+		try {
+			pstmt = conn.prepareStatement(
+					"UPDATE supermarket SET PROD_NAME = ?, PROD_PRICE = ?, PROD_QTY = ?, TOTAL_AMT = ? WHERE PROD_ID = ?");
+
+			pstmt.setString(1, market.getProdName());
+			pstmt.setDouble(2, market.getProdPrice());
+			pstmt.setInt(3, market.getProdQty());
+			pstmt.setDouble(4, market.getTotalAmt());
+			pstmt.setInt(5, market.getProdId());
+
+			int updateRecord = pstmt.executeUpdate();
+			System.out.println(updateRecord + "Update SuperMarket Record ..!");
+
+		} catch (SQLException e) {
+			System.out.println("UpdateSuperMarket SQLException Occured : " + e);
+		} 
+			System.out.println("SuperMarketDao : updateSuperMarketData(-) ends");
+		
+		return true;
+	}
+
+	public boolean deleteSuperMarketData(int prodId) {
+		System.out.println("SuperMarketDao : deletedSuperMarketData(-) Starts");
+		try {
+
+			pstmt = conn.prepareStatement("DELETE FROM supermarket WHERE PROD_ID = ?");
+			pstmt.setInt(1, prodId);
+
+			int deleteRecord = pstmt.executeUpdate();
+			System.out.println(deleteRecord + "Delete SuperMarket Record..!");
+		} catch (SQLException e) {
+			System.out.println("DeleteSuperMarket SQLException Occured : " + e);
 		} finally {
 			JdbcConnectionUtil.closeResources();
-			System.out.println("SuperMarketDao : selectSuperMarketData(-) ends");
+			System.out.println("SuperMarketDao : deleteSuperMarketData(-) ends");
 		}
+		return true;
+	}
 
 	}
 
-}

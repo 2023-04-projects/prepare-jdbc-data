@@ -12,23 +12,23 @@ import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
-import com.khadri.jdbc.prepare.data.operation.OperationTypes;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
 	private Scanner scanner;
+
 	private EmployeeDao empDao;
 	private CustomerDao custDao;
 	private MobileDao mobileDao;
 	private SuperMarketDao superMarketDao;
-
-	private MobileDataProcessor mobileDataProcessor;
-	private CustomerDataProcessor custProcessor;
-	private MovieDataProcesser movieDataProcesser;
 	private MovieDao movieDao;
-	private EmployeeDataProcessor employeeDataProcessor;
 
+	private CustomerDataProcessor custDataProcessor;
+	private MobileDataProcessor mobileDataProcessor;
+	private MovieDataProcesser movieDataProcesser;
+	private EmployeeDataProcessor employeeDataProcessor;
+	private SuperMarketDataProcessor superMarketDataProcessor;
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
@@ -36,11 +36,12 @@ public class JdbcDataDriver {
 		custDao = new CustomerDao();
 		superMarketDao = new SuperMarketDao();
 		movieDao = new MovieDao();
+
 		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-		custProcessor = new CustomerDataProcessor(scanner, custDao);
-		custDao = new CustomerDao();
+		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
+		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		 employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
+		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
 
 	}
 
@@ -115,6 +116,7 @@ public class JdbcDataDriver {
 				int custRowCount = 1;
 				for (int i = 0; i < custCount; i++) {
 					custProcessor.insertProcess(custRowCount);
+					custDataProcessor.insertProcess(custRowCount);
 					custRowCount++;
 				}
 			} else if (operationTypeCustomer == 2) {
@@ -126,8 +128,16 @@ public class JdbcDataDriver {
 			} else if (operationTypeCustomer == 4) {
 				System.out.println("Deleting customer records...");
 				custProcessor.deleteProcess();
+				custDataProcessor.selectProcess(operationTypeCustomer);
+			} else if (operationTypeCustomer == 3) {
+				System.out.println("Updating customer records...");
+				custDataProcessor.updateProcess();
+			} else if (operationTypeCustomer == 4) {
+				System.out.println("Deleting customer records...");
+				custDataProcessor.deleteProcess();
 			} else {
 				System.out.println("Invalid operation type selected.");
+				
 			}
 			System.out.println("###### " + DriverTypes.CUSTOMER.getName().toUpperCase() + " Processor ends ######");
 			break;
@@ -139,21 +149,31 @@ public class JdbcDataDriver {
 			});
 			System.out.println("Please choose the Operation type: ");
 			int operationTypeSuperMarket = scanner.nextInt();
+
 			if (operationTypeSuperMarket == 1) {
 
 				System.out.println("How many records do you want to insert ? : ");
 				int recordCount3 = scanner.nextInt();
 
-				SuperMarketDataProcessor superMarketDataProcessor = new SuperMarketDataProcessor(scanner,
-						superMarketDao);
 				int marketCount = 1;
 				for (int i = 0; i < recordCount3; i++) {
-					superMarketDataProcessor.process(marketCount);
+					superMarketDataProcessor.insertSuperMarketProcess(marketCount);
 					marketCount++;
 				}
 			} else if (operationTypeSuperMarket == 2) {
-				System.out.println("fetching supermarket database records");
-				superMarketDao.selectSuperMarketData();
+				System.out.println("Fetching SuperMarket Database Records ..! ");
+				superMarketDataProcessor.selectSuperMarketProcess(operationTypeSuperMarket);
+
+			} else if (operationTypeSuperMarket == 3) {
+				System.out.println("Update SuperMarket Record  ..!");
+				superMarketDataProcessor.updateSuperMarketProcess();
+
+			} else if (operationTypeSuperMarket == 4) {
+				System.out.println("Delete SuperMarket Record Into DataBase ..!");
+				superMarketDataProcessor.deleteSuperMarketProcess();
+
+			} else {
+				System.out.println("Invalid Operation ..!");
 			}
 
 			System.out.println("###### " + DriverTypes.SUPER_MARKET.getName().toUpperCase() + " Processor ends ######");
@@ -226,7 +246,5 @@ public class JdbcDataDriver {
 				System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + " Processor ends ######");
 	
 			break;
-
 		}
 	}
-}
