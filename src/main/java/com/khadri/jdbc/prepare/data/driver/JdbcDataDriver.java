@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
-import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
@@ -12,7 +11,6 @@ import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
 import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
-import com.khadri.jdbc.prepare.data.operation.OperationTypes;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
@@ -43,21 +41,6 @@ public class JdbcDataDriver {
 	custDataProcessor=new CustomerDataProcessor(scanner,custDao);
 	movieDataProcesser=new MovieDataProcesser(scanner,movieDao);
 	employeeDataProcessor=new EmployeeDataProcessor(scanner,empDao);
-		scanner = new Scanner(System.in);
-		empDao = new EmployeeDao();
-		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
-		movieDao = new MovieDao();
-		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
-		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
-		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
-
-		superMarketDao = new SuperMarketDao();
-		movieDao = new MovieDao();
-		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
-		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
 	}
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
@@ -139,22 +122,6 @@ public class JdbcDataDriver {
 			} else if (operationTypeCustomer == 3) {
 				System.out.println("Updating customer records...");
 				custDataProcessor.updateProcess();
-			} else if (operationTypeCustomer == 4) {
-				System.out.println("Deleting customer records...");
-				custDataProcessor.deleteProcess();
-				custDataProcessor.selectProcess(operationTypeCustomer);
-			} else if (operationTypeCustomer == 3) {
-				System.out.println("Updating customer records...");
-				custDataProcessor.updateProcess();
-			} else if (operationTypeCustomer == 4) {
-				System.out.println("Deleting customer records...");
-				custDataProcessor.deleteProcess();
-			} else {
-				System.out.println("Invalid operation type selected.");
-				 custDataProcessor.selectProcess(operationTypeCustomer);
-			}else if (operationTypeCustomer == 3) {  
-			    System.out.println("Updating customer records...");
-			   custDataProcessor.updateProcess();
 			} else if (operationTypeCustomer == 4) {  
 			    System.out.println("Deleting customer records...");
 			    custDataProcessor.deleteProcess();
@@ -269,15 +236,6 @@ public class JdbcDataDriver {
 				System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + " Processor ends ######");
 	
 			break;
-
-				} else if (operationTypeMobile == 2) {
-					System.out.println("fetching mobile records from database!!!!");
-					mobileDao.SelectData();
-				}
-			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
-			break;
-				
-		}
 	
   }
 }
