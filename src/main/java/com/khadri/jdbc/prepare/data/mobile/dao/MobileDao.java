@@ -43,7 +43,7 @@ public class MobileDao {
 		}
 	}
 
-	public void SelectData() {
+	public void mobileSelectData() {
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
 			Statement stmt = conn.createStatement();
@@ -62,4 +62,55 @@ public class MobileDao {
 		}
 
 	}
+
+	public boolean updateMobileData(Mobile mobile) {
+		System.out.println("Updating mobile Record....!!!");
+		try {
+			Connection conn = JdbcConnectionUtil.getConnection();
+			System.out.println("MobileDao : UpdateMobileDao(-) starts");
+			PreparedStatement pstmt = conn.prepareStatement(
+					"UPDATE mobile SET MOBILE_NAME = ?,RAM = ?,ROM = ?,CAMERA = ?, BATTERY_CAPACITY = ?,PRICE = ? where MOBILE_ID = ? ");
+
+			pstmt.setString(2, mobile.getName());
+			pstmt.setInt(3, mobile.getRam());
+			pstmt.setInt(4, mobile.getRom());
+			pstmt.setString(5, mobile.getCamera());
+			pstmt.setInt(6, mobile.getBattery());
+			pstmt.setInt(7, mobile.getPrice());
+			pstmt.setInt(1, mobile.getId());
+
+			int rowAffected = pstmt.executeUpdate();
+			System.out.println("Update Mobile record Successfully" + rowAffected);
+
+		} catch (SQLException e) {
+			System.out.println("MobileUpdateData SQLException occurs:" + e);
+
+		} finally {
+			JdbcConnectionUtil.closeResources();
+			System.out.println("MobileDao : UpdateMobileDao(-) ends");
+		}
+		return true;
+
+	}
+
+	public boolean deleteMobileData(int id) {
+		System.out.println("Deleting Mobile Record...!!!");
+
+		try {
+			Connection conn = JdbcConnectionUtil.getConnection();
+			System.out.println("MobileDao : DeleteMobileDao(-) starts");
+			PreparedStatement pstmt = conn.prepareStatement("delete from mobile where MOBILE_ID = ?");
+			pstmt.setInt(1, id);
+			int rowAffected = pstmt.executeUpdate();
+			System.out.println("delete Mobile record Successfully" + rowAffected);
+
+		} catch (SQLException e) {
+			System.out.println("MobileDeleteData SQLException occurs:" + e);
+		} finally {
+			JdbcConnectionUtil.closeResources();
+			System.out.println("MobileDao : DeleteMobileDao(-) ends");
+		}
+		return true;
+	}
+
 }
