@@ -11,9 +11,12 @@ public class MobileDataProcessor {
 
 	private MobileDao mobileDao;
 
-	public MobileDataProcessor(Scanner sc, MobileDao mobileDao) {
+	{
+		this.mobileDao = new MobileDao();
+	}
+
+	public MobileDataProcessor(Scanner sc) {
 		this.sc = sc;
-		this.mobileDao = mobileDao;
 	}
 
 	public void insertProcess(int recordNumber) {

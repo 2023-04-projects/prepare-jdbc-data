@@ -1,5 +1,6 @@
 package com.khadri.jdbc.prepare.data.customer.processor;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
@@ -9,9 +10,12 @@ public class CustomerDataProcessor {
 	private Scanner scanner;
 	private CustomerDao custDao;
 
-	public CustomerDataProcessor(Scanner scanner, CustomerDao custDao) {
+	{
+		this.custDao = new CustomerDao();
+	}
+
+	public CustomerDataProcessor(Scanner scanner) {
 		this.scanner = scanner;
-		this.custDao = custDao;
 	}
 
 	public void insertProcess(int recordNumber) {
@@ -32,21 +36,34 @@ public class CustomerDataProcessor {
 
 			Customer cust = new Customer(id, name, address, phoneNum);
 
-			custDao.insertCustomerData(cust);
+			int result = custDao.insertCustomerData(cust);
+
+			if (result == 1) {
+				System.out.println(result + " Record Inserted..");
+			}
+
 		} catch (Exception e) {
 			System.out.println("CustomerDataProcesser Exception occours" + e);
 		}
+
 	}
 
-	public void selectProcess(int recordNumber) {
+	public void selectProcess() {
 		try {
-			System.out.println(recordNumber + " Record Reading starts");
-			custDao.selectCustomerData();
-			System.out.println(recordNumber + " Record Reading ends ");
+			System.out.println("Reading starts");
+			List<Customer> listOfCustomers = custDao.selectCustomerData();
+
+			listOfCustomers.stream().forEach(eachCustomer -> {
+				System.out.println(eachCustomer.getId() + " " + eachCustomer.getName() + " "
+						+ eachCustomer.getPhoneNum() + " " + eachCustomer.getAddress());
+			});
+
 		} catch (Exception e) {
 			System.out.println("CustomerDataProcesser Exception occours" + e);
+		} finally {
+			System.out.println("Reading ends ");
 		}
-	
+
 	}
 
 	public void updateProcess() {

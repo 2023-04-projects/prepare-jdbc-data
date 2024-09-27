@@ -5,18 +5,19 @@ import java.util.Scanner;
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 
-
 public class SuperMarketDataProcessor {
 
 	private Scanner scanner;
 	private SuperMarketDao superDao;
 	private SuperMarket superMarket;
 
-	public SuperMarketDataProcessor(Scanner scanner, SuperMarketDao superDao) {
+	{
+		this.superDao = new SuperMarketDao();
+	}
+
+	public SuperMarketDataProcessor(Scanner scanner) {
 		super();
 		this.scanner = scanner;
-		this.superDao = superDao;
-		this.superDao = new SuperMarketDao();
 	}
 
 	public void insertSuperMarketProcess(int recordNumber) {
