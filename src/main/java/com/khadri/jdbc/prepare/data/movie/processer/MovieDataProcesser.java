@@ -9,9 +9,12 @@ public class MovieDataProcesser {
 	private Scanner scanner;
 	private MovieDao movieDao;
 
-	public MovieDataProcesser(Scanner scanner, MovieDao movieDao) {
-		this.scanner = scanner;
+	{
 		this.movieDao = new MovieDao();
+	}
+
+	public MovieDataProcesser(Scanner scanner) {
+		this.scanner = scanner;
 
 	}
 

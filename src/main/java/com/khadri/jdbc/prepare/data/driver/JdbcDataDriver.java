@@ -3,32 +3,22 @@ package com.khadri.jdbc.prepare.data.driver;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import com.khadri.jdbc.prepare.data.customer.dao.CustomerDao;
 import com.khadri.jdbc.prepare.data.customer.processor.CustomerDataProcessor;
 import com.khadri.jdbc.prepare.data.driver.types.DriverTypes;
-import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
 import com.khadri.jdbc.prepare.data.employee.processor.EmployeeDataProcessor;
-import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
 import com.khadri.jdbc.prepare.data.mobile.processor.MobileDataProcessor;
-import com.khadri.jdbc.prepare.data.movie.dao.MovieDao;
 import com.khadri.jdbc.prepare.data.movie.processer.MovieDataProcesser;
 import com.khadri.jdbc.prepare.data.operation.OperationTypes;
-import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
 import com.khadri.jdbc.prepare.data.supermarket.processor.SuperMarketDataProcessor;
 
 public class JdbcDataDriver {
 	private Scanner scanner;
 
 	private CustomerDataProcessor custDataProcessor;
-	private EmployeeDao empDao;
-	private CustomerDao custDao;
-	private MobileDao mobileDao;
-	private SuperMarketDao superMarketDao;
-	private MovieDataProcesser movieDataProcesser;
-	private MovieDao movieDao;
 	private EmployeeDataProcessor employeeDataProcessor;
 	private SuperMarketDataProcessor superMarketDataProcessor;
 	private MobileDataProcessor mobileDataProcessor;
+<<<<<<< HEAD
 	{
 		scanner = new Scanner(System.in);
 		empDao = new EmployeeDao();
@@ -41,6 +31,17 @@ public class JdbcDataDriver {
 		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
 		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
 		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
+=======
+	private MovieDataProcesser movieDataProcessor;
+	
+	{
+		scanner = new Scanner(System.in);
+		superMarketDataProcessor = new SuperMarketDataProcessor(scanner);
+		custDataProcessor = new CustomerDataProcessor(scanner);
+		movieDataProcessor = new MovieDataProcesser(scanner);
+		employeeDataProcessor = new EmployeeDataProcessor(scanner);
+		mobileDataProcessor = new MobileDataProcessor(scanner);
+>>>>>>> b1f8d8cfb240702a097a7765e1049a98189ca0f9
 
 	}
 
@@ -118,7 +119,7 @@ public class JdbcDataDriver {
 				}
 			} else if (operationTypeCustomer == 2) {
 				System.out.println("fetching customer records from the database...");
-				custDataProcessor.selectProcess(operationTypeCustomer);
+				custDataProcessor.selectProcess();
 			} else if (operationTypeCustomer == 3) {
 				System.out.println("Updating customer records...");
 				custDataProcessor.updateProcess();
@@ -184,18 +185,18 @@ public class JdbcDataDriver {
 				int movieCount = scanner.nextInt();
 				int recordCount = 1;
 				for (int i = 0; i < movieCount; i++) {
-					movieDataProcesser.insertProcess(recordCount);
+					movieDataProcessor.insertProcess(recordCount);
 					recordCount++;
 				}
 			} else if (operationType == 2) {
 				System.out.println("freching movie databace records");
-				movieDataProcesser.selectProcess(operationType);
+				movieDataProcessor.selectProcess(operationType);
 			} else if (operationType == 3) {
 				System.out.println("updating movie databace records");
-				movieDataProcesser.updateProcess();
+				movieDataProcessor.updateProcess();
 			} else if (operationType == 4) {
 				System.out.println("Delete movie data records");
-				movieDataProcesser.deleteProcess();
+				movieDataProcessor.deleteProcess();
 			}
 
 			System.out.println("###### " + DriverTypes.MOVIE.getName().toUpperCase() + " Processor ends ######");
@@ -219,6 +220,7 @@ public class JdbcDataDriver {
 					rowcount++;
 				}
 
+<<<<<<< HEAD
 				} else if (operationTypeMobile == 2) {
 					System.out.println("fetching mobile records from database!!!!");
 					mobileDataProcessor.selectProcess(operationTypeMobile);
@@ -232,9 +234,24 @@ public class JdbcDataDriver {
 					System.out.println("invalid operations");
 				}
 					
+=======
+			} else if (operationTypeMobile == 2) {
+				System.out.println("fetching mobile records from database!!!!");
+				mobileDataProcessor.selectProcess(operationTypeMobile);
+			} else if (operationTypeMobile == 3) {
+				System.out.println("updating mobile records in database!!!!");
+				mobileDataProcessor.updateProcess();
+			} else if (operationTypeMobile == 4) {
+				System.out.println("deleting mobile records from database!!!!");
+				mobileDataProcessor.deleteProcess();
+			} else {
+				System.out.println("invalid operations");
+			}
+
+>>>>>>> b1f8d8cfb240702a097a7765e1049a98189ca0f9
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 			break;
-				
+
 		}
 	}
 }
