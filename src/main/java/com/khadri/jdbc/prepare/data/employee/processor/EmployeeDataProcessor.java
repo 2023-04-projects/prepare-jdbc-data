@@ -10,10 +10,12 @@ public class EmployeeDataProcessor {
 	public Scanner scanner;
 	public EmployeeDao empDao;
 
+	{
+		this.empDao = new EmployeeDao();
+	}
 
-	public EmployeeDataProcessor(Scanner scanner, EmployeeDao empDao) {
+	public EmployeeDataProcessor(Scanner scanner) {
 		this.scanner = scanner;
-		this.empDao = empDao;
 	}
 
 	public void insertProcess(int recordNumber) {
@@ -40,6 +42,7 @@ public class EmployeeDataProcessor {
 		}
 
 	}
+
 	public void selectProcess(int recordNumber) {
 		try {
 			System.out.println(recordNumber + " Record Reading starts");
@@ -50,7 +53,6 @@ public class EmployeeDataProcessor {
 		}
 	}
 
-	
 	public void updateProcess() {
 
 		try {
@@ -80,7 +82,6 @@ public class EmployeeDataProcessor {
 		}
 	}
 
-
 	public void deleteProcess() {
 		try {
 			System.out.println("Enter employee id to delete: ");
@@ -98,5 +99,3 @@ public class EmployeeDataProcessor {
 		}
 	}
 }
-
-
