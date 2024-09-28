@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
@@ -12,13 +14,12 @@ import com.khadri.jdbc.prepare.data.supermarket.dao.model.SuperMarket;
 public class SuperMarketDao {
 
 	Connection conn = JdbcConnectionUtil.getConnection();
-	PreparedStatement pstmt ;
+	PreparedStatement pstmt;
 	Statement stmt;
-	
-	public void insertSuperMarketData(SuperMarket market) {
 
+	public int insertSuperMarketData(SuperMarket market) {
+		int superMarketResult = 0;
 		System.out.println("SuperMarketDao : insertSuperMarketData(-) Starts");
-
 		try {
 
 			pstmt = conn.prepareStatement("INSERT INTO supermarket VALUES(?, ?, ?, ?, ?)");
@@ -35,9 +36,11 @@ public class SuperMarketDao {
 			System.out.println("InsertSuperMarket SQLException Occured : " + e);
 		}
 		System.out.println("SuperMarketDao : insertSuperMarketData(-) ends");
+		return superMarketResult;
 	}
 
-	public void selectSuperMarketData() {
+	public List<SuperMarket> selectSuperMarketData() {
+		List<SuperMarket> superMarketResultList = new ArrayList<>();
 		System.out.println("SuperMarketDao : selectSuperMarketData(-) Starts");
 		try {
 
@@ -46,19 +49,19 @@ public class SuperMarketDao {
 
 			while (resultSet.next()) {
 
-				System.out.println("Cust_Name : " + resultSet.getString(1) + "Cust_Id : " + resultSet.getInt(2)
-						+ "Cust_Price : " + resultSet.getDouble(3) + "Cust_Qty" + resultSet.getInt(4) + "Total_Amt : "
-						+ resultSet.getDouble(5));
+				superMarketResultList.add(new SuperMarket(resultSet.getString(1), resultSet.getInt(2),
+						resultSet.getDouble(3), resultSet.getInt(4), resultSet.getDouble(5)));
 			}
 
 		} catch (SQLException e) {
 			System.out.println("SelectSuperMarket SQLException Occured : " + e);
 		}
-			System.out.println("SuperMarketDao : selectSuperMarketData(-) ends");
+		System.out.println("SuperMarketDao : selectSuperMarketData(-) ends");
+		return superMarketResultList;
 	}
 
-	public boolean updateSuperMarketData(SuperMarket market) {
-
+	public int updateSuperMarketData(SuperMarket market) {
+		int result = 0;
 		System.out.println("SuperMarketDao : updateSuperMarketData(-) Starts");
 
 		try {
@@ -76,13 +79,14 @@ public class SuperMarketDao {
 
 		} catch (SQLException e) {
 			System.out.println("UpdateSuperMarket SQLException Occured : " + e);
-		} 
-			System.out.println("SuperMarketDao : updateSuperMarketData(-) ends");
-		
-		return true;
+		}
+		System.out.println("SuperMarketDao : updateSuperMarketData(-) ends");
+
+		return result;
 	}
 
-	public boolean deleteSuperMarketData(int prodId) {
+	public int deleteSuperMarketData(int prodId) {
+		int result = 0;
 		System.out.println("SuperMarketDao : deletedSuperMarketData(-) Starts");
 		try {
 
@@ -97,8 +101,7 @@ public class SuperMarketDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("SuperMarketDao : deleteSuperMarketData(-) ends");
 		}
-		return true;
+		return result ;
 	}
 
-	}
-
+}

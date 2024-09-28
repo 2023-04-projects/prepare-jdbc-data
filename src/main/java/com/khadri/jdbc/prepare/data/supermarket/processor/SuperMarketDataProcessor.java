@@ -1,5 +1,6 @@
 package com.khadri.jdbc.prepare.data.supermarket.processor;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.supermarket.dao.SuperMarketDao;
@@ -9,7 +10,6 @@ public class SuperMarketDataProcessor {
 
 	private Scanner scanner;
 	private SuperMarketDao superDao;
-	private SuperMarket superMarket;
 
 	{
 		this.superDao = new SuperMarketDao();
@@ -23,8 +23,8 @@ public class SuperMarketDataProcessor {
 	public void insertSuperMarketProcess(int recordNumber) {
 
 		try {
-
-			System.out.println(recordNumber + "Record Reading starts");
+			
+			System.out.println("Record Reading starts");
 
 			System.out.println("Please Enter PROD_NAME : ");
 			String prodName = scanner.next();
@@ -51,11 +51,15 @@ public class SuperMarketDataProcessor {
 				System.out.println("never comes");
 			}
 
-			superMarket = new SuperMarket(prodName, prodId, prodPrice, prodQty, totalAmt);
+			SuperMarket superMarket = new SuperMarket(prodName, prodId, prodPrice, prodQty, totalAmt);
 
-			superDao.insertSuperMarketData(superMarket);
+			int result = superDao.insertSuperMarketData(superMarket);
+			
+			if (result == 1) {
+				System.out.println(result + "Record Inserted Successfully ..!");
+			}
 		} catch (Exception e) {
-			System.out.println("InsertSuperMarketDataProcessor Exception Occour" + e);
+			System.out.println("SuperMarketDataProcessor Exception Occour" + e);
 		}
 
 		try {
@@ -74,8 +78,13 @@ public class SuperMarketDataProcessor {
 		try {
 
 			System.out.println(recordNumber + "Record Reading starts");
-
-			superDao.selectSuperMarketData();
+			List<SuperMarket> listOfSuperMarket = superDao.selectSuperMarketData();
+			
+			listOfSuperMarket.stream().forEach(eachSuperMarket -> { 
+				System.out.println(eachSuperMarket.getProdId()+ " " + eachSuperMarket.getProdName()+
+						" " + eachSuperMarket.getProdPrice()+ " " + eachSuperMarket.getProdQty()+" "+
+						eachSuperMarket.getTotalAmt());
+			});
 
 			System.out.println(recordNumber + "Record Reading end");
 
@@ -102,10 +111,10 @@ public class SuperMarketDataProcessor {
 			double totalAmt = prodPrice * prodQty;
 			System.out.println("TOTAL_AMT : " + totalAmt);
 
-			superMarket = new SuperMarket(prodName, prodId, prodPrice, prodQty, totalAmt);
-			boolean isUpdateSuperMarket = superDao.updateSuperMarketData(superMarket);
+			SuperMarket superMarket = new SuperMarket(prodName, prodId, prodPrice, prodQty, totalAmt);
+			int isUpdateSuperMarket = superDao.updateSuperMarketData(superMarket);
 
-			if (isUpdateSuperMarket) {
+			if (isUpdateSuperMarket == 1) {
 				System.out.println("SuperMarket Updated Record Successfully..! ");
 			} else {
 				System.out.println("SuperMarket Updated Record Failed..! ");
@@ -122,9 +131,9 @@ public class SuperMarketDataProcessor {
 			System.out.println("Enter superMarket PROD_ID: ");
 			int prodId = scanner.nextInt();
 
-			boolean isDeleteSuperMarket = superDao.deleteSuperMarketData(prodId);
+			int isDeleteSuperMarket = superDao.deleteSuperMarketData(prodId);
 
-			if (isDeleteSuperMarket) {
+			if (isDeleteSuperMarket == 1) {
 				System.out.println("SuperMarket Deleted Record Successfully..! ");
 			} else {
 				System.out.println("SuperMarket Deleted Record Failed..!");
