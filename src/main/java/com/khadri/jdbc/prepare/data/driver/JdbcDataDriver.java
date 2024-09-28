@@ -69,7 +69,7 @@ public class JdbcDataDriver {
 
 			} else if (operationTypeEmployee == 2) {
 				System.out.println("fetching employee records from the database");
-				employeeDataProcessor.selectProcess(operationTypeEmployee);
+				employeeDataProcessor.selectProcess();
 
 			} else if (operationTypeEmployee == 3) {
 				System.out.println("Updating employee records...");

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.employee.dao.model.Employee;
@@ -14,7 +16,8 @@ public class EmployeeDao {
 	Statement stmt;
 	Connection con=null;
 
-	public void insertEmployeeData(Employee emp) {
+	public int insertEmployeeData(Employee emp) {
+		int result=0;
 		System.out.println("EmployeeDao : employeeData(-) starts");
 		try {
 			Connection con=JdbcConnectionUtil.getConnection();
@@ -23,7 +26,7 @@ public class EmployeeDao {
 			pstmt.setString(2, emp.getName());
 			pstmt.setString(3, emp.getDesigination());
 			pstmt.setDouble(4, emp.getSalary());
-			pstmt.executeUpdate();
+			result=pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			System.out.println("SQLException occours:" + e);
@@ -31,9 +34,12 @@ public class EmployeeDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("EmployeeDao : employeeData(-) ends");
 		}
+		return result;
 	}
 
-	public void selectEmployeeData() {
+	public List<Employee> selectEmployeeData() {
+		List<Employee> resultList = new ArrayList<>();
+
 		try {
 			Connection con=JdbcConnectionUtil.getConnection();
 			stmt = con.createStatement();
@@ -47,9 +53,11 @@ public class EmployeeDao {
 		} finally {
 			JdbcConnectionUtil.closeResources();
 		}
+		return resultList;
 	}
 
-	public boolean employeeUpdateData(Employee emp) {
+	public int employeeUpdateData(Employee emp) {
+		int rowsAffected=0;
  	    System.out.println("EmployeeDao : employeeUpdateData(-) starts");
  	    try {
  	    	 con=JdbcConnectionUtil.getConnection();
@@ -59,7 +67,7 @@ public class EmployeeDao {
  			pstmt.setDouble(3, emp.getSalary());
  			pstmt.setInt(4, emp.getId());
 
- 	        int rowsAffected = pstmt.executeUpdate();
+ 	         rowsAffected = pstmt.executeUpdate();
  	        System.out.println( "Rows affected: " + rowsAffected);
  	    
  	    } catch (SQLException e) {
@@ -68,18 +76,19 @@ public class EmployeeDao {
  	        JdbcConnectionUtil.closeResources();
  	        System.out.println("EmployeeDao : employeeUpdateData(-) ends");
  	}
- 	    return true;
+ 	    return rowsAffected;
   }
 
 
-	public boolean employeeDeleteData(int employeeId) {
+	public int employeeDeleteData(int employeeId) {
+		int rowsAffected=0;
     	    System.out.println("EmployeeDao : employeeDeleteData(-) starts");
     	    try {
     	    	Connection con=JdbcConnectionUtil.getConnection();
     	        pstmt = con.prepareStatement("delete from employee where id = ?");
     	        pstmt.setInt(1, employeeId);
 
-    	        int rowsAffected = pstmt.executeUpdate();
+    	        rowsAffected = pstmt.executeUpdate();
     	        System.out.println("Rows affected: " + rowsAffected);
 
     	    } catch (SQLException e) {
@@ -88,6 +97,6 @@ public class EmployeeDao {
     	        JdbcConnectionUtil.closeResources();
     	        System.out.println("EmployeeDao : employeeDeleteData(-) ends");
     	}
-    	    return true;
+    	    return rowsAffected;
     	}
 }

@@ -66,7 +66,9 @@ public class CustomerDao {
 		return resultList;
 	}
 
-	public boolean updateCustomerData(Customer cust) {
+	public int updateCustomerData(Customer cust) {
+		int rowsAffected = 0;
+
 		System.out.println("CustomerDao : updateCustomerData(-) starts");
 
 		try {
@@ -79,7 +81,7 @@ public class CustomerDao {
 			pstmt.setLong(3, cust.getPhoneNum());
 			pstmt.setInt(4, cust.getId());
 
-			int rowsAffected = pstmt.executeUpdate();
+			 rowsAffected = pstmt.executeUpdate();
 			System.out.println("Rows affected: " + rowsAffected);
 
 		} catch (SQLException e) {
@@ -88,10 +90,11 @@ public class CustomerDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("CustomerDao : updateCustomerData(-) ends");
 		}
-		return true;
+		return rowsAffected;
 	}
 
-	public boolean deleteCustomerData(int customerId) {
+	public int deleteCustomerData(int customerId) {
+		int rowsAffected =0;
 		System.out.println("CustomerDao : deleteCustomerData(-) starts");
 
 		try {
@@ -100,7 +103,7 @@ public class CustomerDao {
 			pstmt = con.prepareStatement("DELETE FROM customer WHERE id = ?");
 			pstmt.setInt(1, customerId);
 
-			int rowsAffected = pstmt.executeUpdate();
+			 rowsAffected = pstmt.executeUpdate();
 			System.out.println("Rows affected: " + rowsAffected);
 
 		} catch (SQLException e) {
@@ -109,6 +112,6 @@ public class CustomerDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("CustomerDao : deleteCustomerData(-) ends");
 		}
-		return true;
+		return rowsAffected;
 	}
 }
