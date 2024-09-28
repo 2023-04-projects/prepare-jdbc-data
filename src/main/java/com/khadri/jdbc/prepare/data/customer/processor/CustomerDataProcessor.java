@@ -83,9 +83,9 @@ public class CustomerDataProcessor {
 
 			Customer cust = new Customer(id, name, address, phoneNum);
 
-			boolean isUpdated = custDao.updateCustomerData(cust);
+			int isUpdated = custDao.updateCustomerData(cust);
 
-			if (isUpdated) {
+			if (isUpdated==1) {
 				System.out.println("Customer updated successfully.");
 			} else {
 				System.out.println("Customer update failed.");
@@ -100,9 +100,9 @@ public class CustomerDataProcessor {
 			System.out.println("Enter Customer id to delete: ");
 			int id = scanner.nextInt();
 
-			boolean isDeleted = custDao.deleteCustomerData(id);
+			int isDeleted = custDao.deleteCustomerData(id);
 
-			if (isDeleted) {
+			if (isDeleted==1) {
 				System.out.println("Customer deleted successfully.");
 			} else {
 				System.out.println("Customer delete failed.");

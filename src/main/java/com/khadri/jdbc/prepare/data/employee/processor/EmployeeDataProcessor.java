@@ -1,6 +1,7 @@
 
 package com.khadri.jdbc.prepare.data.employee.processor;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.employee.dao.EmployeeDao;
@@ -36,22 +37,33 @@ public class EmployeeDataProcessor {
 
 			Employee emp = new Employee(id, name, desigination, salary);
 
-			empDao.insertEmployeeData(emp);
+			int result =empDao.insertEmployeeData(emp);
+			if (result == 1) {
+				System.out.println(result + " Record Inserted..");
+			}
 		} catch (Exception e) {
 			System.out.println("EmployeeDataProssor Exception Occour" + e);
 		}
-
+		
 	}
 
-	public void selectProcess(int recordNumber) {
+	public void selectProcess() {
 		try {
-			System.out.println(recordNumber + " Record Reading starts");
-			empDao.selectEmployeeData();
-			System.out.println(recordNumber + " Record Reading ends ");
+			System.out.println("Reading starts");
+			List<Employee> listOfEmployees = empDao.selectEmployeeData();
+
+			listOfEmployees.stream().forEach(eachEmployee -> {
+				System.out.println(eachEmployee.getId() + " " + eachEmployee.getName() + " "
+						+ eachEmployee.getDesigination() + " " + eachEmployee.getSalary());
+			});
 		} catch (Exception e) {
 			System.out.println("EmployeeDataProcesser Exception occours" + e);
 		}
+	 finally {
+		System.out.println("Reading ends ");
 	}
+	}
+	
 
 	public void updateProcess() {
 
@@ -70,9 +82,9 @@ public class EmployeeDataProcessor {
 
 			Employee emp = new Employee(id, name, desigination, salary);
 
-			boolean isUpdated = empDao.employeeUpdateData(emp);
+		int	isUpdated = empDao.employeeUpdateData(emp);
 
-			if (isUpdated) {
+			if (isUpdated==1) {
 				System.out.println("employee updated successfully.");
 			} else {
 				System.out.println("employee update failed.");
@@ -87,9 +99,9 @@ public class EmployeeDataProcessor {
 			System.out.println("Enter employee id to delete: ");
 			int id = scanner.nextInt();
 
-			boolean isDeleted = empDao.employeeDeleteData(id);
+			int isDeleted = empDao.employeeDeleteData(id);
 
-			if (isDeleted) {
+			if (isDeleted==1) {
 				System.out.println("employee deleted successfully.");
 			} else {
 				System.out.println("employee delete failed.");
