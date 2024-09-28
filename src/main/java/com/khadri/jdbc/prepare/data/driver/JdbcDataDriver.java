@@ -19,7 +19,6 @@ public class JdbcDataDriver {
 	private SuperMarketDataProcessor superMarketDataProcessor;
 	private MobileDataProcessor mobileDataProcessor;
 	private MovieDataProcesser movieDataProcessor;
-	
 	{
 		scanner = new Scanner(System.in);
 		superMarketDataProcessor = new SuperMarketDataProcessor(scanner);
@@ -27,9 +26,8 @@ public class JdbcDataDriver {
 		movieDataProcessor = new MovieDataProcesser(scanner);
 		employeeDataProcessor = new EmployeeDataProcessor(scanner);
 		mobileDataProcessor = new MobileDataProcessor(scanner);
-
 	}
-
+	
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
@@ -205,19 +203,18 @@ public class JdbcDataDriver {
 					rowcount++;
 				}
 
-			} else if (operationTypeMobile == 2) {
-				System.out.println("fetching mobile records from database!!!!");
-				mobileDataProcessor.selectProcess(operationTypeMobile);
-			} else if (operationTypeMobile == 3) {
-				System.out.println("updating mobile records in database!!!!");
-				mobileDataProcessor.updateProcess();
-			} else if (operationTypeMobile == 4) {
-				System.out.println("deleting mobile records from database!!!!");
-				mobileDataProcessor.deleteProcess();
-			} else {
-				System.out.println("invalid operations");
-			}
-
+				} else if (operationTypeMobile == 2) {
+					System.out.println("fetching mobile records from database!!!!");
+					mobileDataProcessor.selectProcess(operationTypeMobile);
+				} else if (operationTypeMobile == 3) {
+					System.out.println("updating mobile records in database!!!!");
+					mobileDataProcessor.updateProcess();
+				} else if (operationTypeMobile == 4) {
+					System.out.println("deleting mobile records from database!!!!");
+					mobileDataProcessor.deleteProcess();
+				}else {
+					System.out.println("invalid operations");
+				}
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 			break;
 

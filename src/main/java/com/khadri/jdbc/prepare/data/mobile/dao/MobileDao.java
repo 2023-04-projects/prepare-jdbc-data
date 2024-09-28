@@ -5,13 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
 public class MobileDao {
 
-	public void insertData(Mobile mobile) {
+	public int insertData(Mobile mobile) {
+		int result = 0;
 		System.out.println(" MobileDao : mobileData(-) starts");
 
 		PreparedStatement pstmt;
@@ -41,17 +44,21 @@ public class MobileDao {
 			System.out.println("MobileDao : MobileDao(-) ends");
 
 		}
+		return result;
 	}
 
-	public void mobileSelectData() {
+	public List<Mobile> mobileSelectData() {
+
+		List<Mobile> resultList = new ArrayList<>();
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
 			Statement stmt = conn.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from mobile");
+
 			while (resultSet.next()) {
-				System.out.println(resultSet.getInt(1) + "-" + resultSet.getString(2) + "-" + resultSet.getInt(3) + "-"
-						+ resultSet.getInt(4) + "-" + resultSet.getString(5) + "-" + resultSet.getInt(6) + "-"
-						+ resultSet.getInt(7));
+
+				resultList.add(new Mobile(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+						resultSet.getInt(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getInt(7)));
 			}
 
 		} catch (SQLException e) {
@@ -60,10 +67,12 @@ public class MobileDao {
 			System.out.println(" MobileDao :  mobileData(-) ends");
 
 		}
+		return resultList;
 
 	}
 
-	public boolean updateMobileData(Mobile mobile) {
+	public int updateMobileData(Mobile mobile) {
+		int result = 0;
 		System.out.println("Updating mobile Record....!!!");
 		try {
 			Connection conn = JdbcConnectionUtil.getConnection();
@@ -89,11 +98,12 @@ public class MobileDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("MobileDao : UpdateMobileDao(-) ends");
 		}
-		return true;
+		return result;
 
 	}
 
-	public boolean deleteMobileData(int id) {
+	public int deleteMobileData(int id) {
+		int result = 0;
 		System.out.println("Deleting Mobile Record...!!!");
 
 		try {
@@ -110,7 +120,7 @@ public class MobileDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("MobileDao : DeleteMobileDao(-) ends");
 		}
-		return true;
+		return result;
 	}
 
 }
