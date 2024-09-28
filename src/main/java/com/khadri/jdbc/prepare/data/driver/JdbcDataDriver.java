@@ -18,22 +18,7 @@ public class JdbcDataDriver {
 	private EmployeeDataProcessor employeeDataProcessor;
 	private SuperMarketDataProcessor superMarketDataProcessor;
 	private MobileDataProcessor mobileDataProcessor;
-<<<<<<< HEAD
-	{
-		scanner = new Scanner(System.in);
-		empDao = new EmployeeDao();
-		mobileDao = new MobileDao();
-		custDao = new CustomerDao();
-		superMarketDao = new SuperMarketDao();
-		movieDao = new MovieDao();
-		superMarketDataProcessor = new SuperMarketDataProcessor(scanner, superMarketDao);
-		custDataProcessor = new CustomerDataProcessor(scanner, custDao);
-		movieDataProcesser = new MovieDataProcesser(scanner, movieDao);
-		employeeDataProcessor = new EmployeeDataProcessor(scanner, empDao);
-		mobileDataProcessor = new MobileDataProcessor(scanner, mobileDao);
-=======
 	private MovieDataProcesser movieDataProcessor;
-	
 	{
 		scanner = new Scanner(System.in);
 		superMarketDataProcessor = new SuperMarketDataProcessor(scanner);
@@ -41,10 +26,8 @@ public class JdbcDataDriver {
 		movieDataProcessor = new MovieDataProcesser(scanner);
 		employeeDataProcessor = new EmployeeDataProcessor(scanner);
 		mobileDataProcessor = new MobileDataProcessor(scanner);
->>>>>>> b1f8d8cfb240702a097a7765e1049a98189ca0f9
-
 	}
-
+	
 	public static void main(String[] args) {
 		System.out.println("###################### Welocme to Jdbc data Driver  ########################");
 		System.out.println("$$$$$$$$$$$$$$ The data procesors $$$$$$$$$$$$$$$$$");
@@ -220,7 +203,6 @@ public class JdbcDataDriver {
 					rowcount++;
 				}
 
-<<<<<<< HEAD
 				} else if (operationTypeMobile == 2) {
 					System.out.println("fetching mobile records from database!!!!");
 					mobileDataProcessor.selectProcess(operationTypeMobile);
@@ -233,22 +215,6 @@ public class JdbcDataDriver {
 				}else {
 					System.out.println("invalid operations");
 				}
-					
-=======
-			} else if (operationTypeMobile == 2) {
-				System.out.println("fetching mobile records from database!!!!");
-				mobileDataProcessor.selectProcess(operationTypeMobile);
-			} else if (operationTypeMobile == 3) {
-				System.out.println("updating mobile records in database!!!!");
-				mobileDataProcessor.updateProcess();
-			} else if (operationTypeMobile == 4) {
-				System.out.println("deleting mobile records from database!!!!");
-				mobileDataProcessor.deleteProcess();
-			} else {
-				System.out.println("invalid operations");
-			}
-
->>>>>>> b1f8d8cfb240702a097a7765e1049a98189ca0f9
 			System.out.println("###### " + DriverTypes.MOBILE.getName().toUpperCase() + "Processor ends ######");
 			break;
 

@@ -1,5 +1,6 @@
 package com.khadri.jdbc.prepare.data.mobile.processor;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.khadri.jdbc.prepare.data.mobile.dao.MobileDao;
@@ -7,7 +8,7 @@ import com.khadri.jdbc.prepare.data.mobile.dao.model.Mobile;
 
 public class MobileDataProcessor {
 
-	private Scanner sc;
+	private Scanner scanner;
 
 	private MobileDao mobileDao;
 
@@ -15,44 +16,44 @@ public class MobileDataProcessor {
 		this.mobileDao = new MobileDao();
 	}
 
-<<<<<<< HEAD
-=======
-	public MobileDataProcessor(Scanner sc) {
-		this.sc = sc;
+	public MobileDataProcessor(Scanner scanner) {
+		this.scanner = scanner;
 	}
 
->>>>>>> b1f8d8cfb240702a097a7765e1049a98189ca0f9
 	public void insertProcess(int recordNumber) {
 		try {
 
 			System.out.println(recordNumber + "Record Reading starts");
 
 			System.out.println("Enter MOBILE_ID : ");
-			int id = sc.nextInt();
+			int id = scanner.nextInt();
 
 			System.out.println("Enter MOBILE_NAME : ");
-			String name = sc.next();
+			String name = scanner.next();
 
 			System.out.println("Enter RAM : ");
-			int ram = sc.nextInt();
+			int ram = scanner.nextInt();
 
 			System.out.println("Enter ROM : ");
-			int rom = sc.nextInt();
+			int rom = scanner.nextInt();
 
 			System.out.println("Enter CAMERA : ");
-			String camera = sc.next();
+			String camera = scanner.next();
 
 			System.out.println("Enter BATTERY_CAPACITY : ");
-			int battery = sc.nextInt();
+			int battery = scanner.nextInt();
 
 			System.out.println("Enter PRICE : ");
-			int price = sc.nextInt();
+			int price = scanner.nextInt();
 
 			System.out.println("Processing File Wrting ");
 
 			Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
 
-			mobileDao.insertData(mobile);
+			int result = mobileDao.insertData(mobile);
+			if (result == 1) {
+				System.out.println(result + "Record Inserted");
+			}
 
 		} catch (Exception e) {
 			System.out.println("MobileDataProssor Exception occours" + e);
@@ -62,10 +63,18 @@ public class MobileDataProcessor {
 	public void selectProcess(int recordNumber) {
 		try {
 			System.out.println(recordNumber + " Record Reading starts!!!");
-			mobileDao.mobileSelectData();
-			System.out.println(recordNumber + " Record Reading ends...!");
+			List<Mobile> listOfMobile = mobileDao.mobileSelectData();
+			listOfMobile.stream().forEach(eachMobile -> {
+				System.out.println(eachMobile.getId() + " " + eachMobile.getName() + " " + eachMobile.getRam() + " "
+						+ eachMobile.getRom() + " " + eachMobile.getCamera() + " " + eachMobile.getBattery() + " "
+						+ eachMobile.getPrice());
+				;
+			});
 		} catch (Exception e) {
 			System.out.println("MobileDataProcessor Exception occurs " + e);
+		} finally {
+			System.out.println(recordNumber + " Record Reading ends...!");
+
 		}
 	}
 
@@ -74,30 +83,30 @@ public class MobileDataProcessor {
 			System.out.println("Record Reading starts!!!!");
 
 			System.out.println("Enter MOBILE_ID : ");
-			int id = sc.nextInt();
+			int id = scanner.nextInt();
 
 			System.out.println("Enter MOBILE_NAME : ");
-			String name = sc.next();
+			String name = scanner.next();
 
 			System.out.println("Enter RAM : ");
-			int ram = sc.nextInt();
+			int ram = scanner.nextInt();
 
 			System.out.println("Enter ROM : ");
-			int rom = sc.nextInt();
+			int rom = scanner.nextInt();
 
 			System.out.println("Enter CAMERA : ");
-			String camera = sc.next();
+			String camera = scanner.next();
 
 			System.out.println("Enter BATTERY_CAPACITY : ");
-			int battery = sc.nextInt();
+			int battery = scanner.nextInt();
 
 			System.out.println("Enter PRICE : ");
-			int price = sc.nextInt();
+			int price = scanner.nextInt();
 			System.out.println("Record Reading ends!!!!");
 
 			Mobile mobile = new Mobile(id, name, ram, rom, camera, battery, price);
-			boolean updateMobileData = mobileDao.updateMobileData(mobile);
-			if (updateMobileData) {
+			int updateMobileData = mobileDao.updateMobileData(mobile);
+			if (updateMobileData == 1) {
 				System.out.println("mobile Data updated successfully!!!");
 			} else {
 				System.out.println("mobile update failed..!");
@@ -111,11 +120,11 @@ public class MobileDataProcessor {
 
 		try {
 			System.out.println("Enter MOBILE_ID : ");
-			int id = sc.nextInt();
+			int id = scanner.nextInt();
 
-			boolean isDeleted = mobileDao.deleteMobileData(id);
+			int isDeleted = mobileDao.deleteMobileData(id);
 
-			if (isDeleted) {
+			if (isDeleted == 2) {
 				System.out.println("Mobile Record Deleted Successfully...!");
 			} else {
 				System.out.println("Mobile Record Deleting Failed!!!!");
