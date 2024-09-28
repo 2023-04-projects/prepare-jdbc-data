@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.khadri.jdbc.prepare.connection.JdbcConnectionUtil;
 import com.khadri.jdbc.prepare.data.movie.Movie;
@@ -31,23 +33,24 @@ public class MovieDao {
 		}
 	}
 
-	public void movieSelectData() {
-
+	public List<Movie> movieSelectData() {
+		List<Movie> movie = new ArrayList<>();
 		try {
 			Connection con = JdbcConnectionUtil.getConnection();
 			stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from movie");
 			while (resultSet.next()) {
-				System.out
-						.println(resultSet.getInt(1) + " - " + resultSet.getString(2) + " - " + resultSet.getDouble(3));
+				movie.add(new Movie(resultSet.getInt(1), resultSet.getString(2), resultSet.getDouble(3)));
+
 			}
 		} catch (SQLException sqle) {
 			System.out.println(" MovieSelectDao SQLException occours" + sqle);
 
 		}
+		return movie;
 	}
 
-	public boolean movieUpdateData(Movie movie) {
+	public int movieUpdateData(Movie movie) {
 		try {
 			Connection connection = JdbcConnectionUtil.getConnection();
 			pstmt = connection.prepareStatement("UPDATE movie SET  MovieName =?, MovieBudeget = ? WHERE  MovieId = ? ");
@@ -66,11 +69,11 @@ public class MovieDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("MovieUpdataDao : movieUpdateData(-) ends");
 		}
-		return true;
+		return 0;
 
 	}
 
-	public boolean deleteMovieData(int movieId) {
+	public int deleteMovieData(int movieId) {
 		System.out.println("CustomerDao : deleteMovieData(-) starts");
 
 		try {
@@ -88,6 +91,6 @@ public class MovieDao {
 			JdbcConnectionUtil.closeResources();
 			System.out.println("movieDao : deleteMovieData(-) ends");
 		}
-		return true;
+		return 0;
 	}
 }
